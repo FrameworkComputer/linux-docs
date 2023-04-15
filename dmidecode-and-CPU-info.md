@@ -1,3 +1,5 @@
+# Fedora 37/38 only 
+
 ## Copy and paste this into the terminal using your touchpad or mouse, then press enter.
 
 ``
