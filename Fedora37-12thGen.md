@@ -13,7 +13,7 @@
 
 ### Enable brightness keys
 ``
-sudo grubby --update-kernel=ALL --args="module_blacklist=hid_sensor_hub
+sudo grubby --update-kernel=ALL --args="module_blacklist=hid_sensor_hub"
 ``
 
 ### If you want to enable fractional scaling on Wayland:
