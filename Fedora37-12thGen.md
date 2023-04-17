@@ -30,7 +30,7 @@ gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
 ``
 sudo grubby --update-kernel=ALL --args="nvme.noacpi=1"
 ``
-## If your Fedora 38 install is experiencing freezing, use this to prevent freezing:
+## If your Fedora 37 install is experiencing freezing, use this to prevent freezing:
 ``
 sudo grubby --update-kernel=ALL --args="i915.enable_psr=0"
 ``
