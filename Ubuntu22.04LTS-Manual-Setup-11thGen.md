@@ -28,7 +28,7 @@ sudo apt update && sudo apt upgrade -y && sudo apt-get install linux-oem-22.04c 
 ## *****COPY AND PASTE THIS CODE ABOVE INTO A TERMINAL*****
 
 
-**Example of what pasted code will look like in image below:**
+**Pasted code will look similar to the image below:**
 ![Example of what pasted code will look like](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/paste-code.png)
 
 
