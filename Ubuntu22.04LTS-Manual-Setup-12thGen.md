@@ -13,7 +13,13 @@
 
 
 
-##  *****COPY AND PASTE THIS CODE BELOW*****
+##  *****COPY AND PASTE THIS CODE BELOW INTO A TERMINAL*****
+
+
+- Browse to Activities in the upper left corner, click to open it.
+- Type out the word terminal, click to open it.
+- Left click and drag to highlight and copy the code below in the gray box, right click/paste to copy it into the terminal window.
+- **Then press the enter key, password, reboot.**
 
 
 ``
@@ -21,14 +27,19 @@ sudo apt update && sudo apt upgrade -y && sudo apt-get install linux-oem-22.04c 
 echo "[connection]" | sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf && echo "wifi.powersave = 2" | sudo tee -a /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
 ``
 
-## *****COPY AND PASTE THIS CODE ABOVE*****
-
-### Then press enter key, password, reboot.
+## *****COPY AND PASTE THIS CODE ABOVE INTO A TERMINAL*****
 
 
+**Pasted code will look similar to the image below:**
+![Example of what pasted code will look like](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/paste-code.png)
 
 
-# If you would rather enter the commands individually instead:
+-----
+
+# For intermediate to advanced users: 
+
+If you would rather enter the commands individually **instead** of using the code block provided previously:
+
 
 ### Updating packages.
 ``sudo apt update && sudo apt upgrade -y``
@@ -71,15 +82,3 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvme.noacpi=1"
 
 ### Change 3 into a 2
 ``wifi.powersave = 2``
-
-## Sudo with your fingerprints **if** it doesn't work after being setup under Users.
-
-### To run sudo in a terminal with the fingerprint reader, you need to run this command in a terminal and follow the prompts. 
-
-``sudo pam-auth-update ``         
-
-### Also, if you've previously enrolled fingerprints in Windows or another Linux distro, you may find that fingerprint enrollment errors until you manually force clear the stored fingerprints.
-https://knowledgebase.frame.work/en_us/fingerprint-enrollment-rkG6YP7xF
-
-
-### Additional ways to extend battery life can be found at this link: https://community.frame.work/t/linux-battery-life-tuning/6665
