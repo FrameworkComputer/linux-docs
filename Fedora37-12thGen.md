@@ -31,11 +31,6 @@ gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
 sudo grubby --update-kernel=ALL --args="nvme.noacpi=1"
 ``
 
-## If your Fedora 37 install is experiencing freezing, use this to prevent freezing:
-``
-sudo grubby --update-kernel=ALL --args="i915.enable_psr=0"
-``
-
 
 ## Configure the fingerprint reader
 This may not always be needed, but as of late, these steps have been needed in Fedora 37 with recent updates.
