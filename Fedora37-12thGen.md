@@ -84,6 +84,7 @@ fprintd-verify
 ``
 sudo authselect enable-feature with-fingerprint
 ``
+
 ``
 sudo authselect apply-changes
 ``
