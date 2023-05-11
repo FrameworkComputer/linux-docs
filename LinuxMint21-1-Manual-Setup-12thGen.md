@@ -12,7 +12,7 @@
 ##  *****COPY AND PASTE THIS CODE BELOW INTO A TERMINAL*****
 
 
-- Browse to Activities in the upper left corner, click to open it.
+- Go to the Linux Mint Launcher or press the super key.
 - Type out the word terminal, click to open it.
 - Left click and drag to highlight and copy the code below in the gray box, right click/paste to copy it into the terminal window.
 - **Then press the enter key, password, reboot.**
