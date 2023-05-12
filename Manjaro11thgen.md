@@ -17,7 +17,7 @@
 
 
 ``
-sudo pacman -Syyu --noconfirm && sudo sed -i.bak 's/^\(GRUB_CMDLINE_LINUX_DEFAULT="[^"]*\)"$/\1 module_blacklist=hid_sensor_hub nvme.noacpi=1"/' /etc/default/grub && sudo update-grub && echo "[connection]" | sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf && echo "wifi.powersave = 2" | sudo tee -a /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf && sleep 1 && sudo echo -e "\033[1;33mProcess is complete"``
+sudo pacman -Syyu --noconfirm && sudo sed -i.bak 's/^\(GRUB_CMDLINE_LINUX_DEFAULT="[^"]*\)"$/\1 nvme.noacpi=1"/' /etc/default/grub && sudo update-grub && echo "[connection]" | sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf && echo "wifi.powersave = 2" | sudo tee -a /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf && sleep 1 && sudo echo -e "\033[1;33mProcess is complete"``
 
 ## *****COPY AND PASTE THIS CODE ABOVE INTO A TERMINAL*****
 
