@@ -31,7 +31,7 @@ If you would rather enter the commands individually **instead** of using the cod
 
 
 ### Updating packages.
-``sudo pacman -Syyu  --noconfirm``
+``sudo pacman -Syyu --noconfirm``
 
 ### Disable the ALS sensor so that your brightness keys work, 13th gen only.
 ``sudo gedit /etc/default/grub``
