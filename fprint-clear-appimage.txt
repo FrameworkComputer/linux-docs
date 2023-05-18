@@ -1,2 +1,0 @@
-Details regarding the fprint clear appimage:
-https://community.frame.work/t/responded-fingerprint-scanner-compatibility-with-linux-ubuntu-fedora-etc/1501/214
