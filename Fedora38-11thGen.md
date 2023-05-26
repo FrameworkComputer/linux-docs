@@ -13,8 +13,7 @@
 
 ### If you want to enable fractional scaling on Walyland:
 ``
-gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
-``
+gsettings set org.gnome.mutter experimental-features '["scale-monitor-framebuffer"]' && gnome-shell --replace &``
 
 ### If you want to enable tap-to-click on the touchpad:
 ``
