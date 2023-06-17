@@ -58,7 +58,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash module_blacklist=hid_sensor_hub"
 ``sudo update-grub``
 
 ### Workaround needed to get the best suspend battery life for SSD power drain.
-``sudo gedit /etc/default/grub``
+``sudo gnome-text-editor /etc/default/grub``
 
 ### Append the following to the GRUB_CMDLINE_LINUX_DEFAULT="quiet splash section.
 This is an ACPI parameter that helps ensure compatibility by disabling ACPI support for NVMe.
@@ -71,7 +71,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvme.noacpi=1"
 ``sudo update-grub``
 
 ### Preventing wifi drop offs.
-``sudo gedit /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf``
+``sudo gnome-text-editor /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf``
 
 ### Change 3 into a 2
 ``wifi.powersave = 2``
