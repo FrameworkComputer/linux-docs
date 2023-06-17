@@ -51,7 +51,7 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 ``
 
 ### Disable the ALS sensor so that your brightness keys work, 12th gen only.
-``sudo gedit /etc/default/grub``
+``sudo gnome-text-editor /etc/default/grub``
 
 ### Append the following to the GRUB_CMDLINE_LINUX_DEFAULT="quiet splash section.
 ``
@@ -62,7 +62,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash module_blacklist=hid_sensor_hub"
 ``sudo update-grub``
 
 ### Workaround needed to get the best suspend battery life for SSD power drain.
-``sudo gedit /etc/default/grub``
+``sudo gnome-text-editor /etc/default/grub``
 
 ### Append the following to the GRUB_CMDLINE_LINUX_DEFAULT="quiet splash section.
 This is an ACPI parameter that helps ensure compatibility by disabling ACPI support for NVMe.
