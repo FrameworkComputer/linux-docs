@@ -19,6 +19,7 @@ sudo grubby --update-kernel=ALL --args="module_blacklist=hid_sensor_hub"
 ### If you want to enable fractional scaling on Wayland:
 ``
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+``
 
 ### If you want to enable tap-to-click on the touchpad:
 ``
