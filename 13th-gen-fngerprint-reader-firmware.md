@@ -1,3 +1,9 @@
+
+# IMPORTANT - If you are not comfortable doing this yourself, please wait for the LVFS update coming in the near future.
+
+If you are willing to try this now and accept that this may not work and you may end up waiting for the LVFS update anyway, follow below step by step.
+
+
 ## Install fwupd
 
 ``
