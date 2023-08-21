@@ -4,10 +4,18 @@
 If you are willing to try this now and accept that this may not work and you may end up waiting for the LVFS update anyway, follow below step by step.
 
 
-## Install fwupd
+## Install fwupd (May already be installed)
+
+Ubuntu LTS 
 
 ``
 sudo apt update && sudo apt install fwupd -y
+``
+
+Fedora
+
+``
+sudo dnf install fwupd -y
 ``
 
 ## Check firmware with
