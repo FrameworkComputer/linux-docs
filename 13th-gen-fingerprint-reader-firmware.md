@@ -24,10 +24,6 @@ sudo dnf install fwupd -y
 sudo fwupdtool get-devices --plugins goodixmoc
 ``
 
-## Install with
-
-There might be a transfer error at the end. Can be safely ignored.
-
 ## Download this cab to your home directory path.
 
 Download from here: https://github.com/FrameworkComputer/linux-docs/raw/main/goodix-moc-609c-v01000330.cab
@@ -35,6 +31,9 @@ Download from here: https://github.com/FrameworkComputer/linux-docs/raw/main/goo
 ``
 sudo fwupdtool install --allow-reinstall --allow-older goodix-moc-609c-v01000330.cab
 ``
+
+There might be a transfer error at the end. Can be safely ignored.
+
 
 ## Check firmware again and should be 01000330
 
