@@ -44,13 +44,28 @@ sudo update-grub
 
 If you would rather enter the commands individually **instead** of using the code block provided previously:
 
+
 ### Updating packages.
 ``sudo apt update && sudo apt upgrade -y``
 
 ### Install the recommended OEM kernel.
 ``sudo apt install linux-oem-22.04c``
 
-### Append the following to the GRUB_CMDLINE_LINUX_DEFAULT="quiet splash section.
+**Reboot**
+
+``sudo gedit /etc/default/grub``
+
+### Indentify your OEM C kernel
+
+``
+ls /boot/vmlinuz-* | awk -F"-" '{split($0, a, "-"); version=a[3]; if (version>max) {max=version; kernel=a[2] "-" a[3] "-" a[4]}} END{print kernel}'
+``
+
+Right now, this is **6.1.0-1020-oem** - but this may evolve in the future.
+
+
+
+### Change the following.
 
 
 ``
@@ -63,9 +78,7 @@ into
 GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1020-oem"
 ``
 
+
+
 ### Then run
 ``sudo update-grub``
-
-
-
-
