@@ -1,4 +1,4 @@
-# This is for 13th Gen ONLY.
+# This is for Intel 13th Gen ONLY.
 
 
 ## This will:
