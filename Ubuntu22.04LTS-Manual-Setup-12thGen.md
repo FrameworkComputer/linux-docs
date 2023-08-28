@@ -51,40 +51,32 @@ If you would rather enter the commands individually **instead** of using the cod
 ### Install the recommended OEM kernel.
 ``sudo apt install linux-oem-22.04c``
 
-### Enable headset mic input.
-``echo "options snd-hda-intel model=dell-headset-multi" | sudo tee -a /etc/modprobe.d/alsa-base.conf``
-
-### Enable improved fractional scaling support for Ubuntu's GNOME environment using Wayland.
-``
-gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
-``
+**Reboot**
 
 ### Disable the ALS sensor so that your brightness keys work, 12th gen only.
 ``sudo gedit /etc/default/grub``
 
-### Append the following to the GRUB_CMDLINE_LINUX_DEFAULT="quiet splash section.
+### Change the following.
+
+
+``
+GRUB_DEFAULT="0"
+``
+
+into
+
+``
+GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1019-oem"
+``
+
+Next, add module_blacklist=hid_sensor_hub to GRUB_CMDLINE_LINUX_DEFAULT= to make sure the backlighting is working.
+
 ``
 GRUB_CMDLINE_LINUX_DEFAULT="quiet splash module_blacklist=hid_sensor_hub"
 ``
 
-### Then run
-``sudo update-grub``
-
-### Workaround needed to get the best suspend battery life for SSD power drain.
-``sudo gedit /etc/default/grub``
-
-### Append the following to the GRUB_CMDLINE_LINUX_DEFAULT="quiet splash section.
-This is an ACPI parameter that helps ensure compatibility by disabling ACPI support for NVMe.
-Advanced Linux users: You're welcome to remove it if you feel it's not needed for any reason and sudo update-grub.
-``
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvme.noacpi=1"
-``
 
 ### Then run
 ``sudo update-grub``
 
-### Preventing wifi drop offs.
-``sudo gedit /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf``
 
-### Change 3 into a 2
-``wifi.powersave = 2``
