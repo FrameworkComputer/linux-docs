@@ -5,9 +5,6 @@
 
 - Update your Ubuntu install's packages.
 - Install the recommended OEM kernel. Now recommending a new OEM kernel.
-- Workaround needed to get the best suspend battery life for SSD power drain.
-- Enable improved fractional scaling support for Ubuntu's GNOME environment using Wayland.
-- Enable headset mic input.
 
 
 
