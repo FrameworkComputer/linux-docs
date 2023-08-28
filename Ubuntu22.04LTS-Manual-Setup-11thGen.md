@@ -25,17 +25,15 @@
 sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get install linux-oem-22.04c -y
 ``
 
-
 **Reboot**, then paste this into the terminal and press enter:
 
-
-``
-sudo sed -i 's/GRUB_DEFAULT=[0-9]/GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1020-oem"/' /etc/default/grub && sudo update-grub
-``
-
+```
+latest_oem_kernel=$(ls /boot/vmlinuz-* | awk -F"-" '{split($0, a, "-"); version=a[3]; if (version>max) {max=version; kernel=a[2] "-" a[3] "-" a[4]}} END{print kernel}')
+sudo sed -i.bak '/^GRUB_DEFAULT=/c\GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux '"$latest_oem_kernel"'"' /etc/default/grub
+sudo update-grub
+```
 
 **Reboot** again.
-
 
 ## *****COPY AND PASTE THIS CODE ABOVE INTO A TERMINAL*****
 
