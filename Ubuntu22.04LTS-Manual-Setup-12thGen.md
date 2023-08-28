@@ -1,4 +1,4 @@
-# This is for 12th Gen ONLY.
+# This is for Intel 12th Gen ONLY.
 
 
 ## This will:
