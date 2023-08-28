@@ -53,8 +53,17 @@ If you would rather enter the commands individually **instead** of using the cod
 ``sudo apt install linux-oem-22.04c``
 
 ### Append the following to the GRUB_CMDLINE_LINUX_DEFAULT="quiet splash section.
+
+
 ``
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1019-oem"
+GRUB_DEFAULT="o"
+
+``
+
+into
+
+``
+GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1019-oem"
 ``
 
 ### Then run
