@@ -52,16 +52,6 @@ If you would rather enter the commands individually **instead** of using the cod
 ### Install the recommended OEM kernel.
 ``sudo apt install linux-oem-22.04c``
 
-### Enable headset mic input.
-``echo "options snd-hda-intel model=dell-headset-multi" | sudo tee -a /etc/modprobe.d/alsa-base.conf``
-
-### Enable improved fractional scaling support for Ubuntu's GNOME environment using Wayland.
-
-Enabled from Displays, Settings, Displays, enable fractional scaling.
-
-### Workaround needed to get the best suspend battery life for SSD power drain.
-``sudo gedit /etc/default/grub``
-
 ### Append the following to the GRUB_CMDLINE_LINUX_DEFAULT="quiet splash section.
 ``
 GRUB_CMDLINE_LINUX_DEFAULT="quiet splash Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1019-oem"
