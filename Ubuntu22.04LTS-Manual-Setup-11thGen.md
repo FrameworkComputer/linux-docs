@@ -30,7 +30,7 @@ sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get inst
 
 
 ``
-sudo sed -i 's/GRUB_DEFAULT=[0-9]/GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1019-oem"/' /etc/default/grub && sudo update-grub
+sudo sed -i 's/GRUB_DEFAULT=[0-9]/GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1020-oem"/' /etc/default/grub && sudo update-grub
 ``
 
 
@@ -62,7 +62,7 @@ GRUB_DEFAULT="0"
 into
 
 ``
-GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1019-oem"
+GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1020-oem"
 ``
 
 ### Then run
