@@ -24,12 +24,15 @@
 ``
 sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get install linux-oem-22.04c -y
 ``
+
+
 **Reboot**, then paste this into the terminal and press enter:
 
 
 ``
 sudo sed -i 's/GRUB_DEFAULT=[0-9]/GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1019-oem"/' /etc/default/grub && sudo update-grub
 ``
+
 
 **Reboot** again.
 
