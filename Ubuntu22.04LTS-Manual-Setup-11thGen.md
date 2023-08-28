@@ -22,14 +22,19 @@
 
 
 ``
-sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get install linux-oem-22.04c -y && echo "options snd-hda-intel model=dell-headset-multi" | sudo tee -a /etc/modprobe.d/alsa-base.conf && gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']" && sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvme.noacpi=1"/g' /etc/default/grub && sudo update-grub && echo "[connection]" | sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf && echo "wifi.powersave = 2" | sudo tee -a /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
+sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get install linux-oem-22.04c -y
+``
+**Reboot**, then paste this into the terminal and press enter:
+
+
+``
+sudo sed -i 's/GRUB_DEFAULT=[0-9]/GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1019-oem"/' /etc/default/grub && sudo update-grub
 ``
 
+**Reboot** again.
+
+
 ## *****COPY AND PASTE THIS CODE ABOVE INTO A TERMINAL*****
-
-
-**Pasted code will look similar to the image below:**
-![Example of what pasted code will look like](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/paste-code.png)
 
 
 ---------
@@ -48,27 +53,20 @@ If you would rather enter the commands individually **instead** of using the cod
 ``echo "options snd-hda-intel model=dell-headset-multi" | sudo tee -a /etc/modprobe.d/alsa-base.conf``
 
 ### Enable improved fractional scaling support for Ubuntu's GNOME environment using Wayland.
-``
-gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
-``
+
+Enabled from Displays, Settings, Displays, enable fractional scaling.
 
 ### Workaround needed to get the best suspend battery life for SSD power drain.
 ``sudo gedit /etc/default/grub``
 
 ### Append the following to the GRUB_CMDLINE_LINUX_DEFAULT="quiet splash section.
-This is an ACPI parameter that helps ensure compatibility by disabling ACPI support for NVMe.
-Advanced Linux users: You're welcome to remove it if you feel it's not needed for any reason and sudo update-grub.
 ``
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvme.noacpi=1"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1019-oem"
 ``
 
 ### Then run
 ``sudo update-grub``
 
-### Preventing wifi drop offs.
-``sudo gedit /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf``
 
-### Change 3 into a 2
-``wifi.powersave = 2``
 
 
