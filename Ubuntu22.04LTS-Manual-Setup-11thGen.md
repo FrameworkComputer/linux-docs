@@ -56,7 +56,7 @@ If you would rather enter the commands individually **instead** of using the cod
 
 
 ``
-GRUB_DEFAULT="o"
+GRUB_DEFAULT="0"
 ``
 
 into
