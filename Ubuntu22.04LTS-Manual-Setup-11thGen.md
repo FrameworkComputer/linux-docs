@@ -6,6 +6,11 @@
 - Update your Ubuntu install's packages.
 - Install the recommended OEM kernel and provide you with an alert should the OEM kernel needing updating.
 
+## What does the OEM Kernel alert looks like:
+Note: This will appear if the code below is pasted into the terminal, enter key pressed and system rebooted.
+When a new version of the OEM kernel is ready, this will alert you at bootup - if you're current, you will not be alerted. 
+
+![What does the OEM Kernel alert looks like](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/3.png)
 
 
 
