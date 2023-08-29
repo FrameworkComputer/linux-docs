@@ -31,6 +31,7 @@ sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get inst
 ``
 
 **Reboot**, then paste this into the terminal and press enter:
+
 - Ensures GRUB is using the latest OEM C kernel at every boot.
 - Creates a desktop file as an autostart to check for OEM kernel status.
 - If an update comes about for the OEM kernel, is installed, but GRUB still has the older version - an alert box will provide you with a link to get this corrected.
