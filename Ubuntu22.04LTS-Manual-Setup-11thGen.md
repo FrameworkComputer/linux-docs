@@ -36,6 +36,8 @@ sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get inst
 - Creates a desktop file as an autostart to check for OEM kernel status.
 - If an update comes about for the OEM kernel, is installed, but GRUB still has the older version - an alert box will provide you with a link to get this corrected.
 
+![Copy Code Like This](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/copied.png)
+
 ```
 latest_oem_kernel=$(ls /boot/vmlinuz-* | awk -F"-" '{split($0, a, "-"); version=a[3]; if (version>max) {max=version; kernel=a[2] "-" a[3] "-" a[4]}} END{print kernel}')
 sudo sed -i.bak '/^GRUB_DEFAULT=/c\GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux '"$latest_oem_kernel"'"' /etc/default/grub
