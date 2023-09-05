@@ -61,10 +61,17 @@ Check to make sure the quirk was created correctly:
 sudo cat /usr/share/fwupd/quirks.d/goodixmoc.quirk
 ``
 
-Should see both lines added.
+**Should see both lines added.**
 
 
-Reboot
+  [USB\VID_27C6&PID_609C]
+
+
+  Plugin = goodixmoc
+
+
+
+**Reboot**
 
 ## Now check again:
 
