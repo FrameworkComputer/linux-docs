@@ -9,12 +9,16 @@
 
 
 ### Make sure to update your packages first
-``sudo dnf upgrade``
+
+```
+sudo dnf upgrade
+```
 
 ### If you want to enable fractional scaling on Walyland:
-``
+
+```
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
-``
+```
 
 ### If you want to enable tap-to-click on the touchpad:
 
@@ -23,3 +27,4 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 - Touchpad option at the top
 
 - Under "Clicking", select Tap to Click and enable it.
+
