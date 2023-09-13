@@ -1,4 +1,4 @@
-# This is for AMD configuration on the Framework 13 ONLY.
+# This is for AMD Ryzen configuration on the Framework 13 ONLY.
 
 
 ## This will:
