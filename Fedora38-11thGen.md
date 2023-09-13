@@ -14,6 +14,8 @@
 sudo dnf upgrade
 ```
 
+**Reboot**
+
 ### If you want to enable fractional scaling on Walyland:
 
 ```
@@ -27,4 +29,3 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 - Touchpad option at the top
 
 - Under "Clicking", select Tap to Click and enable it.
-
