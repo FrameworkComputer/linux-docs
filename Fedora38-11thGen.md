@@ -2,10 +2,9 @@
 
 ## This Fedora guide will assist with:
 
-- Workaround needed to get the best suspend battery life for SSD power drain.
+- Getting  your laptop fully updated.
 - Enable improved fractional scaling support Fedora's GNOME environment using Wayland.
-- Enable tap to click on the touchpad.
-- Getting your finger print reader working for Fedora user login.
+- Enabling tap to click on the touchpad.
 
 
 ### Make sure to update your packages first
