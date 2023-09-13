@@ -9,25 +9,29 @@
 
 
 ### Make sure to update your packages first
-``sudo dnf upgrade``
 
-### Enable brightness keys
-``
-sudo grubby --update-kernel=ALL --args="module_blacklist=hid_sensor_hub"
-``
+```
+sudo dnf upgrade
+```
 
-### If you want to enable fractional scaling on Wayland:
-``
+### If you want to enable fractional scaling on Walyland:
+
+```
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
-``
+```
 
 ### If you want to enable tap-to-click on the touchpad:
-``
-gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
-``
 
-### Improve power saving for NVMe drives:
-``
-sudo grubby --update-kernel=ALL --args="nvme.noacpi=1"
-``
+- Settings, Mouse and Touchpad
+
+- Touchpad option at the top
+
+- Under "Clicking", select Tap to Click and enable it.
+
+
+### Enable brightness keys
+
+```
+sudo grubby --update-kernel=ALL --args="module_blacklist=hid_sensor_hub"
+```
 
