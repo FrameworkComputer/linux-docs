@@ -14,6 +14,8 @@
 sudo dnf upgrade
 ```
 
+**Reboot**
+
 ### If you want to enable fractional scaling on Walyland:
 
 ```
@@ -35,3 +37,4 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 sudo grubby --update-kernel=ALL --args="module_blacklist=hid_sensor_hub"
 ```
 
+**Reboot**
