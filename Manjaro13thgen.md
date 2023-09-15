@@ -1,4 +1,4 @@
-# This is for 13th Gen ONLY.
+# This is for 13th Gen Intel® Core™ Framework Laptop 13 ONLY.
 
 
 ## This will:
