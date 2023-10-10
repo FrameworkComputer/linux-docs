@@ -1,5 +1,7 @@
 
 # IMPORTANT - Before trying this, please try these guides FIRST.
+This guide is for 13th Gen Intel Core and AMD Ryzen 7040 Series
+
 https://knowledgebase.frame.work/en_us/search?q=Fingerprint+troubleshooting
 
 If you are willing to try this now and accept that this may not work and you may end up waiting for the LVFS update anyway, follow below step by step.
