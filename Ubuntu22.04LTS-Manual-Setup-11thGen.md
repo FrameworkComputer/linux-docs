@@ -66,7 +66,7 @@ If you would rather enter the commands individually **instead** of using the cod
 
 ``sudo gedit /etc/default/grub``
 
-### Indentify your OEM C kernel
+### Identify your OEM C kernel
 
 ```
 ls /boot/vmlinuz-* | awk -F"-" '{split($0, a, "-"); version=a[3]; if (version>max) {max=version; kernel=a[2] "-" a[3] "-" a[4]}} END{print kernel}'
