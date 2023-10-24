@@ -51,7 +51,7 @@ fwupdmgr --version
 ``
 
 Top line of the output will show something like compile  org.freedesktop.fwupd  1.8.17
-If it is indeed, older than is older than 1.8.8, follow the next steps.
+If it is indeed older than 1.8.8, follow the next steps.
 
 **Edit:** We have had folks running the echo to quirks command multiple times, adding in extra lines of text. To address this, the updated code below will detect duplication and make the file correct, every time.
 
