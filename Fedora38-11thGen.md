@@ -15,7 +15,8 @@ sudo dnf upgrade
 
 **Reboot**
 
-### If you want to enable fractional scaling on Walyland:
+
+### If you want to enable fractional scaling on Wayland:
 
 ```
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
