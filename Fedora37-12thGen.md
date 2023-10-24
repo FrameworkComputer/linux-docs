@@ -1,4 +1,4 @@
-# This is for 12th Gen Framework 13 ONLY.
+# This is for 12th Gen Intel® Core™ Framework Laptop 13 ONLY.
 
 ## This Fedora guide will assist with:
 

@@ -1,11 +1,11 @@
-# This is for 12th Gen Intel® Core™ Framework Laptop 13 ONLY
+# This is for AMD Ryzen 7040 Series configuration on the Framework Laptop 13 ONLY.
 
 ## This Fedora guide will assist with:
 
 - Getting  your laptop fully updated.
 - Enable improved fractional scaling support Fedora's GNOME environment using Wayland.
 - Enabling tap to click on the touchpad.
-- Enabling brightness keys.
+
 
 
 ### Make sure to update your packages first
@@ -16,7 +16,7 @@ sudo dnf upgrade
 
 **Reboot**
 
-### If you want to enable fractional scaling on Walyland:
+### If you want to enable fractional scaling on Wayland:
 
 ```
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
@@ -29,12 +29,3 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 - Touchpad option at the top
 
 - Under "Clicking", select Tap to Click and enable it.
-
-
-### Enable brightness keys
-
-```
-sudo grubby --update-kernel=ALL --args="module_blacklist=hid_sensor_hub"
-```
-
-**Reboot**

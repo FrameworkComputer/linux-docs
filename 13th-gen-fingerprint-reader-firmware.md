@@ -1,5 +1,8 @@
 
-# IMPORTANT - If you are not comfortable doing this yourself, please wait for the LVFS update coming in the near future.
+# IMPORTANT - Before trying this, please try these guides FIRST.
+This guide is for 13th Gen Intel Core and AMD Ryzen 7040 Series
+
+https://knowledgebase.frame.work/en_us/search?q=Fingerprint+troubleshooting
 
 If you are willing to try this now and accept that this may not work and you may end up waiting for the LVFS update anyway, follow below step by step.
 
@@ -50,9 +53,11 @@ fwupdmgr --version
 Top line of the output will show something like compile  org.freedesktop.fwupd  1.8.17
 If it is indeed, older than is older than 1.8.8, follow the next steps.
 
+**Edit:** We have had folks running the echo to quirks command multiple times, adding in extra lines of text. To address this, the updated code below will detect duplication and make the file correct, every time.
+
 
 ``
-echo '[USB\VID_27C6&PID_609C]' | sudo tee -a /usr/share/fwupd/quirks.d/goodixmoc.quirk ; echo 'Plugin = goodixmoc' | sudo tee -a /usr/share/fwupd/quirks.d/goodixmoc.quirk
+file="/usr/share/fwupd/quirks.d/goodixmoc.quirk"; sudo sed -i '/\[USB\\VID_27C6&PID_609C\]/d' "$file"; sudo sed -i '/Plugin = goodixmoc/d' "$file"; echo -e '[USB\VID_27C6&PID_609C]\nPlugin = goodixmoc' | sudo tee -a "$file" > /dev/null
 ``
 
 Check to make sure the quirk was created correctly:
@@ -80,3 +85,5 @@ sudo fwupdtool get-history
 ``
 
 ## Should see New version:      01000330
+
+### If it is not working, re-run the fwupdtool install command above again - make sure to reboot each time.
