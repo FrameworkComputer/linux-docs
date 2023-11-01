@@ -31,15 +31,3 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 - Under "Clicking", select Tap to Click and enable it.
 
 
-## Optional and only if needed
-
-### To prevent graphical artifacts from appearing:
-(Note, this workaround may be unneeded as it is difficult to reproduce, however, if you find you're experiencing [the issue described here](https://bugzilla.redhat.com/show_bug.cgi?id=2247154#c3), you can implement this boot parameter)
-
-Open a terminal window from Activities, paste in the following:
-
-```
-sudo grubby --update-kernel=ALL --args="amdgpu.sg_display=0"
-```
-
-**Reboot**
