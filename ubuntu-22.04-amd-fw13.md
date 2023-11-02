@@ -26,9 +26,9 @@ When a new version of the OEM kernel is ready, this will alert you at bootup - i
 **Then press the enter key, password, reboot.**
 
 
-``
+```
 sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get install linux-oem-22.04c -y
-``
+```
 
 **Reboot**, then paste this into the terminal and press enter:
 
@@ -57,10 +57,14 @@ If you would rather enter the commands individually **instead** of using the cod
 
 
 ### Updating packages.
-``sudo apt update && sudo apt upgrade -y``
+```
+sudo apt update && sudo apt upgrade -y
+```
 
 ### Install the recommended OEM kernel.
-``sudo apt install linux-oem-22.04c``
+```
+sudo apt install linux-oem-22.04c
+```
 
 **Reboot**
 
@@ -89,7 +93,22 @@ into
 GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1021-oem"
 ``
 
+## Optional and only if needed
 
+### To prevent graphical artifacts from appearing:
+(Note, this workaround may be unneeded as it is difficult to reproduce, however, if you find you're experiencing [the issue described here](https://bugzilla.redhat.com/show_bug.cgi?id=2247154#c3), you can implement this boot parameter)
 
-### Then run
-``sudo update-grub``
+Open a terminal window from Activities, paste in the followed by the enter key:
+
+```
+sudo sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"\)/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash amdgpu.sg_display=0"/' /etc/default/grub
+```
+
+Now paste this below and press enter.
+
+```
+sudo update-grub
+```
+
+**Reboot**
+
