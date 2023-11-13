@@ -80,17 +80,15 @@ When a new version of the OEM kernel is ready, this will alert you at bootup - i
 If you would rather enter the commands individually **instead** of using the code block provided previously:
 
 
-### Updating packages.
+### Step 1 (ADVANCED USERS) Updating packages.
 ``sudo apt update && sudo apt upgrade -y``
 
-### Install the recommended OEM kernel.
+### Step 2 (ADVANCED USERS) Install the recommended OEM kernel.
 ``sudo apt install linux-oem-22.04c``
 
 **Reboot**
 
-``sudo gedit /etc/default/grub``
-
-### Indentify your OEM C kernel
+### Step 3 (ADVANCED USERS) Indentify your OEM C kernel.
 
 ```
 ls /boot/vmlinuz-* | awk -F"-" '{split($0, a, "-"); version=a[3]; if (version>max) {max=version; kernel=a[2] "-" a[3] "-" a[4]}} END{print kernel}'
@@ -100,7 +98,7 @@ Right now, this is **6.1.0-1025-oem** - but this may evolve in the future.
 
 
 
-### Change the following.
+### Step 4 (ADVANCED USERS) Change the following.
 
 
 ``
@@ -114,6 +112,7 @@ GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1025-oem"
 ``
 
 
-
-### Then run
+### Step 5 (ADVANCED USERS) Then run.
 ``sudo update-grub``
+
+**Reboot**
