@@ -115,3 +115,5 @@ GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1025-oem"
 
 ### Step 5 (ADVANCED USERS) Then run.
 ``sudo update-grub``
+
+**Reboot**
