@@ -7,36 +7,46 @@
 - Install the recommended OEM kernel and provide you with an alert should the OEM kernel needing updating.
 - Disable the ALS sensor so that your brightness keys work.
 
-## What does the OEM Kernel alert looks like:
-Note: This will appear if the code below is pasted into the terminal, enter key pressed and system rebooted.
-When a new version of the OEM kernel is ready, this will alert you at bootup - if you're current, you will not be alerted. 
-
-![What does the OEM Kernel alert looks like](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/3.png)
+&nbsp; &nbsp; &nbsp; &nbsp; 
 
 
-##  *****COPY AND PASTE THIS CODE BELOW INTO A TERMINAL*****
-
+### Step 1
 
 - Browse to Activities in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
-- Left click and drag to highlight and copy the code below in the gray box, right click/paste to copy it into the terminal window.
+- Left click and drag to highlight and copy the code below in the gray box, right click/paste it into the terminal window.
+- Then press the enter key, user password, enter key, **reboot.**
 
+####  *****COPY AND PASTE THIS CODE BELOW INTO A TERMINAL*****
 
-
-**Then press the enter key, password, reboot.**
-
-
-``
+```
 sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get install linux-oem-22.04c -y
-``
+```
 
-**Reboot**, then paste this into the terminal and press enter:
 
-- Ensures GRUB is using the latest OEM C kernel at every boot.
-- Creates a desktop file as an autostart to check for OEM kernel status.
-- If an update comes about for the OEM kernel, is installed, but GRUB still has the older version - an alert box will provide you with a link to get this corrected.
+> **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
+
+
+&nbsp; &nbsp; &nbsp; &nbsp; 
+
+
+
+### Step 2
+
+- Browse to Activities in the upper left corner, click to open it.
+- Type out the word terminal, click to open it.
+- Left click and drag to highlight and copy the code below in the gray box, right click/paste it into the terminal window.
+- Then press the enter key, user password, enter key, **reboot.**
+
+
+> **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
+
+
 
 ![Copy Code Like This](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/copied.png)
+
+
+####  *****COPY AND PASTE THIS CODE BELOW INTO A TERMINAL*****
 
 
 ```
@@ -46,14 +56,30 @@ sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet s
 sudo update-grub && sudo apt install zenity && mkdir -p ~/.config/autostart && [ ! -f ~/.config/autostart/kernel_check.desktop ] && echo -e "[Desktop Entry]\nType=Application\nExec=bash -c \"latest_oem_kernel=\$(ls /boot/vmlinuz-* | grep '6.1.0-10..-oem' | sort -V | tail -n1 | awk -F'/' '{print \\\$NF}' | sed 's/vmlinuz-//') && current_grub_kernel=\$(grep '^GRUB_DEFAULT=' /etc/default/grub | sed -e 's/GRUB_DEFAULT=\\\"Advanced options for Ubuntu>Ubuntu, with Linux //g' -e 's/\\\"//g') && [ \\\"\\\${latest_oem_kernel}\\\" != \\\"\\\${current_grub_kernel}\\\" ] && zenity --text-info --html --width=300 --height=200 --title=\\\"Kernel Update Notification\\\" --filename=<(echo -e \\\"A newer OEM C kernel is available than what is set in GRUB. <a href='https://github.com/FrameworkComputer/linux-docs/blob/main/22.04-OEM-C.md'>Click here</a> to learn more.\\\")\"\nHidden=false\nNoDisplay=false\nX-GNOME-Autostart-enabled=true\nName[en_US]=Kernel check\nName=Kernel check\nComment[en_US]=\nComment=" > ~/.config/autostart/kernel_check.desktop
 ```
 
-**Reboot** again.
+- Disable the ALS sensor so that your brightness keys work.
+- Ensures GRUB is using the latest OEM C kernel at every boot.
+- Creates a desktop file as an autostart to check for OEM kernel status.
+- If an update comes about for the OEM kernel, is installed, but GRUB still has the older version - an alert box will provide you with a link to get this corrected.
+- Then press the enter key, user password, enter key, **reboot** again.
 
-## *****COPY AND PASTE THIS CODE ABOVE INTO A TERMINAL*****
+
+&nbsp; &nbsp; &nbsp; &nbsp; 
+
+## What does the OEM Kernel alert looks like:
+&nbsp; &nbsp;
+> **Note:** This will appear if the code below is pasted into the terminal, enter key pressed and system rebooted.
+When a new version of the OEM kernel is ready, this will alert you at bootup - if you're *on the current OEM C kernel* AND you have *followed my above directions*, then and only then **you will not be alerted**. 
+
+![What does the OEM Kernel alert looks like](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/3.png)
+
+&nbsp; &nbsp; &nbsp; &nbsp; 
 
 
 -----
 
-# For intermediate to advanced users: 
+## For Advanced users ONLY: 
+
+> If you are someone who is not super comforable with the command line, **please use the steps above instead**.
 
 If you would rather enter the commands individually **instead** of using the code block provided previously:
 
@@ -66,7 +92,7 @@ If you would rather enter the commands individually **instead** of using the cod
 
 **Reboot**
 
-### Disable the ALS sensor so that your brightness keys work, 12th gen only.
+### Disable the ALS sensor so that your brightness keys work.
 ``sudo gedit /etc/default/grub``
 
 ### Indentify your OEM C kernel
@@ -75,7 +101,7 @@ If you would rather enter the commands individually **instead** of using the cod
 ls /boot/vmlinuz-* | awk -F"-" '{split($0, a, "-"); version=a[3]; if (version>max) {max=version; kernel=a[2] "-" a[3] "-" a[4]}} END{print kernel}'
 ```
 
-Right now, this is **6.1.0-1020-oem** - but this may evolve in the future.
+Right now, this is **6.1.0-1025-oem** - but this may evolve in the future.
 
 
 
@@ -89,7 +115,7 @@ GRUB_DEFAULT="0"
 into
 
 ``
-GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1020-oem"
+GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1025-oem"
 ``
 
 Next, add module_blacklist=hid_sensor_hub to GRUB_CMDLINE_LINUX_DEFAULT= to make sure the backlighting is working.
