@@ -77,6 +77,7 @@ When a new version of the OEM kernel is ready, this will alert you at bootup - i
 ## For Advanced users ONLY: 
 
 > If you are someone who is not super comforable with the command line, **please use the steps above instead**.
+> Addtionally, if a new OEM kernel is released, **you will be NOT be alerted** if you use the advanced method as nothing is checking for updates to alert you.
 
 If you would rather enter the commands individually **instead** of using the code block provided previously:
 
