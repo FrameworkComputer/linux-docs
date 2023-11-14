@@ -17,7 +17,7 @@
 - Left click and drag to highlight and copy the code below in the gray box, right click/paste it into the terminal window.
 - Then press the enter key, user password, enter key, **reboot.**
 
-####  *****COPY AND PASTE THIS CODE BELOW INTO A TERMINAL*****
+####  *****COPY AND PASTE THIS CODE BELOW INTO A TERMINAL AS DESCRIBED IN STEP 1 ABOVE*****
 
 ```
 sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get install linux-oem-22.04c -y
@@ -46,7 +46,7 @@ sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get inst
 ![Copy Code Like This](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/copied.png)
 
 
-####  *****COPY AND PASTE THIS CODE BELOW INTO A TERMINAL*****
+####  *****COPY AND PASTE THIS CODE BELOW INTO A TERMINAL AS DESCRIBED IN STEP 2 ABOVE*****
 
 ```
 latest_oem_kernel=$(ls /boot/vmlinuz-* | awk -F"-" '{split($0, a, "-"); version=a[3]; if (version>max) {max=version; kernel=a[2] "-" a[3] "-" a[4]}} END{print kernel}')
