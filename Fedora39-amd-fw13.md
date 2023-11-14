@@ -13,7 +13,7 @@
 
 ### Step 1 Updating your software packages
 
-- Browse to the horizonal line in the upper left corner, click to open it.
+- Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
 - Copy the code below in the gray box, right click/paste it into the terminal window.
 - Then press the enter key, user password, enter key, **reboot.**
@@ -33,11 +33,11 @@ sudo dnf upgrade
 
 ### Step 2 - If you want to enable fractional scaling on Wayland:
 
-- Browse to the horizonal line in the upper left corner, click to open it.
+- Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
 - Left click and drag to highlight and copy the code below in the gray box, right click/paste it into the terminal window.
 - Then press the enter key, user password, enter key.
-- Browse to the horizonal line in the upper left corner, click to open it.
+- Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word Displays.
 - Look for "Scale", set it to your preference, click Apply.
 
@@ -52,7 +52,7 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 &nbsp;
 ### Step 3 -  If you want to enable "tap-to-click" on the touchpad:
 
-- Browse to the horizonal line in the upper left corner, click to open it.
+- Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word mouse, look for Mouse and Touchpad, click to open it.
 - Click the touchpad option at the top.
 - Under "Clicking", select Tap to Click and enable it.
@@ -66,7 +66,7 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 (Note, this workaround may be unneeded as it is difficult to reproduce, however, if you find you're experiencing [the issue described here](https://bugzilla.redhat.com/show_bug.cgi?id=2247154#c3), you can implement this boot parameter)
 
 
-- Browse to the horizonal line in the upper left corner, click to open it.
+- Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
 - Then press the enter key, user password, enter key.
 
@@ -84,7 +84,7 @@ sudo grubby --update-kernel=ALL --args="amdgpu.sg_display=0"
 
 ### Suspend keeps waking up every few minutes
 
-- Browse to the horizonal line in the upper left corner, click to open it.
+- Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
 - Copy/paste in the following code below.
 - Press the enter key, user password, enter key.
