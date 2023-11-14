@@ -1,45 +1,102 @@
 
 # This is for AMD Ryzen 7040 Series configuration on the Framework Laptop 13 ONLY.
 
-## This Fedora guide will assist with:
+## This will:
 
 - Getting  your laptop fully updated.
 - Enable improved fractional scaling support Fedora's GNOME environment using Wayland.
 - Enabling tap to click on the touchpad.
 
+&nbsp;
+&nbsp;
+&nbsp;
 
+### Step 1 Updating your software packages
 
-### Make sure to update your packages first
+- Browse to the horizonal line in the upper left corner, click to open it.
+- Type out the word terminal, click to open it.
+- Copy the code below in the gray box, right click/paste it into the terminal window.
+- Then press the enter key, user password, enter key, **reboot.**
+
 
 ```
 sudo dnf upgrade
 ```
+> **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
+
 
 **Reboot**
 
-### If you want to enable fractional scaling on Wayland:
+&nbsp;
+&nbsp;
+&nbsp;
+
+### Step 2 - If you want to enable fractional scaling on Wayland:
+
+- Browse to the horizonal line in the upper left corner, click to open it.
+- Type out the word terminal, click to open it.
+- Left click and drag to highlight and copy the code below in the gray box, right click/paste it into the terminal window.
+- Then press the enter key, user password, enter key.
+- Browse to the horizonal line in the upper left corner, click to open it.
+- Type out the word Displays.
+- Look for "Scale", set it to your preference, click Apply.
+
 
 ```
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
 ```
+> **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
 
-### If you want to enable tap-to-click on the touchpad:
+&nbsp;
+&nbsp;
+&nbsp;
+### Step 3 -  If you want to enable "tap-to-click" on the touchpad:
 
-- Settings, Mouse and Touchpad
-
-- Touchpad option at the top
-
+- Browse to the horizonal line in the upper left corner, click to open it.
+- Type out the word mouse, look for Mouse and Touchpad, click to open it.
+- Click the touchpad option at the top.
 - Under "Clicking", select Tap to Click and enable it.
-
-## Optional and only if needed
+  
+&nbsp;
+&nbsp;
+&nbsp;
+## Optional and *only if needed* - current AMD Ryzen 7040 Series workarounds to common issues
 
 ### To prevent graphical artifacts from appearing:
 (Note, this workaround may be unneeded as it is difficult to reproduce, however, if you find you're experiencing [the issue described here](https://bugzilla.redhat.com/show_bug.cgi?id=2247154#c3), you can implement this boot parameter)
 
-Open a terminal window from Activities, paste in the following:
+
+- Browse to the horizonal line in the upper left corner, click to open it.
+- Type out the word terminal, click to open it.
+- Then press the enter key, user password, enter key.
 
 ```
 sudo grubby --update-kernel=ALL --args="amdgpu.sg_display=0"
 ```
+> **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
+
 
 **Reboot**
+
+&nbsp;
+&nbsp;
+&nbsp;
+
+### Suspend keeps waking up every few minutes
+
+- Browse to the horizonal line in the upper left corner, click to open it.
+- Type out the word terminal, click to open it.
+- Copy/paste in the following code below.
+- Press the enter key, user password, enter key.
+
+```
+sudo grubby --update-kernel=ALL --args="rtc_cmos.use_acpi_alarm=1"
+```
+> **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
+
+
+**Reboot**
+
+&nbsp;
+&nbsp;
+&nbsp;
