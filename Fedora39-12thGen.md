@@ -15,7 +15,7 @@
 
 ### Step 1 Updating your software packages
 
-- Browse to the Activities menu in the upper left corner, click to open it.
+- Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
 - Copy the code below in the gray box, right click/paste it into the terminal window.
 - Then press the enter key, user password, enter key, **reboot.**
@@ -35,11 +35,11 @@ sudo dnf upgrade
 
 ### Step 2 - If you want to enable fractional scaling on Wayland:
 
-- Browse to the Activities menu in the upper left corner, click to open it.
+- Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
 - Left click and drag to highlight and copy the code below in the gray box, right click/paste it into the terminal window.
 - Then press the enter key, user password, enter key.
-- Browse to the Activities menu in the upper left corner, click to open it.
+- Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word Displays.
 - Look for "Scale", set it to your preference, click Apply.
 
@@ -55,7 +55,7 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 
 ### Step 3 -  If you want to enable "tap-to-click" on the touchpad:
 
-- Browse to the Activities menu in the upper left corner, click to open it.
+- Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word mouse, look for Mouse and Touchpad, click to open it.
 - Click the touchpad option at the top.
 - Under "Clicking", select Tap to Click and enable it.
@@ -66,7 +66,7 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 
 ### Enable brightness keys
 
-- Browse to the Activities menu in the upper left corner, click to open it.
+- Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
 - Copy the code below in the gray box, right click/paste it into the terminal window.
 - Then press the enter key, user password, enter key, **reboot.**
