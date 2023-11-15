@@ -101,7 +101,7 @@ sudo grubby --update-kernel=ALL --args="rtc_cmos.use_acpi_alarm=1"
 &nbsp;
 &nbsp;
 
-### Buzzing sound from headphone jack
+### Buzzing sound from 3.5mm jack
 
 - Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
@@ -119,3 +119,15 @@ echo 0 | sudo tee /sys/module/snd_hda_intel/parameters/power_save
 &nbsp;
 &nbsp;
 &nbsp;
+
+### 3.5mm jack mic won't work
+
+- Browse to the horizontal line in the upper left corner, click to open it.
+- Type out the word terminal, click to open it.
+- Copy/paste in the following code below.
+- Press the enter key, user password, enter key.
+
+```
+sudo tee /etc/modprobe.d/alsa.conf <<< "options snd-hda-intel index=1,0 model=auto,dell-headset-multi"
+```
+> **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
