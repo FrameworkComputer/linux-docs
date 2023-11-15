@@ -84,10 +84,21 @@ If you would rather enter the commands individually **instead** of using the cod
 
 
 ### Step 1 (ADVANCED USERS) Updating packages.
-``sudo apt update && sudo apt upgrade -y``
+
+```
+sudo apt update && sudo apt upgrade -y
+```
+
+> **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
+
 
 ### Step 2 (ADVANCED USERS) Install the recommended OEM kernel.
-``sudo apt install linux-oem-22.04c``
+
+```
+sudo apt install linux-oem-22.04c
+```
+> **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
+
 
 **Reboot**
 
@@ -104,18 +115,52 @@ Right now, this is **6.1.0-1025-oem** - but this may evolve in the future.
 ### Step 4 (ADVANCED USERS) Change the following.
 
 
-``
+```
 GRUB_DEFAULT="0"
-``
+```
 
 into
 
-``
+```
 GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1025-oem"
-``
+```
+> **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
+
 
 
 ### Step 5 (ADVANCED USERS) Then run.
-``sudo update-grub``
+
+```
+sudo update-grub
+```
+> **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
+
 
 **Reboot**
+
+-----
+
+&nbsp;
+&nbsp;
+&nbsp;
+## Optional and *only if needed* - current AMD Ryzen 7040 Series workarounds to common issues
+
+
+### Buzzing sound from headphone jack
+
+- Browse to the horizontal line in the upper left corner, click to open it.
+- Type out the word terminal, click to open it.
+- Copy/paste in the following code below.
+- Press the enter key, user password, enter key.
+
+```
+echo 0 | sudo tee /sys/module/snd_hda_intel/parameters/power_save
+```
+> **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
+
+
+**Reboot**
+
+&nbsp;
+&nbsp;
+&nbsp;
