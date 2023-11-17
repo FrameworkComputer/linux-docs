@@ -13,7 +13,8 @@
 
 - Browse to Activities in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
-- Left click and drag to highlight and copy the code below in the gray box, right click/paste it into the terminal window.
+- Click on the small icon shown in the image below to copy the code below in the gray box, right click/paste it into the terminal window.
+  ![Copy Code Like This](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/copied.png)
 - Then press the enter key, user password, enter key, **reboot.**
 
 ####  *****COPY AND PASTE THIS CODE BELOW INTO A TERMINAL AS DESCRIBED IN STEP 1 ABOVE*****
@@ -34,14 +35,12 @@ sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get inst
 
 - Browse to Activities in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
-- Left click and drag to highlight and copy the code below in the gray box, right click/paste it into the terminal window.
+- Click on the small icon shown in the image below to copy the code below in the gray box, right click/paste it into the terminal window.
+  ![Copy Code Like This](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/copied.png)
 - Then press the enter key, user password, enter key, **reboot.**
 
 
 
-
-
-![Copy Code Like This](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/copied.png)
 
 
 ####  *****COPY AND PASTE THIS CODE BELOW INTO A TERMINAL AS DESCRIBED IN STEP 2 ABOVE*****
