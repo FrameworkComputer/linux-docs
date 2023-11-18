@@ -29,6 +29,7 @@ sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get inst
 - Browse to Activities in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
 - Click on the small icon shown in the image below to copy the code below in the gray box, right click/paste it into the terminal window.
+- Then press the enter key, user password, enter key, **reboot.**
 
 
 ```
