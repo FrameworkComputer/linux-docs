@@ -22,7 +22,7 @@ sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get inst
 ```
 > **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
 
-<p style="text-align: left"><img src="https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/copied.png" alt="Copy The Code Below Like This" title="Copy The Code Below Like This"></p>
+<p style="text-align: left"><img src="https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/copied.png" alt="Copy The Code Below Like This" title="Copy The Code Above Like This"></p>
 
 
 &nbsp; &nbsp; &nbsp;
@@ -40,7 +40,7 @@ sudo update-grub && sudo apt install zenity && mkdir -p ~/.config/autostart && [
 ```
 > **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
 
-<p style="text-align: left"><img src="https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/copied.png" alt="Copy The Code Below Like This" title="Copy The Code Below Like This"></p>
+<p style="text-align: left"><img src="https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/copied.png" alt="Copy The Code Below Like This" title="Copy The Code Above Like This"></p>
 
 &nbsp; &nbsp; &nbsp; &nbsp; 
 
