@@ -14,46 +14,35 @@
 
 - Browse to Activities in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
-- Left click and drag to highlight and copy the code below in the gray box, right click/paste it into the terminal window.
+- Click on the small icon shown in the image below to copy the code below in the gray box, right click/paste it into the terminal window.
 - Then press the enter key, user password, enter key, **reboot.**
-
-####  *****COPY AND PASTE THIS CODE BELOW INTO A TERMINAL AS DESCRIBED IN STEP 1 ABOVE*****
 
 ```
 sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get install linux-oem-22.04c -y
 ```
-
-
 > **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
 
+<p style="text-align: left"><img src="https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/copied.png" alt="Copy The Code Below Like This" title="Copy The Code Below Like This"></p>
 
-&nbsp; &nbsp; &nbsp; &nbsp; 
+
+&nbsp; &nbsp; &nbsp;
 
 ### Step 2
 
 - Browse to Activities in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
-- Left click and drag to highlight and copy the code below in the gray box, right click/paste it into the terminal window.
-- Then press the enter key, user password, enter key, **reboot.**
-
-
-
-
-
-![Copy Code Like This](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/copied.png)
-
-
-####  *****COPY AND PASTE THIS CODE BELOW INTO A TERMINAL AS DESCRIBED IN STEP 2 ABOVE*****
-
+- Click on the small icon shown in the image below to copy the code below in the gray box, right click/paste it into the terminal window.
 
 ```
 latest_oem_kernel=$(ls /boot/vmlinuz-* | awk -F"-" '{split($0, a, "-"); version=a[3]; if (version>max) {max=version; kernel=a[2] "-" a[3] "-" a[4]}} END{print kernel}')
 sudo sed -i.bak '/^GRUB_DEFAULT=/c\GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux '"$latest_oem_kernel"'"' /etc/default/grub
 sudo update-grub && sudo apt install zenity && mkdir -p ~/.config/autostart && [ ! -f ~/.config/autostart/kernel_check.desktop ] && echo -e "[Desktop Entry]\nType=Application\nExec=bash -c \"latest_oem_kernel=\$(ls /boot/vmlinuz-* | grep '6.1.0-10..-oem' | sort -V | tail -n1 | awk -F'/' '{print \\\$NF}' | sed 's/vmlinuz-//') && current_grub_kernel=\$(grep '^GRUB_DEFAULT=' /etc/default/grub | sed -e 's/GRUB_DEFAULT=\\\"Advanced options for Ubuntu>Ubuntu, with Linux //g' -e 's/\\\"//g') && [ \\\"\\\${latest_oem_kernel}\\\" != \\\"\\\${current_grub_kernel}\\\" ] && zenity --text-info --html --width=300 --height=200 --title=\\\"Kernel Update Notification\\\" --filename=<(echo -e \\\"A newer OEM C kernel is available than what is set in GRUB. <a href='https://github.com/FrameworkComputer/linux-docs/blob/main/22.04-OEM-C.md'>Click here</a> to learn more.\\\")\"\nHidden=false\nNoDisplay=false\nX-GNOME-Autostart-enabled=true\nName[en_US]=Kernel check\nName=Kernel check\nComment[en_US]=\nComment=" > ~/.config/autostart/kernel_check.desktop
 ```
-
 > **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
 
+<p style="text-align: left"><img src="https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/copied.png" alt="Copy The Code Below Like This" title="Copy The Code Below Like This"></p>
+
+&nbsp; &nbsp; &nbsp; &nbsp; 
 
 
 ## What the above code does.
