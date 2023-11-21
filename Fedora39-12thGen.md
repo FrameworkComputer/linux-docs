@@ -49,6 +49,9 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 ```
 > **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
 
+
+**Reboot**
+
 &nbsp;
 &nbsp;
 &nbsp;
