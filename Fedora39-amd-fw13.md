@@ -83,20 +83,7 @@ sudo grubby --update-kernel=ALL --args="amdgpu.sg_display=0"
 &nbsp;
 
 ### Suspend keeps waking up every few minutes
-
-- Browse to the horizontal line in the upper left corner, click to open it.
-- Type out the word terminal, click to open it.
-- Copy/paste in the following code below.
-- Press the enter key, user password, enter key.
-
-```
-sudo grubby --update-kernel=ALL --args="rtc_cmos.use_acpi_alarm=1"
-```
-> **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
-
-
-**Reboot**
-
+#### (This was fixed on kernel 6.5.12-300.fc39.x86_64)
 &nbsp;
 &nbsp;
 &nbsp;
