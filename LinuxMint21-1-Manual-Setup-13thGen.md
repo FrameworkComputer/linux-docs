@@ -49,8 +49,9 @@ If you would rather enter the commands individually **instead** of using the cod
 ``sudo gedit /etc/default/grub``
 
 ### Append the following to the GRUB_CMDLINE_LINUX_DEFAULT="quiet splash section.
-This is an ACPI parameter that helps ensure compatibility by disabling ACPI support for NVMe.
-Advanced Linux users: You're welcome to remove it if you feel it's not needed for any reason and sudo update-grub.``
+This will address your brightness keys.
+
+``
 GRUB_CMDLINE_LINUX_DEFAULT="quiet splash module_blacklist=hid_sensor_hub"
 ``
 
