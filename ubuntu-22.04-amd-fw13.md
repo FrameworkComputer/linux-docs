@@ -50,6 +50,10 @@ sudo update-grub && sudo apt install zenity && mkdir -p ~/.config/autostart && [
 
 &nbsp; &nbsp; &nbsp; &nbsp; 
 
+### Step 3
+
+### REBOOT
+
 
 ## What the above code does.
 - Ensures GRUB is using the latest OEM C kernel at every boot.
@@ -66,6 +70,7 @@ When a new version of the OEM kernel is ready, this will alert you at bootup - i
 ![What does the OEM Kernel alert looks like](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/3.png)
 
 &nbsp; &nbsp; &nbsp; &nbsp; 
+
 
 ---------
 
