@@ -102,7 +102,7 @@ sudo apt install linux-oem-22.04c
 ls /boot/vmlinuz-* | awk -F"-" '{split($0, a, "-"); version=a[3]; if (version>max) {max=version; kernel=a[2] "-" a[3] "-" a[4]}} END{print kernel}'
 ```
 
-Right now, this is **6.1.0-1025-oem** - but this may evolve in the future.
+Right now, this is **6.1.0.1027-oem** - but this may evolve in the future.
 
 
 
