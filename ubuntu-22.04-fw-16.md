@@ -116,7 +116,7 @@ GRUB_DEFAULT="0"
 into
 
 ```
-GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1025-oem"
+GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0.1027-oem"
 ```
 > **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
 
