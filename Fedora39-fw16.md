@@ -77,6 +77,11 @@ sudo grubby --update-kernel=ALL --args="amdgpu.sg_display=0"
 
 **Reboot**
 
+## Addtionally, we recommend the following as well if you are experiencing graphical artifacts from appearing
+
+- Please follow the steps outlined in this guide:
+  https://knowledgebase.frame.work/allocate-additional-ram-to-igpu-framework-laptop-13-amd-ryzen-7040-series-BkpPUPQa
+
 &nbsp;
 &nbsp;
 &nbsp;
