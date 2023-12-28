@@ -18,7 +18,7 @@
 - Then press the enter key, user password, enter key, **reboot.**
 
 ```
-sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get install linux-oem-22.04c -y
+sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get install linux-oem-22.04d -y
 ```
 
 > **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
