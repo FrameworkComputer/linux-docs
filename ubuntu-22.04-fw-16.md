@@ -78,7 +78,7 @@ Then next, paste this into a terminal next, pressing enter after.
 You can learn more about what this does from this link [Allow both CPU and platform drivers to be simultaneously active](https://gitlab.freedesktop.org/upower/power-profiles-daemon/-/merge_requests/127).
 
 
-Then next, paste this into a terminal, press enter after.
+Copy and paste the PPA code below into a terminal, press enter after.
 ```
 sudo add-apt-repository ppa:superm1/ppd
 ```
