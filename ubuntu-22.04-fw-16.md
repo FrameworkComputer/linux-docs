@@ -69,7 +69,7 @@ When a new version of the OEM kernel is ready, this will alert you at bootup - i
 
 To do this on Ubuntu LTS, we'll use a PPA maintained by AMD.
   
-Paste this into a terminal next, pressing enter after.
+Copy and paste this into a terminal next, pressing enter after.
 
 > **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
 <p style="text-align: left"><img src="https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/copied.png" alt="Copy The Code Below Like This" title="Copy The Code Above Like This"></p>
