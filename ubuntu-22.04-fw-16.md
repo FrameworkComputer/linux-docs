@@ -157,6 +157,12 @@ sudo update-grub
 
 **Reboot**
 
+### Follow Step 3 above
+
+Super important that you [complete step 3](https://github.com/FrameworkComputer/linux-docs/blob/main/ubuntu-22.04-fw-16.md#step-3-allow-both-cpu-and-platform-drivers-to-be-simultaneously-active) if you have not yet for the best experience.
+
+**Reboot**
+
 -----
 
 &nbsp;
