@@ -88,7 +88,7 @@ Then next, paste this into a terminal, press enter after.
 sudo apt update
 ```
 
-The reboot.
+Then reboot.
 
 
 &nbsp; &nbsp; &nbsp; &nbsp; 
