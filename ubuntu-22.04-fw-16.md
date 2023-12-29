@@ -75,7 +75,7 @@ Copy and paste this into a terminal next, pressing enter after.
 <p style="text-align: left"><img src="https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/copied.png" alt="Copy The Code Below Like This" title="Copy The Code Above Like This"></p>
 
 
-You can learn more about what this does from this link [Allow both CPU and platform drivers to be simultaneously active](https://gitlab.freedesktop.org/upower/power-profiles-daemon/-/merge_requests/127).
+You can learn more about [what Allow both CPU and platform drivers to be simultaneously does](https://launchpad.net/~superm1/+archive/ubuntu/ppd/+packages) from [this link](https://gitlab.freedesktop.org/upower/power-profiles-daemon/-/merge_requests/127).
 
 
 Copy and paste the PPA code below into a terminal, press enter after.
