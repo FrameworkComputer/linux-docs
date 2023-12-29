@@ -30,7 +30,35 @@ sudo dnf upgrade
 &nbsp;
 &nbsp;
 
-### Step 2 - If you want to enable fractional scaling on Wayland:
+### Step 2 - Allow both CPU and platform drivers to be simultaneously active
+
+> ***TIP:*** This will eventually appear in during standard upgrades, but to [get this addressed immediately](https://gitlab.freedesktop.org/upower/power-profiles-daemon/-/merge_requests/127), follow the steps below.
+
+- Browse to the horizontal line in the upper left corner, click to open it.
+- Type out the word terminal, click to open it.
+- Copy the code below in the gray box, right click/paste it into the terminal window.
+- Then press the enter key, user password, enter key, **reboot.**
+
+```
+wget https://kojipkgs.fedoraproject.org//work/tasks/581/110470581/power-profiles-daemon-0.13-5.fc39.x86_64.rpm \
+     https://kojipkgs.fedoraproject.org//work/tasks/581/110470581/power-profiles-daemon-debuginfo-0.13-5.fc39.x86_64.rpm \
+     https://kojipkgs.fedoraproject.org//work/tasks/581/110470581/power-profiles-daemon-debugsource-0.13-5.fc39.x86_64.rpm \
+     https://kojipkgs.fedoraproject.org//work/tasks/581/110470581/power-profiles-daemon-docs-0.13-5.fc39.noarch.rpm && \
+sudo dnf install ./power-profiles-daemon-0.13-5.fc39.x86_64.rpm ./power-profiles-daemon-debuginfo-0.13-5.fc39.x86_64.rpm ./power-profiles-daemon-debugsource-0.13-5.fc39.x86_64.rpm ./power-profiles-daemon-docs-0.13-5.fc39.noarch.rpm
+```
+
+- Enter your password when promoted.
+- **Reboot**
+- Verify you have the updated power-profiles-daemon from the terminal.
+
+```
+rpm -q power-profiles-daemon
+```
+
+- You should see power-profiles-daemon-0.13-5.fc39.x86_64
+
+
+### Step 3 - If you want to enable fractional scaling on Wayland:
 
 - Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
@@ -49,7 +77,7 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 &nbsp;
 &nbsp;
 &nbsp;
-### Step 3 -  If you want to enable "tap-to-click" on the touchpad:
+### Step 4 -  If you want to enable "tap-to-click" on the touchpad:
 
 - Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word mouse, look for Mouse and Touchpad, click to open it.
