@@ -32,7 +32,7 @@ sudo dnf upgrade
 
 ### Step 2 - Allow both CPU and platform drivers to be simultaneously active
 
-> ***TIP:*** This will eventually appear in during standard upgrades, but to [get this addressed immediately](https://gitlab.freedesktop.org/upower/power-profiles-daemon/-/merge_requests/127), follow the steps below.
+> ***TIP:*** [This will eventually appear](https://koji.fedoraproject.org/koji/taskinfo?taskID=110470581) in during standard upgrades, but to [get this addressed immediately](https://gitlab.freedesktop.org/upower/power-profiles-daemon/-/merge_requests/127), follow the steps below.
 
 - Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
