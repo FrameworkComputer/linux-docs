@@ -3,6 +3,7 @@
 ## This will:
 
 - Getting  your laptop fully updated.
+- Allow both CPU and platform drivers to be simultaneously active
 - Enable improved fractional scaling support Fedora's GNOME environment using Wayland.
 - Enabling tap to click on the touchpad.
 
