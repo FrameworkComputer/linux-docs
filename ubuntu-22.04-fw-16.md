@@ -5,6 +5,7 @@
 
 - Update your Ubuntu install's packages.
 - Install the recommended OEM kernel and provide you with an alert should the OEM kernel needing updating.
+- Allow both CPU and platform drivers to be simultaneously active.
 
 
 &nbsp; &nbsp; &nbsp; &nbsp; 
