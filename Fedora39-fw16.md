@@ -64,7 +64,7 @@ rpm -q power-profiles-daemon
 - Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
 - Left click and drag to highlight and copy the code below in the gray box, right click/paste it into the terminal window.
-- Then press the enter key, user password, enter key.
+- Then press the enter key.
 - Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word Displays.
 - Look for "Scale", set it to your preference, click Apply.
