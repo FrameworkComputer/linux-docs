@@ -71,7 +71,21 @@ When a new version of the OEM kernel is ready, this will alert you at bootup - i
 
 &nbsp; &nbsp; &nbsp; &nbsp; 
 
+### Step 4
 
+## Allow both CPU and platform drivers [to be simultaneously active](https://gitlab.freedesktop.org/upower/power-profiles-daemon/-/merge_requests/127).
+We use the AMD official PPA to make sure the Power Profiles Daemon is always at the latest version.
+
+```
+sudo add-apt-repository ppa:superm1/ppd
+```
+&nbsp; 
+```
+sudo apt update
+```
+
+**Reboot**
+&nbsp; &nbsp; &nbsp; &nbsp;
 ---------
 
 ## For Advanced users ONLY: 
