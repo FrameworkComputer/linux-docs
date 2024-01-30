@@ -85,6 +85,18 @@ sudo apt update
 ```
 
 **Reboot**
+&nbsp; &nbsp; &nbsp; &nbsp; 
+
+### Step 5
+
+## Suspend with lid while attached to power workaround
+There is an active bug that occurs for some users, creating a bogus key press when you suspend. This provides a solid workaround.
+
+```
+sudo sh -c '[ ! -f /etc/udev/rules.d/20-suspend-fixes.rules ] && echo "ACTION==\"add\", SUBSYSTEM==\"serio\", DRIVERS==\"atkbd\", ATTR{power/wakeup}=\"disabled\"" > /etc/udev/rules.d/20-suspend-fixes.rules'
+```
+This checks for an existing /etc/udev/rules.d/20-suspend-fixes.rules file, if none is found, creates it and appends ACTION=="add", SUBSYSTEM=="serio", DRIVERS=="atkbd", ATTR{power/wakeup}="disabled" to the file.
+
 &nbsp; &nbsp; &nbsp; &nbsp;
 ---------
 
