@@ -61,15 +61,6 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 &nbsp;
 &nbsp;
 
-### Step 4 - Suspend with lid while attached to power workaround
-There is an active bug that occurs for some users, creating a bogus key press when you suspend. This provides a solid workaround.
-
-```
-sudo sh -c '[ ! -f /etc/udev/rules.d/20-suspend-fixes.rules ] && echo "ACTION==\"add\", SUBSYSTEM==\"serio\", DRIVERS==\"atkbd\", ATTR{power/wakeup}=\"disabled\"" > /etc/udev/rules.d/20-suspend-fixes.rules'
-```
-This checks for an existing /etc/udev/rules.d/20-suspend-fixes.rules file, if none is found, creates it and appends ACTION=="add", SUBSYSTEM=="serio", DRIVERS=="atkbd", ATTR{power/wakeup}="disabled" to the file.
-
-&nbsp; &nbsp; &nbsp; &nbsp;
 
 
 ## Optional and *only if needed* - current AMD Ryzen 7040 Series workarounds to common issues
@@ -90,15 +81,18 @@ sudo grubby --update-kernel=ALL --args="amdgpu.sg_display=0"
 
 **Reboot**
 
-&nbsp;
-&nbsp;
-&nbsp;
+### Suspend with lid while attached to power workaround
+There is an active bug that occurs for some users, creating a bogus key press when you suspend. This provides a solid workaround.
 
-### Suspend keeps waking up every few minutes
-#### (This was fixed on kernel 6.5.12-300.fc39.x86_64)
-&nbsp;
-&nbsp;
-&nbsp;
+```
+sudo sh -c '[ ! -f /etc/udev/rules.d/20-suspend-fixes.rules ] && echo "ACTION==\"add\", SUBSYSTEM==\"serio\", DRIVERS==\"atkbd\", ATTR{power/wakeup}=\"disabled\"" > /etc/udev/rules.d/20-suspend-fixes.rules'
+```
+This checks for an existing /etc/udev/rules.d/20-suspend-fixes.rules file, if none is found, creates it and appends ACTION=="add", SUBSYSTEM=="serio", DRIVERS=="atkbd", ATTR{power/wakeup}="disabled" to the file.
+
+**Reboot**
+
+&nbsp; &nbsp; &nbsp; &nbsp;
+
 
 ### Buzzing sound from 3.5mm jack
 
