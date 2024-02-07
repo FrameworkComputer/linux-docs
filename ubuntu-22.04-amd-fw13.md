@@ -118,7 +118,7 @@ sudo apt update && sudo apt upgrade -y
 ### Step 2 (ADVANCED USERS) Install the recommended OEM kernel.
 
 ```
-sudo apt install linux-oem-22.04c
+sudo apt install linux-oem-22.04d
 ```
 > **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
 
