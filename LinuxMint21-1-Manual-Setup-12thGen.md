@@ -6,7 +6,7 @@
 - Update your Linux Mint install's packages.
 - Install the recommended OEM kernel. Now recommending a new OEM kernel.
 - Workaround needed to get the best suspend battery life for SSD power drain.
-- Disable the ALS sensor so that your brightness keys work.
+- Disable the Ambient Light Sensor so that your brightness keys work.
 - Enable headset mic input.
 
 ##  *****COPY AND PASTE THIS CODE BELOW INTO A TERMINAL*****
@@ -19,7 +19,7 @@
 
 
 ``
-sudo apt update && sudo apt upgrade -y && sudo apt-get install linux-oem-22.04c -y && echo "options snd-hda-intel model=dell-headset-multi" | sudo tee -a /etc/modprobe.d/alsa-base.conf && sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash module_blacklist=hid_sensor_hub nvme.noacpi=1"/g' /etc/default/grub && sudo update-grub && echo "[connection]" | sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf && echo "wifi.powersave = 2" | sudo tee -a /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
+sudo apt update && sudo apt upgrade -y && sudo apt-get install linux-oem-22.04c -y && echo "options snd-hda-intel model=dell-headset-multi" | sudo tee -a /etc/modprobe.d/alsa-base.conf && echo "blacklist hid_sensor_hub" | sudo tee -a /etc/modprobe.d/blacklist-light-sensor.conf && sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvme.noacpi=1"/g' /etc/default/grub && sudo update-grub && echo "[connection]" | sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf && echo "wifi.powersave = 2" | sudo tee -a /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
 ``
 
 ## *****COPY AND PASTE THIS CODE ABOVE INTO A TERMINAL*****
@@ -45,16 +45,8 @@ If you would rather enter the commands individually **instead** of using the cod
 ### Enable headset mic input.
 ``echo "options snd-hda-intel model=dell-headset-multi" | sudo tee -a /etc/modprobe.d/alsa-base.conf``
 
-### Disable the ALS sensor so that your brightness keys work, 13th gen only.
-``sudo gedit /etc/default/grub``
-
-### Append the following to the GRUB_CMDLINE_LINUX_DEFAULT="quiet splash section.
-``
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash module_blacklist=hid_sensor_hub"
-``
-
-### Then run
-``sudo update-grub``
+### Disable the Ambient Light Sensor so that your brightness keys work, 13th gen only.
+``echo "blacklist hid_sensor_hub" | sudo tee -a /etc/modprobe.d/blacklist-light-sensor.conf``
 
 ### Workaround needed to get the best suspend battery life for SSD power drain.
 ``sudo gedit /etc/default/grub``

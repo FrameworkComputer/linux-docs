@@ -49,9 +49,9 @@ If you would rather enter the commands individually **instead** of using the cod
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
 ``
 
-### Append the following to the GRUB_CMDLINE_LINUX_DEFAULT="quiet splash section.
+### Disable Ambient Light Sensor to fix brightness keys
 ``
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash module_blacklist=hid_sensor_hub"
+echo "blacklist hid_sensor_hub" | sudo tee -a /etc/modprobe.d/blacklist-framework-light-sensor.conf
 ``
 
 ### Then run

@@ -5,7 +5,7 @@
 
 - Update your Ubuntu install's packages.
 - Workaround needed to get the best suspend battery life for SSD power drain.
-- Disable the ALS sensor so that your brightness keys work.
+- Disable the Ambient Light Sensor so that your brightness keys work.
 - Enable improved fractional scaling support for Ubuntu's GNOME environment using Wayland.
 - Enable headset mic input.
 
@@ -22,7 +22,7 @@
 
 
 ``
-sudo apt update && sudo apt upgrade -y && sudo snap refresh && echo "options snd-hda-intel model=dell-headset-multi" | sudo tee -a /etc/modprobe.d/alsa-base.conf && gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']" && sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash module_blacklist=hid_sensor_hub nvme.noacpi=1"/g' /etc/default/grub && sudo update-grub && echo "[connection]" | sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf && echo "wifi.powersave = 2" | sudo tee -a /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
+sudo apt update && sudo apt upgrade -y && sudo snap refresh && echo "options snd-hda-intel model=dell-headset-multi" | sudo tee -a /etc/modprobe.d/alsa-base.conf && echo "blacklist hid_sensor_hub" | sudo tee -a /etc/modprobe.d/blacklist-light-sensor.conf && gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']" && sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvme.noacpi=1"/g' /etc/default/grub && sudo update-grub && echo "[connection]" | sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf && echo "wifi.powersave = 2" | sudo tee -a /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
 ``
 
 ## *****COPY AND PASTE THIS CODE ABOVE INTO A TERMINAL*****
@@ -50,16 +50,8 @@ If you would rather enter the commands individually **instead** of using the cod
 gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
 ``
 
-### Disable the ALS sensor so that your brightness keys work, 12th gen only.
-``sudo gnome-text-editor /etc/default/grub``
-
-### Append the following to the GRUB_CMDLINE_LINUX_DEFAULT="quiet splash section.
-``
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash module_blacklist=hid_sensor_hub"
-``
-
-### Then run
-``sudo update-grub``
+### Disable the Ambient Light Sensor so that your brightness keys work, 12th gen only.
+``echo "blacklist hid_sensor_hub" | sudo tee -a /etc/modprobe.d/blacklist-light-sensor.conf``
 
 ### Workaround needed to get the best suspend battery life for SSD power drain.
 ``sudo gnome-text-editor /etc/default/grub``

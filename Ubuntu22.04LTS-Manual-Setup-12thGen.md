@@ -5,7 +5,7 @@
 
 - Update your Ubuntu install's packages.
 - Install the recommended OEM kernel and provide you with an alert should the OEM kernel needing updating.
-- Disable the ALS sensor so that your brightness keys work.
+- Disable the Ambient Light Sensor so that your brightness keys work.
 
 &nbsp; &nbsp; &nbsp; &nbsp; 
 
@@ -19,6 +19,7 @@
 
 ```
 sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get install linux-oem-22.04c -y
+echo 'blacklist hid_sensor_hub' | sudo tee -a /etc/modprobe.d/blacklist-light-sensor.conf
 ```
 > **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
 
@@ -35,7 +36,6 @@ sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get inst
 ```
 latest_oem_kernel=$(ls /boot/vmlinuz-* | awk -F"-" '{split($0, a, "-"); version=a[3]; if (version>max) {max=version; kernel=a[2] "-" a[3] "-" a[4]}} END{print kernel}')
 sudo sed -i.bak '/^GRUB_DEFAULT=/c\GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux '"$latest_oem_kernel"'"' /etc/default/grub
-sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash module_blacklist=hid_sensor_hub"/g' /etc/default/grub
 sudo update-grub && sudo apt install zenity && mkdir -p ~/.config/autostart && [ ! -f ~/.config/autostart/kernel_check.desktop ] && echo -e "[Desktop Entry]\nType=Application\nExec=bash -c \"latest_oem_kernel=\$(ls /boot/vmlinuz-* | grep '6.1.0-10..-oem' | sort -V | tail -n1 | awk -F'/' '{print \\\$NF}' | sed 's/vmlinuz-//') && current_grub_kernel=\$(grep '^GRUB_DEFAULT=' /etc/default/grub | sed -e 's/GRUB_DEFAULT=\\\"Advanced options for Ubuntu>Ubuntu, with Linux //g' -e 's/\\\"//g') && [ \\\"\\\${latest_oem_kernel}\\\" != \\\"\\\${current_grub_kernel}\\\" ] && zenity --text-info --html --width=300 --height=200 --title=\\\"Kernel Update Notification\\\" --filename=<(echo -e \\\"A newer OEM C kernel is available than what is set in GRUB. <a href='https://github.com/FrameworkComputer/linux-docs/blob/main/22.04-OEM-C.md'>Click here</a> to learn more.\\\")\"\nHidden=false\nNoDisplay=false\nX-GNOME-Autostart-enabled=true\nName[en_US]=Kernel check\nName=Kernel check\nComment[en_US]=\nComment=" > ~/.config/autostart/kernel_check.desktop
 ```
 
@@ -45,7 +45,6 @@ sudo update-grub && sudo apt install zenity && mkdir -p ~/.config/autostart && [
 
 &nbsp; &nbsp; &nbsp; &nbsp; 
 ## What the above code does.
-- Disables the ALS sensor so that your brightness keys work.
 - Ensures GRUB is using the latest OEM C kernel at every boot.
 - Creates a desktop file as an autostart to check for OEM kernel status.
 - If an update comes about for the OEM kernel, is installed, but GRUB still has the older version - an alert box will provide you with a link to get this corrected.
@@ -80,12 +79,8 @@ If you would rather enter the commands individually **instead** of using the cod
 
 **Reboot**
 
-### Step 3 (ADVANCED USERS) Disable the ALS sensor so that your brightness keys work.
-``sudo gedit /etc/default/grub``
-
-Add module_blacklist=hid_sensor_hub so it looks like:
-
-``GRUB_CMDLINE_LINUX_DEFAULT="quiet splash module_blacklist=hid_sensor_hub"``
+### Step 3 (ADVANCED USERS) Disable the Ambient Light Sensor so that your brightness keys work.
+``echo "blacklist hid_sensor_hub" | sudo tee -a /etc/modprobe.d/blacklist-light-sensor.conf``
 
 ### Step 4 (ADVANCED USERS) Indentify your OEM C kernel.
 
