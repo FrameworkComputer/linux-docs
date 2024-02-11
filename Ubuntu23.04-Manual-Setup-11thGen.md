@@ -54,8 +54,11 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 echo "blacklist hid_sensor_hub" | sudo tee -a /etc/modprobe.d/blacklist-framework-light-sensor.conf
 ``
 
-### Then run
-``sudo update-grub``
+Update the initramfs:
+
+``
+sudo update-initramfs -u
+``
 
 ### Workaround needed to get the best suspend battery life for SSD power drain.
 ``sudo gnome-text-editor /etc/default/grub``

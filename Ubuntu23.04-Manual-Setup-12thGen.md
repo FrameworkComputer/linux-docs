@@ -22,7 +22,7 @@
 
 
 ``
-sudo apt update && sudo apt upgrade -y && sudo snap refresh && echo "options snd-hda-intel model=dell-headset-multi" | sudo tee -a /etc/modprobe.d/alsa-base.conf && echo "blacklist hid_sensor_hub" | sudo tee -a /etc/modprobe.d/blacklist-light-sensor.conf && gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']" && sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvme.noacpi=1"/g' /etc/default/grub && sudo update-grub && echo "[connection]" | sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf && echo "wifi.powersave = 2" | sudo tee -a /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
+sudo apt update && sudo apt upgrade -y && sudo snap refresh && echo "options snd-hda-intel model=dell-headset-multi" | sudo tee -a /etc/modprobe.d/alsa-base.conf && echo "blacklist hid_sensor_hub" | sudo tee -a /etc/modprobe.d/blacklist-light-sensor.conf && sudo update-initramfs -u && gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']" && sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvme.noacpi=1"/g' /etc/default/grub && sudo update-grub && echo "[connection]" | sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf && echo "wifi.powersave = 2" | sudo tee -a /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
 ``
 
 ## *****COPY AND PASTE THIS CODE ABOVE INTO A TERMINAL*****
@@ -52,6 +52,9 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 
 ### Disable the Ambient Light Sensor so that your brightness keys work, 12th gen only.
 ``echo "blacklist hid_sensor_hub" | sudo tee -a /etc/modprobe.d/blacklist-light-sensor.conf``
+
+Update the initramfs:
+``sudo update-initramfs -u``
 
 ### Workaround needed to get the best suspend battery life for SSD power drain.
 ``sudo gnome-text-editor /etc/default/grub``

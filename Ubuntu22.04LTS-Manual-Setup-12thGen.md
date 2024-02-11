@@ -4,8 +4,8 @@
 ## This will:
 
 - Update your Ubuntu install's packages.
-- Install the recommended OEM kernel and provide you with an alert should the OEM kernel needing updating.
 - Disable the Ambient Light Sensor so that your brightness keys work.
+- Install the recommended OEM kernel and provide you with an alert should the OEM kernel needing updating.
 
 &nbsp; &nbsp; &nbsp; &nbsp; 
 
@@ -18,8 +18,8 @@
 - Then press the enter key, user password, enter key, **reboot.**
 
 ```
-sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get install linux-oem-22.04c -y
 echo 'blacklist hid_sensor_hub' | sudo tee -a /etc/modprobe.d/blacklist-light-sensor.conf
+sudo apt update && sudo apt upgrade -y && sudo snap refresh && sudo apt-get install linux-oem-22.04c -y
 ```
 > **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
 
@@ -74,13 +74,16 @@ If you would rather enter the commands individually **instead** of using the cod
 ### Step 1 (ADVANCED USERS) Updating packages.
 ``sudo apt update && sudo apt upgrade -y``
 
-### Step 2 (ADVANCED USERS) Install the recommended OEM kernel.
+### Step 2 (ADVANCED USERS) Disable the Ambient Light Sensor so that your brightness keys work.
+``echo "blacklist hid_sensor_hub" | sudo tee -a /etc/modprobe.d/blacklist-light-sensor.conf``
+
+To update the module list in the existing kernel image:
+``sudo update-initramfs -u``
+
+### Step 3 (ADVANCED USERS) Install the recommended OEM kernel.
 ``sudo apt install linux-oem-22.04c``
 
 **Reboot**
-
-### Step 3 (ADVANCED USERS) Disable the Ambient Light Sensor so that your brightness keys work.
-``echo "blacklist hid_sensor_hub" | sudo tee -a /etc/modprobe.d/blacklist-light-sensor.conf``
 
 ### Step 4 (ADVANCED USERS) Indentify your OEM C kernel.
 
