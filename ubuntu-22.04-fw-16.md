@@ -86,7 +86,7 @@ sudo add-apt-repository ppa:superm1/ppd
 
 Then next, paste this into a terminal, press enter after.
 ```
-sudo apt update
+sudo apt update && sudo apt upgrade -y
 ```
 
 Then reboot.
