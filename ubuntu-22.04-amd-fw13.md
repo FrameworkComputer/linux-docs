@@ -79,7 +79,7 @@ sudo add-apt-repository ppa:superm1/ppd
 ```
 &nbsp; 
 ```
-sudo apt update
+sudo apt update && sudo apt upgrade -y
 ```
 
 **Reboot**
