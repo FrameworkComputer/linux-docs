@@ -168,6 +168,62 @@ sudo update-grub
 &nbsp;
 ## Optional and *only if needed* - current AMD Ryzen 7040 Series workarounds to common issues
 
+### MediaTek WiFi Dropout on WiFi 6E routers
+
+```
+sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu/ jammy-proposed main restricted universe multiverse"  && sudo apt update && sudo apt install linux-firmware/jammy-proposed && sudo sed -i 's/^deb http:\/\/archive.ubuntu.com\/ubuntu\/ jammy-proposed/# &/' /etc/apt/sources.list && sudo apt update && sudo rm /lib/firmware/mediatek/WIFI_MT7922_patch_mcu_1_1_hdr.bin && sudo rm /lib/firmware/mediatek/WIFI_RAM_CODE_MT7922_1.bin && cd /tmp && wget https://gitlab.com/kernel-firmware/linux-firmware/-/raw/0a18a7292a66532633d9586521f0b954c68a9fbc/mediatek/WIFI_MT7922_patch_mcu_1_1_hdr.bin && wget https://gitlab.com/kernel-firmware/linux-firmware/-/raw/0a18a7292a66532633d9586521f0b954c68a9fbc/mediatek/WIFI_RAM_CODE_MT7922_1.bin && sudo mv WIFI_MT7922_patch_mcu_1_1_hdr.bin /lib/firmware/mediatek/ && sudo mv WIFI_RAM_CODE_MT7922_1.bin /lib/firmware/mediatek/ && sudo update-initramfs -u
+```
+
+&nbsp;
+&nbsp;
+&nbsp;
+
+Prefer to do this step by step the slow way? Here are the steps. 
+
+> Newbies, just use the script **above**, much less likely to miss a step.
+
+
+```
+sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu/ jammy-proposed main restricted universe multiverse"
+```
+
+```
+sudo apt update && sudo apt install linux-firmware/jammy-proposed 
+```
+
+```
+sudo sed -i 's/^deb http:\/\/archive.ubuntu.com\/ubuntu\/ jammy-proposed/# &/' /etc/apt/sources.list
+```
+
+```
+sudo apt update && sudo rm /lib/firmware/mediatek/WIFI_MT7922_patch_mcu_1_1_hdr.bin
+```
+
+```
+sudo rm /lib/firmware/mediatek/WIFI_RAM_CODE_MT7922_1.bin
+```
+
+```
+cd /tmp
+```
+
+```
+wget https://gitlab.com/kernel-firmware/linux-firmware/-/raw/0a18a7292a66532633d9586521f0b954c68a9fbc/mediatek/WIFI_MT7922_patch_mcu_1_1_hdr.bin
+```
+
+```
+wget https://gitlab.com/kernel-firmware/linux-firmware/-/raw/0a18a7292a66532633d9586521f0b954c68a9fbc/mediatek/WIFI_RAM_CODE_MT7922_1.bin
+```
+
+```
+sudo mv WIFI_MT7922_patch_mcu_1_1_hdr.bin /lib/firmware/mediatek/
+```
+
+```
+sudo mv WIFI_RAM_CODE_MT7922_1.bin /lib/firmware/mediatek/ && sudo update-initramfs -u
+```
+
+
 
 ### Buzzing sound from headphone jack
 
