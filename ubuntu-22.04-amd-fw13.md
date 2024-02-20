@@ -178,6 +178,17 @@ sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu/ jammy-proposed ma
 &nbsp;
 &nbsp;
 
+After rebooting, check to make sure the firmware is updated.
+
+```
+sudo dmesg | grep mt7921e
+```
+
+Build time in dmesg confirms this worked. 20230627143702a and 202330627143946
+&nbsp;
+&nbsp;
+&nbsp;
+
 ### For Advanced users ONLY:
 
 Prefer to do this step by step the slow way? Here are the steps. 
