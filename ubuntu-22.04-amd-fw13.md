@@ -1,14 +1,26 @@
 # This is for AMD Ryzen 7040 Series configuration on the Framework Laptop 13 ONLY.
 
+### OEM kernel and recommended configuration
 
-## This will:
+- [Install OEM D kernel](#step-1)
+- [Allow both CPU and platform drivers to be simultaneously active](#step-1)
+- [Suspend with lid while attached to power workaround](#step-5)
+
+### Optional and only if needed - current AMD Ryzen 7040 Series workarounds to common issues
+- [MediaTek WiFi Dropout on WiFi 6E routers fix](#mediatek-wifi-dropout-on-wifi-6e-routers)
+- [Buzzing sound from headphone jack](#buzzing-sound-from-headphone-jack)
+
+
+## Install OEM D kernel 
+
+
+### This will:
 
 - Update your Ubuntu install's packages.
 - Install the recommended OEM kernel and provide you with an alert should the OEM kernel needing updating.
 
 
 &nbsp; &nbsp; &nbsp; &nbsp; 
-
 
 ### Step 1
 
