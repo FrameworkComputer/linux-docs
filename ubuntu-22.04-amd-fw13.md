@@ -4,7 +4,9 @@
 
 - [Install OEM D kernel](#step-1)
 - [Allow both CPU and platform drivers to be simultaneously active](#step-4)
-- [Suspend with lid while attached to power workaround](#step-5)
+- [Suspend with lid while attached to power workaround](#step-6)
+- [Prevent graphical artifacts from appearing](#step-5)
+
 
 ### Optional and only if needed - current AMD Ryzen 7040 Series workarounds to common issues
 - [MediaTek WiFi Dropout on WiFi 6E routers fix](#mediatek-wifi-dropout-on-wifi-6e-routers)
@@ -98,6 +100,16 @@ sudo apt update && sudo apt upgrade -y
 &nbsp; &nbsp; &nbsp; &nbsp; 
 
 ### Step 5
+## Addtionally, we recommend the following as well if you are experiencing graphical artifacts from appearing
+
+- Please follow the steps outlined in this guide:
+  https://knowledgebase.frame.work/allocate-additional-ram-to-igpu-framework-laptop-13-amd-ryzen-7040-series-BkpPUPQa
+
+&nbsp;
+&nbsp;
+&nbsp;
+
+### Step 6
 
 ## Suspend with lid while attached to power workaround
 There is an active bug that occurs for some users, creating a bogus key press when you suspend. This provides a solid workaround.
