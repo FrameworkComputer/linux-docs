@@ -9,6 +9,7 @@
 ### Optional and only if needed - current AMD Ryzen 7040 Series workarounds to common issues
 - [MediaTek WiFi Dropout on WiFi 6E routers fix](#mediatek-wifi-dropout-on-wifi-6e-routers)
 
+## Install OEM D kernel
 
 ### This will:
 
