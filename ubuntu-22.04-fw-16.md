@@ -3,10 +3,11 @@
 ### OEM kernel and recommended configuration
 
 - [Install OEM D kernel](#step-1)
-- [Allow both CPU and platform drivers to be simultaneously active](#addtionally-we-recommend-the-following-as-well-if-you-are-experiencing-graphical-artifacts-from-appearing)
+- [Allow both CPU and platform drivers to be simultaneously active](#step-3-allow-both-cpu-and-platform-drivers-to-be-simultaneously-active)
 
 ### Optional and only if needed - current AMD Ryzen 7040 Series workarounds to common issues
 - [MediaTek WiFi Dropout on WiFi 6E routers fix](#mediatek-wifi-dropout-on-wifi-6e-routers)
+- [Prevent graphical artifacts from appearing](#addtionally-we-recommend-the-following-as-well-if-you-are-experiencing-graphical-artifacts-from-appearing)
 
 
 ### This will:
