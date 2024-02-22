@@ -3,7 +3,7 @@
 ### OEM kernel and recommended configuration
 
 - [Install OEM D kernel](#step-1)
-- [Allow both CPU and platform drivers to be simultaneously active](#step-1)
+- [Allow both CPU and platform drivers to be simultaneously active](#step-4)
 - [Suspend with lid while attached to power workaround](#step-5)
 
 ### Optional and only if needed - current AMD Ryzen 7040 Series workarounds to common issues
