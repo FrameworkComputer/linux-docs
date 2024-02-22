@@ -1,7 +1,15 @@
 # This is for the Framework Laptop 16 (AMD Ryzen™ 7040 Series) ONLY.
 
+### OEM kernel and recommended configuration
 
-## This will:
+- [Install OEM D kernel](#step-1)
+- [Allow both CPU and platform drivers to be simultaneously active](#addtionally-we-recommend-the-following-as-well-if-you-are-experiencing-graphical-artifacts-from-appearing)
+
+### Optional and only if needed - current AMD Ryzen 7040 Series workarounds to common issues
+- [MediaTek WiFi Dropout on WiFi 6E routers fix](#mediatek-wifi-dropout-on-wifi-6e-routers)
+
+
+### This will:
 
 - Update your Ubuntu install's packages.
 - Install the recommended OEM kernel and provide you with an alert should the OEM kernel needing updating.
