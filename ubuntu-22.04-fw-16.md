@@ -261,6 +261,8 @@ sudo mv WIFI_MT7922_patch_mcu_1_1_hdr.bin /lib/firmware/mediatek/
 sudo mv WIFI_RAM_CODE_MT7922_1.bin /lib/firmware/mediatek/ && sudo update-initramfs -u
 ```
 
+----------------------------------------------
+
 ### Suspend keeps waking up or fails to suspend
 
 ```
