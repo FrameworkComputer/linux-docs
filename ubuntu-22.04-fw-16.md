@@ -274,4 +274,12 @@ sudo nano /etc/default/grub
 into
 `GRUB_CMDLINE_LINUX_DEFAULT="quiet splash rtc_cmos.use_acpi_alarm=1"`
 
+Then
+
+```
+sudo update-grub
+```
+
+Then
+
 Reboot
