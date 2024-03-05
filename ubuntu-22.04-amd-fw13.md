@@ -274,10 +274,6 @@ echo 0 | sudo tee /sys/module/snd_hda_intel/parameters/power_save
 ```
 > **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
 
-Then run:
-```
-sudo update-grub
-```
 
 Then:
 
