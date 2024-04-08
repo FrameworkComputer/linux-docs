@@ -1,14 +1,28 @@
 # This is for AMD Ryzen 7040 Series configuration on the Framework Laptop 13 ONLY.
 
+### OEM kernel and recommended configuration
 
-## This will:
+- [Install OEM D kernel](#step-1)
+- [Allow both CPU and platform drivers to be simultaneously active](#step-4)
+- [Suspend with lid while attached to power workaround](#step-6)
+- [Prevent graphical artifacts from appearing](#step-5)
+
+
+### Optional and only if needed - current AMD Ryzen 7040 Series workarounds to common issues
+- [MediaTek WiFi Dropout on WiFi 6E routers fix](#mediatek-wifi-dropout-on-wifi-6e-routers)
+- [Buzzing sound from headphone jack](#buzzing-sound-from-headphone-jack)
+
+
+## Install OEM D kernel 
+
+
+### This will:
 
 - Update your Ubuntu install's packages.
 - Install the recommended OEM kernel and provide you with an alert should the OEM kernel needing updating.
 
 
 &nbsp; &nbsp; &nbsp; &nbsp; 
-
 
 ### Step 1
 
@@ -79,13 +93,23 @@ sudo add-apt-repository ppa:superm1/ppd
 ```
 &nbsp; 
 ```
-sudo apt update
+sudo apt update && sudo apt upgrade -y
 ```
 
 **Reboot**
 &nbsp; &nbsp; &nbsp; &nbsp; 
 
 ### Step 5
+## Addtionally, we recommend the following as well if you are experiencing graphical artifacts from appearing
+
+- Please follow the steps outlined in this guide:
+  https://knowledgebase.frame.work/allocate-additional-ram-to-igpu-framework-laptop-13-amd-ryzen-7040-series-BkpPUPQa
+
+&nbsp;
+&nbsp;
+&nbsp;
+
+### Step 6
 
 ## Suspend with lid while attached to power workaround
 There is an active bug that occurs for some users, creating a bogus key press when you suspend. This provides a solid workaround.
@@ -118,7 +142,7 @@ sudo apt update && sudo apt upgrade -y
 ### Step 2 (ADVANCED USERS) Install the recommended OEM kernel.
 
 ```
-sudo apt install linux-oem-22.04c
+sudo apt install linux-oem-22.04d
 ```
 > **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
 
@@ -168,6 +192,75 @@ sudo update-grub
 &nbsp;
 ## Optional and *only if needed* - current AMD Ryzen 7040 Series workarounds to common issues
 
+### MediaTek WiFi Dropout on WiFi 6E routers
+
+```
+sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu/ jammy-proposed main restricted universe multiverse"  && sudo apt update && sudo apt install linux-firmware/jammy-proposed && sudo sed -i 's/^deb http:\/\/archive.ubuntu.com\/ubuntu\/ jammy-proposed/# &/' /etc/apt/sources.list && sudo apt update && sudo rm /lib/firmware/mediatek/WIFI_MT7922_patch_mcu_1_1_hdr.bin && sudo rm /lib/firmware/mediatek/WIFI_RAM_CODE_MT7922_1.bin && cd /tmp && wget https://gitlab.com/kernel-firmware/linux-firmware/-/raw/0a18a7292a66532633d9586521f0b954c68a9fbc/mediatek/WIFI_MT7922_patch_mcu_1_1_hdr.bin && wget https://gitlab.com/kernel-firmware/linux-firmware/-/raw/0a18a7292a66532633d9586521f0b954c68a9fbc/mediatek/WIFI_RAM_CODE_MT7922_1.bin && sudo mv WIFI_MT7922_patch_mcu_1_1_hdr.bin /lib/firmware/mediatek/ && sudo mv WIFI_RAM_CODE_MT7922_1.bin /lib/firmware/mediatek/ && sudo update-initramfs -u
+```
+
+&nbsp;
+&nbsp;
+&nbsp;
+
+After rebooting, check to make sure the firmware is updated.
+
+```
+sudo dmesg | grep mt7921e
+```
+
+Build time in dmesg confirms this worked. 20230627143702a and 202330627143946
+&nbsp;
+&nbsp;
+&nbsp;
+
+### For Advanced users ONLY:
+
+Prefer to do this step by step the slow way? Here are the steps. 
+
+> Newbies, just use the script **above**, much less likely to miss a step.
+
+
+```
+sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu/ jammy-proposed main restricted universe multiverse"
+```
+
+```
+sudo apt update && sudo apt install linux-firmware/jammy-proposed 
+```
+
+```
+sudo sed -i 's/^deb http:\/\/archive.ubuntu.com\/ubuntu\/ jammy-proposed/# &/' /etc/apt/sources.list
+```
+
+```
+sudo apt update && sudo rm /lib/firmware/mediatek/WIFI_MT7922_patch_mcu_1_1_hdr.bin
+```
+
+```
+sudo rm /lib/firmware/mediatek/WIFI_RAM_CODE_MT7922_1.bin
+```
+
+```
+cd /tmp
+```
+
+```
+wget https://gitlab.com/kernel-firmware/linux-firmware/-/raw/0a18a7292a66532633d9586521f0b954c68a9fbc/mediatek/WIFI_MT7922_patch_mcu_1_1_hdr.bin
+```
+
+```
+wget https://gitlab.com/kernel-firmware/linux-firmware/-/raw/0a18a7292a66532633d9586521f0b954c68a9fbc/mediatek/WIFI_RAM_CODE_MT7922_1.bin
+```
+
+```
+sudo mv WIFI_MT7922_patch_mcu_1_1_hdr.bin /lib/firmware/mediatek/
+```
+
+```
+sudo mv WIFI_RAM_CODE_MT7922_1.bin /lib/firmware/mediatek/ && sudo update-initramfs -u
+```
+
+
 
 ### Buzzing sound from headphone jack
 
@@ -181,6 +274,8 @@ echo 0 | sudo tee /sys/module/snd_hda_intel/parameters/power_save
 ```
 > **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
 
+
+Then:
 
 **Reboot**
 
