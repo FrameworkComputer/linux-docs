@@ -56,7 +56,7 @@ latest_oem_kernel=$(ls /boot/vmlinuz-* | grep '6.5.0-10..-oem' | sort -V | tail 
 > **Note:** This will appear if the code below is pasted into the terminal, enter key pressed and system rebooted.
 When a new version of the OEM kernel is ready, this will alert you at bootup - if you're *on the current OEM D kernel* AND you have *followed my above directions*, then and only then **you will not be alerted**. 
 
-![What does the OEM Kernel alert looks like](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/3.png)
+![What does the OEM Kernel alert looks like](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/d8becead412d3858a1f561fb2f827f803ab17c47/oem-d-alert.png)
 
 &nbsp; &nbsp; &nbsp; &nbsp; 
 
