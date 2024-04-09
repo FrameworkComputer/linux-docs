@@ -85,7 +85,7 @@ If you would rather enter the commands individually **instead** of using the cod
 ls /boot/vmlinuz-* | awk -F"-" '{split($0, a, "-"); version=a[3]; if (version>max) {max=version; kernel=a[2] "-" a[3] "-" a[4]}} END{print kernel}'
 ```
 
-Right now, this is **6.1.0-1025-oem** - but this may evolve in the future.
+Right now, this is **6.5.0.1013-oem** - but this may evolve in the future.
 
 
 
@@ -99,7 +99,7 @@ GRUB_DEFAULT="0"
 into
 
 ``
-GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.1.0-1025-oem"
+GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.5.0.1013-oem"
 ``
 
 
