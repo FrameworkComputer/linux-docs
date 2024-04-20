@@ -59,7 +59,7 @@ This will:
 > **Note:** This will appear if the code below is pasted into the terminal, enter key pressed and system rebooted.
 When a new version of the OEM kernel is ready, this will alert you at bootup - if you're *on the current OEM D kernel* AND you have *followed my above directions*, then and only then **you will not be alerted**. 
 
-![What does the OEM Kernel alert looks like](oem-d-alert.png)
+![What does the OEM Kernel alert looks like](images/oem-d-alert.png)
 
 <details>
 <summary>Here are the separated commands and steps for <b>advanced users</b>.</summary>
