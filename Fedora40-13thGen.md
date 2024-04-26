@@ -63,21 +63,7 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 &nbsp;
 &nbsp;
 
-### Enable brightness keys
 
-- Browse to the horizontal line in the upper left corner, click to open it.
-- Type out the word terminal, click to open it.
-- Copy the code below in the gray box, right click/paste it into the terminal window.
-- Then press the enter key, user password, enter key, **reboot.**
-
-
-```
-sudo grubby --update-kernel=ALL --args="module_blacklist=hid_sensor_hub"
-```
-> **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
-
-
-**Reboot**
 
 &nbsp;
 &nbsp;
