@@ -52,15 +52,4 @@ This will change 3 into 2, which will disable powersave.
 
 **reboot.**
 
-### Step 3 Disable the ALS sensor so that your brightness keys work.
 
-```
-sudo sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash module_blacklist=hid_sensor_hub"/g' /etc/default/grub && sudo update-grub
-```
-> **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
-
-<p style="text-align: left"><img src="https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/copied.png" alt="Copy The Code Below Like This" title="Copy The Code Above Like This"></p>
-
-**reboot.**
-
-&nbsp; &nbsp; &nbsp; &nbsp; 
