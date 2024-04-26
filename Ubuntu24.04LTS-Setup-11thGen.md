@@ -35,7 +35,7 @@ sudo apt update && sudo apt upgrade -y && sudo snap refresh
 - Click on the small icon shown in the image below to copy the code below in the gray box, right click/paste it into the terminal window.
 
 ```
-interface=$(nmcli -t -f active,device d wifi list | grep '^yes' | cut -d':' -f2) && echo -e "\n\033[1;33mInterface:\033[0m $interface" && iw dev $interface get power_save
+sudo apt install iw && interface=$(nmcli -t -f active,device d wifi list | grep '^yes' | cut -d':' -f2) && echo -e "\n\033[1;33mInterface:\033[0m $interface" && iw dev $interface get power_save
 ```
 This will indicate if your Wi-Fi power save is on or off. If it's on and you're seeing drops, continue to the next line.
 
