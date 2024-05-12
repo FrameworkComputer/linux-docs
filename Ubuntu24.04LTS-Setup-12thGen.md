@@ -5,7 +5,6 @@
 
 - Update your Ubuntu install's packages.
 - Provide a workaround for dropped Intel AX210 wifi.
-- Disable the ALS sensor so that your brightness keys work.
 - We are NOT recommending an OEM kernel at this time, this may change in the future. Default kernel is where you need to be.
 
 
