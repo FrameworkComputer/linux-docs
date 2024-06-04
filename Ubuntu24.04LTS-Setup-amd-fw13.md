@@ -50,7 +50,7 @@ Then:
 
 &nbsp;
 
-### Bonus Step (For fomer Mac users) Reduce Font Scaling to Match Your Needs
+### Bonus Step (for former Mac users) Reduce Font Scaling to Match Your Needs
 
 We received feedback that for users coming from OS X, installing GNOME Tweaks, browsing to Fonts and reducing the font size from 1.00 to .080 may be prefered. 
 
