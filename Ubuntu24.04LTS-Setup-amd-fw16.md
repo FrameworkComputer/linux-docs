@@ -49,8 +49,21 @@ Then:
 **Reboot**
 
 &nbsp;
-&nbsp;
-&nbsp;
 
+### Bonus Step (for former Mac users) Reduce Font Scaling to Match Your Needs
 
-&nbsp; &nbsp; &nbsp; &nbsp; 
+We received feedback that for users coming from OS X, installing GNOME Tweaks, browsing to Fonts and reducing the font size from 1.00 to .080 may be prefered. 
+
+- Goto Displays, set scaling to 200%. This will look too large, so let's fix the fonts.
+- Install with:
+  
+```
+sudo apt update && sudo apt install gnome-tweaks -y
+```
+
+- Open Tweaks by using the "Super" or Windows key, search tweaks, enter.
+
+- At the top, select fonts. Now in that panel, scroll all the way down. Look for Size. Change from 1.00 to 0.80. Close Tweaks.
+
+  Note: This is for the displays for the laptop only. This will look super odd on external displays and likely too large even still.
+ 
