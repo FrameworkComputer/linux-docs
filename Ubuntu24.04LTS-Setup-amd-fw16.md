@@ -11,7 +11,7 @@
 &nbsp; &nbsp; &nbsp; &nbsp; 
 
 
-### Step 1 Get everything updated
+### Get everything updated
 
 - Browse to the upper left corner, click the horizontal line to open the menu.
 - Type out the word terminal, click to open it.
@@ -28,6 +28,57 @@ sudo apt update && sudo apt upgrade -y && sudo snap refresh
 **reboot.**
 
 &nbsp; &nbsp; &nbsp;
+
+### USB-C Video Out from dGPU directly
+
+By default, when you attach a USB-C cable to the dGPU port, it will not come out of D3cold - this is by design and is to preserve your battery life during everyday usage.
+
+But you may find instances where you wish to connect to this port (HDMI/DP dongle to USB-C for example). There are a few ways to bring the dGPU out of D3cold.
+
+- [Mission Center](https://missioncenter.io/) or ``lspci -v``
+- Installing nvtop, then using this method.
+
+```
+sudo apt update && sudo apt install install nvtop -y
+```
+Create a script with the following:
+
+```
+sudo /usr/local/bin/external_video.sh
+```
+Paste in:
+
+```
+#!/bin/bash
+echo "USB device connected. Running nvtop for 2 seconds."
+
+timeout 2 nvtop
+
+echo "nvtop run completed."
+```
+Save the file. Now setup a udev rule.
+```
+sudo nano /etc/udev/rules.d/99-external_video.rules
+```
+
+Paste in.
+
+```
+ACTION=="add", SUBSYSTEM=="usb", RUN+="/usr/local/bin/external_video.sh"
+```
+
+Save the file, then run these commands.
+
+``sudo udevadm control --reload-rules``
+then
+``sudo udevadm trigger``
+
+- Plug in your adapter into the USB-C port on your dGPU port on the back, your display will come on.
+- NOTE: If you are using HDMI, USB-C or DP explansion cards in the expansion bays on the side of the laptop, this is not needed.
+
+&nbsp;
+&nbsp;
+&nbsp;
 
 ### Optional and only if needed - current AMD Ryzen 7040 Series workarounds to common issues
 
