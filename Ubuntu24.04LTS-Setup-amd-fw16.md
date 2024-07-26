@@ -31,7 +31,7 @@ sudo apt update && sudo apt upgrade -y && sudo snap refresh
 
 ### USB-C Video Out from dGPU directly
 
-By default, when you attach a USB-C cable to the dGPU port, it will not come out of D3cold - this is by design and is to preserve your battery life during everyday usage.
+By default, when you attach a USB-C cable to the dGPU port, it will not come out of [D3cold](https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/device-power-states) - this is by design and is to preserve your battery life during everyday usage.
 
 But you may find instances where you wish to connect to this port (HDMI/DP dongle to USB-C for example). There are a few ways to bring the dGPU out of D3cold.
 
