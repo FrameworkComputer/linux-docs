@@ -31,17 +31,13 @@ fi
 # Display search results and extract application IDs
 echo "Found the following options:"
 echo "$search_result"
-app_ids=$(echo "$search_result" | awk 'NR>1 {print $3}')
-echo ""
-echo "Available Application IDs:"
-echo "$app_ids"
 echo ""
 
-# Prompt for selection
-read -p "Please enter the Application ID you want to install from the above list: " app_id
+# Prompt for selection and wait for user input
+read -p "Please enter the full Application ID you want to install (e.g., com.github.wwmm.easyeffects): " app_id
 
 # Check if the user provided a valid app_id
-if ! echo "$app_ids" | grep -qw "$app_id"; then
+if ! echo "$search_result" | grep -q "$app_id"; then
     echo "Invalid Application ID. Please try again manually."
     exit 1
 fi
