@@ -15,30 +15,23 @@ else
     echo "Available remotes:"
     flatpak remotes --columns=name,title
 
-    # Prompt user to choose a remote
-    read -p "Enter the name of the remote to use for installation (e.g., flathub): " remote_name
+    # Set default remote to flathub
+    remote_name="flathub"
 
-    # Search for Easy Effects in the chosen remote
-    echo "Searching for Easy Effects in $remote_name..."
-    search_results=$(flatpak search --remote="$remote_name" easyeffects)
-
-    if [ -z "$search_results" ]; then
-        echo "No Easy Effects package found in $remote_name. Please choose another remote."
-        exit 1
+    # Prompt user to choose a remote or use default
+    read -p "Enter the name of the remote to use for installation (default: flathub): " user_input
+    if [ -n "$user_input" ]; then
+        remote_name="$user_input"
     fi
 
-    echo "Found the following package(s):"
-    echo "$search_results"
+    echo "Using remote: $remote_name"
 
-    # Prompt user to confirm installation
-    read -p "Do you want to install Easy Effects from $remote_name? (y/n): " confirm
-
-    if [[ $confirm == [Yy]* ]]; then
-        # Install Easy Effects from the chosen remote
-        flatpak install --user -y "$remote_name" com.github.wwmm.easyeffects
+    # Install Easy Effects from the chosen remote
+    if flatpak install --user -y "$remote_name" com.github.wwmm.easyeffects; then
+        echo "Easy Effects has been successfully installed."
     else
-        echo "Installation cancelled."
-        exit 0
+        echo "Failed to install Easy Effects. Please check the remote name and try again."
+        exit 1
     fi
 fi
 
