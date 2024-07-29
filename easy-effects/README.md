@@ -16,7 +16,7 @@ sudo dnf install curl -y
 Then paste this and press enter.
 
 ```
-curl -L https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/Fedora-easy-effects-16-installer.sh | bash
+curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/Fedora-easy-effects-16-installer.sh | bash
 ```
 
 Then just load the profile by clicking the Load profile option as shown below.
