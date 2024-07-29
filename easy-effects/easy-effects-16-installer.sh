@@ -33,3 +33,4 @@ sleep 2
 nohup flatpak run com.github.wwmm.easyeffects &>/dev/null &
 
 echo "Easy Effects profile installation completed and preset preloaded. Please open Easy Effects and verify the 'fw16-easy-effects' profile is loaded."
+ 
