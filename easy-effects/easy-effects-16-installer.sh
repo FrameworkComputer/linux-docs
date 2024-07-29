@@ -27,14 +27,17 @@ else
         exit 1
     fi
 
+    # Extract application IDs
+    app_ids=$(echo "$search_result" | awk '{print $3}')
+
     # Display search results and prompt for selection
     echo "Found the following options:"
     echo "$search_result"
     echo ""
-    read -p "Please enter the Application ID you want to install: " app_id
+    read -p "Please enter the Application ID you want to install from the above list: " app_id
 
     # Check if the user provided a valid app_id
-    if [[ -z "$app_id" || ! "$search_result" =~ "$app_id" ]]; then
+    if [[ -z "$app_id" || ! $(echo "$app_ids" | grep -w "$app_id") ]]; then
         echo "Invalid Application ID. Please try again manually."
         exit 1
     fi
