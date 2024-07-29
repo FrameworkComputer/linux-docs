@@ -5,7 +5,7 @@ if flatpak list | grep -q "com.github.wwmm.easyeffects"; then
     echo "Easy Effects is installed via Flatpak."
 else
     echo "Easy Effects is not installed via Flatpak. Installing Easy Effects..."
-    flatpak install -y flathub com.github.wwmm.easyeffects
+    flatpak install --user -y flathub com.github.wwmm.easyeffects
 fi
 
 # Create the necessary directory and download the JSON file
