@@ -29,25 +29,18 @@ fi
 
 echo "Found Easy Effects Flatpak package: $easy_effects_option"
 
-read -p "Do you want to install this package? (y/n): " confirm
+# Install Easy Effects Flatpak package without prompting
+run_command "flatpak install flathub $easy_effects_option -y"
 
-if [[ $confirm == [Yy]* ]]; then
-  # Install Easy Effects Flatpak package
-  run_command "flatpak install flathub $easy_effects_option -y"
-  
-  # Setup for Flatpak install
-  PRESET_DIR="$HOME/.var/app/com.github.wwmm.easyeffects/config/easyeffects/output"
-  run_command "mkdir -p $PRESET_DIR"
-  PRESET_NAME="fw16-easy-effects"
-  PRESET_FILE="$PRESET_DIR/$PRESET_NAME.json"
-  run_command "curl -o $PRESET_FILE https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/fw16-easy-effects.json"
-  
-  run_command "pkill easyeffects || true"
-  sleep 2
-  run_command "nohup flatpak run com.github.wwmm.easyeffects &>/dev/null &"
-  
-  echo "Easy Effects Flatpak installation completed and preset preloaded. Please open Easy Effects and verify the 'fw16-easy-effects' profile is loaded."
-else
-  echo "Installation cancelled."
-  exit 0
-fi
+# Setup for Flatpak install
+PRESET_DIR="$HOME/.var/app/com.github.wwmm.easyeffects/config/easyeffects/output"
+run_command "mkdir -p $PRESET_DIR"
+PRESET_NAME="fw16-easy-effects"
+PRESET_FILE="$PRESET_DIR/$PRESET_NAME.json"
+run_command "curl -o $PRESET_FILE https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/fw16-easy-effects.json"
+
+run_command "pkill easyeffects || true"
+sleep 2
+run_command "nohup flatpak run com.github.wwmm.easyeffects &>/dev/null &"
+
+echo "Easy Effects Flatpak installation completed and preset preloaded. Please open Easy Effects and verify the 'fw16-easy-effects' profile is loaded."
