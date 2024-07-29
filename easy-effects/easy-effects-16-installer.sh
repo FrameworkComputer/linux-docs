@@ -1,30 +1,39 @@
 #!/bin/bash
 
-# Function to check if a command exists
-command_exists() {
-    command -v "$1" &>/dev/null
-}
-
 # Check if Easy Effects is installed via Flatpak
 if flatpak list | grep -q "com.github.wwmm.easyeffects"; then
     echo "Easy Effects is already installed via Flatpak."
 else
     echo "Easy Effects is not installed via Flatpak. We need to install it."
-
-    # Ensure Flathub remote is added
-    if ! flatpak remotes | grep -q "flathub"; then
-        echo "Adding Flathub remote..."
-        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    fi
-
-    # Install Easy Effects
-    echo "Installing Easy Effects..."
-    if flatpak install --user -y flathub com.github.wwmm.easyeffects; then
-        echo "Easy Effects has been successfully installed."
-    else
-        echo "Failed to install Easy Effects. Please try again manually."
-        exit 1
-    fi
+    
+    echo "Please choose from the following options:"
+    echo "1) Install from Flathub (system)"
+    echo "2) Install from Flathub (user)"
+    echo "3) Cancel installation"
+    
+    read -p "Enter your choice (1-3): " choice
+    
+    case $choice in
+        1)
+            echo "You chose to install from Flathub (system)."
+            echo "Run the following command to install:"
+            echo "sudo flatpak install flathub com.github.wwmm.easyeffects"
+            ;;
+        2)
+            echo "You chose to install from Flathub (user)."
+            echo "Run the following command to install:"
+            echo "flatpak install --user flathub com.github.wwmm.easyeffects"
+            ;;
+        3)
+            echo "Installation cancelled."
+            ;;
+        *)
+            echo "Invalid choice. Installation cancelled."
+            ;;
+    esac
+    
+    echo "After installation, please run this script again to set up the preset."
+    exit 0
 fi
 
 # Create the necessary directory and download the JSON file
