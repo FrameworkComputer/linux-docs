@@ -6,48 +6,42 @@ run_command() {
   eval "$@"
 }
 
-# Check if Easy Effects is installed via Flatpak
-if flatpak list | grep -q ".easyeffects"; then
-  echo "Easy Effects is already installed via Flatpak."
+# Check if Easy Effects is installed (adjust for your system)
+if command -v easyeffects &> /dev/null; then
+  echo "Easy Effects is already installed."
   exit 0
 fi
 
-echo "Easy Effects is not installed via Flatpak. We need to install it."
+echo "Easy Effects is not installed."
 
-# Ensure Flathub remote is added
-if ! flatpak remotes | grep -q "flathub"; then
-  echo "Adding Flathub remote..."
-  run_command "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
-fi
+# Function to find Easy Effects packages (adjust for your system)
+find_easy_effects() {
+  # Replace with appropriate package manager commands for your system
+  # Example for Debian-based systems:
+  dpkg -l | grep -i easyeffects | awk '{print $2}'
+}
 
-# Search for Easy Effects
-echo "Searching for Easy Effects..."
-search_result=$(flatpak search easyeffects)
-if [ -z "$search_result" ]; then
-  echo "No results found for Easy Effects. Please check your Flatpak remotes and try again."
+# Find available Easy Effects options
+easy_effects_options=$(find_easy_effects)
+
+# Create a selection menu
+if [ -z "$easy_effects_options" ]; then
+  echo "No Easy Effects options found."
   exit 1
 fi
 
-# Extract Application IDs from search results
-app_ids=($(echo "$search_result" | awk '{print $1}'))
-
-# Create a selection menu
-PS3="Select an Application ID: "
-select app_id in "${app_ids[@]}"
+PS3="Select an Easy Effects package: "
+select app_id in $easy_effects_options
 do
-  if [[ $REPLY -gt 0 && $REPLY -le ${#app_ids[@]} ]]; then
+  if [[ $REPLY -gt 0 && $REPLY -le ${#easy_effects_options[@]} ]]; then
     break
   fi
   echo "Invalid selection. Please try again."
 done
 
-# Attempt to install the selected Application ID
-if run_command "flatpak install --user -y flathub $app_id"; then
-  echo "Easy Effects has been successfully installed."
-else
-  echo "Installation failed. Please try again manually."
-  exit 1
-fi
+# Attempt to install the selected Easy Effects package (adjust for your system)
+# Example for Debian-based systems:
+run_command "sudo apt install $app_id -y"
 
 # Rest of the script for setting up the preset
 run_command "mkdir -p ~/.config/easyeffects/output"
@@ -60,5 +54,5 @@ run_command "cp $PRESET_FILE $PRESET_DIR"
 run_command "ln -sf $PRESET_FILE $PRESET_DIR/$PRESET_NAME.json"
 run_command "pkill easyeffects || true"
 sleep 2
-run_command "nohup flatpak run $app_id &>/dev/null &"
+run_command "nohup easyeffects &>/dev/null &"  # Assuming `easyeffects` is the command to run
 echo "Easy Effects profile installation completed and preset preloaded. Please open Easy Effects and verify the 'fw16-easy-effects' profile is loaded."
