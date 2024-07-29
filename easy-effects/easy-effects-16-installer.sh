@@ -11,12 +11,15 @@ if flatpak list | grep -q "com.github.wwmm.easyeffects"; then
 else
     echo "Easy Effects is not installed via Flatpak. We need to install it."
 
+    # Ensure Flathub remote is added
+    if ! flatpak remotes | grep -q "flathub"; then
+        echo "Adding Flathub remote..."
+        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    fi
+
     # Install Easy Effects
     echo "Installing Easy Effects..."
-    flatpak install easyeffects
-
-    # Check if installation was successful
-    if flatpak list | grep -q "com.github.wwmm.easyeffects"; then
+    if flatpak install --user -y flathub com.github.wwmm.easyeffects; then
         echo "Easy Effects has been successfully installed."
     else
         echo "Failed to install Easy Effects. Please try again manually."
