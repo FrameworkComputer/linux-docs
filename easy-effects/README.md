@@ -45,3 +45,31 @@ Then just load the profile by clicking the Load profile option as shown below.
 
 ![image](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/images/fw16-easyeffects.png)
 
+
+--------------------------
+## For Fedora users on their Framework Laptop 16:
+
+Coming soon
+
+
+--------------------------
+## For Ubuntu users on their Framework Laptop 13:
+
+Coming soon
+
+
+--------------------------
+
+## FAQ
+
+- Can you run both of these to compare them?
+> Yes, you can. Nothing is overwritten, it will just try to install the flatpack twice which is fine and affects nothing.
+
+- Do you need to look for the profile once it's installed?
+> Nope, just follow the iamge. It's browsed for you, just load it.
+
+- I'd rather load this manually. How?
+> We're going to reocmmend the automated method, but if you on our own, wish to do this:
+> - Install Easy Effects.
+> - Download the json file you wish to use.
+> - Browse to it from the present menu.
