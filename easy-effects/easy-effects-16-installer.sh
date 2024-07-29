@@ -29,8 +29,8 @@ fi
 
 echo "Found Easy Effects Flatpak package: $easy_effects_option"
 
-# Install Easy Effects Flatpak package without prompting
-run_command "flatpak install flathub $easy_effects_option -y"
+# Install Easy Effects Flatpak package without prompting, always choosing user installation
+run_command "flatpak install --user flathub $easy_effects_option -y"
 
 # Setup for Flatpak install
 PRESET_DIR="$HOME/.var/app/com.github.wwmm.easyeffects/config/easyeffects/output"
@@ -41,6 +41,6 @@ run_command "curl -o $PRESET_FILE https://raw.githubusercontent.com/FrameworkCom
 
 run_command "pkill easyeffects || true"
 sleep 2
-run_command "nohup flatpak run com.github.wwmm.easyeffects &>/dev/null &"
+run_command "flatpak run com.github.wwmm.easyeffects &>/dev/null &"
 
 echo "Easy Effects Flatpak installation completed and preset preloaded. Please open Easy Effects and verify the 'fw16-easy-effects' profile is loaded."
