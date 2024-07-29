@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Fedora installer. Installs Easy Effects, installs the FW16 profile. 
+log_file="/tmp/easy_effects_install.log"
 
 # Function to install Easy Effects via Flatpak
 install_easy_effects() {
