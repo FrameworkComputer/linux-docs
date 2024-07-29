@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Function to install Easy Effects via Flatpak
+# Installs Easy Effects via Flatpak for Fedora or distros using flatpak.
 install_easy_effects() {
     echo "Easy Effects is not installed. Installing Flatpak package..."
     if ! flatpak install --user flathub com.github.wwmm.easyeffects -y; then
