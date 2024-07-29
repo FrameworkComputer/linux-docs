@@ -5,7 +5,8 @@ if flatpak list | grep -q "com.github.wwmm.easyeffects"; then
     echo "Easy Effects is installed via Flatpak."
 else
     echo "Easy Effects is not installed via Flatpak. Installing Easy Effects..."
-    flatpak install --user -y flathub com.github.wwmm.easyeffects
+    # Specify the installation source
+    flatpak install --user -y --installation=default flathub com.github.wwmm.easyeffects
 fi
 
 # Create the necessary directory and download the JSON file
@@ -33,4 +34,3 @@ sleep 2
 nohup flatpak run com.github.wwmm.easyeffects &>/dev/null &
 
 echo "Easy Effects profile installation completed and preset preloaded. Please open Easy Effects and verify the 'fw16-easy-effects' profile is loaded."
- 
