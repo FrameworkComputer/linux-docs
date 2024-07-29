@@ -1,18 +1,5 @@
 #!/bin/bash
 
-# Function to check if a command exists
-command_exists() {
-    command -v "$1" &>/dev/null
-}
-
-# Check if curl is installed
-if ! command_exists curl; then
-    echo "curl is not installed. Installing curl..."
-    sudo dnf install -y curl
-else
-    echo "curl is already installed."
-fi
-
 # Check if Easy Effects is installed via Flatpak
 if flatpak list | grep -q "com.github.wwmm.easyeffects"; then
     echo "Easy Effects is installed via Flatpak."
