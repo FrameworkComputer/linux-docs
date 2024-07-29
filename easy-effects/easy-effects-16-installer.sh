@@ -1,11 +1,16 @@
 #!/bin/bash
 
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" &>/dev/null
+}
+
 # Check if Easy Effects is installed via Flatpak
 if flatpak list | grep -q "com.github.wwmm.easyeffects"; then
     echo "Easy Effects is installed via Flatpak."
 else
-    echo "Easy Effects is not installed via Flatpak. Please install it first."
-    exit 1
+    echo "Easy Effects is not installed via Flatpak. Installing Easy Effects..."
+    flatpak install -y flathub com.github.wwmm.easyeffects
 fi
 
 # Create the necessary directory and download the JSON file
