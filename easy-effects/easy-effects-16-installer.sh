@@ -13,7 +13,7 @@ else
 
     # List available remotes
     echo "Available remotes:"
-    flatpak remotes
+    flatpak remotes --columns=name,title
 
     # Prompt user to choose a remote
     read -p "Enter the name of the remote to use for installation (e.g., flathub): " remote_name
