@@ -33,11 +33,16 @@ echo "Found the following options:"
 echo "$search_result"
 echo ""
 
-# Stop and wait for user confirmation
-read -p "Press Enter to continue with the installation, or Ctrl+C to exit..."
+# THIS IS WHERE THE SCRIPT STOPS AND WAITS FOR USER INPUT
+read -p "Enter the Application ID you want to install (e.g., com.github.wwmm.easyeffects): " app_id
 
-# Attempt to install Easy Effects
-app_id="com.github.wwmm.easyeffects"
+# Check if the user provided a valid app_id
+if ! echo "$search_result" | grep -q "$app_id"; then
+    echo "Invalid Application ID. Please try again manually."
+    exit 1
+fi
+
+# Attempt to install the selected Application ID
 if run_command "flatpak install --user -y flathub $app_id"; then
     echo "Easy Effects has been successfully installed."
 else
