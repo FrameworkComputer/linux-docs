@@ -33,6 +33,12 @@ else
     echo ""
     read -p "Please enter the Application ID you want to install (e.g., com.github.wwmm.easyeffects): " app_id
 
+    # Check if the user provided a valid app_id
+    if [[ -z "$app_id" || ! "$app_id" =~ ^com.github.wwmm.easyeffects$ ]]; then
+        echo "Invalid Application ID. Please try again manually."
+        exit 1
+    fi
+
     # Attempt to install the selected Application ID
     if run_command "flatpak install --user -y flathub $app_id"; then
         echo "Easy Effects has been successfully installed."
