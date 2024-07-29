@@ -9,25 +9,24 @@ command_exists() {
 if flatpak list | grep -q "com.github.wwmm.easyeffects"; then
     echo "Easy Effects is already installed via Flatpak."
 else
-    echo "Easy Effects is not installed via Flatpak. Let's install it."
+    echo "Easy Effects is not installed via Flatpak. We need to install it."
 
     # List available remotes
     echo "Available remotes:"
     flatpak remotes --columns=name,title
 
-    # Set default remote to flathub
-    remote_name="flathub"
+    # Prompt user to choose a remote
+    read -p "Enter the name of the remote to use for installation (e.g., flathub): " remote_name
 
-    # Prompt user to choose a remote or use default
-    read -p "Enter the name of the remote to use for installation (default: flathub): " user_input
-    if [ -n "$user_input" ]; then
-        remote_name="$user_input"
+    # Confirm with the user
+    read -p "Are you sure you want to install Easy Effects from $remote_name? (y/n): " confirm
+    if [[ $confirm != [Yy]* ]]; then
+        echo "Installation cancelled."
+        exit 0
     fi
 
-    echo "Using remote: $remote_name"
-
     # Install Easy Effects from the chosen remote
-    if flatpak install --user -y "$remote_name" com.github.wwmm.easyeffects; then
+    if flatpak install --user "$remote_name" com.github.wwmm.easyeffects; then
         echo "Easy Effects has been successfully installed."
     else
         echo "Failed to install Easy Effects. Please check the remote name and try again."
