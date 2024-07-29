@@ -22,3 +22,26 @@ curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-ef
 Then just load the profile by clicking the Load profile option as shown below.
 
 ![image](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/images/fw16-easyeffects.png)
+
+-----------------------
+
+## For Fedora users on their Framework Laptop 13:
+
+### Automated method:
+
+Ensure curl is installed:
+
+```
+sudo dnf install curl -y
+```
+
+Then paste this and press enter.
+
+```
+curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/Fedora-easy-effects-13-installer.sh | bash
+```
+
+Then just load the profile by clicking the Load profile option as shown below.
+
+![image](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/images/fw16-easyeffects.png)
+
