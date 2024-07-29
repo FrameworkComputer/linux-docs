@@ -7,7 +7,7 @@ run_command() {
 }
 
 # Check if Easy Effects is installed via Flatpak
-if flatpak list | grep -q "com.github.wwmm.easyeffects"; then
+if flatpak list | grep -q ".easyeffects"; then
     echo "Easy Effects is already installed via Flatpak."
 else
     echo "Easy Effects is not installed via Flatpak. We need to install it."
@@ -20,7 +20,7 @@ else
 
     # Search for Easy Effects
     echo "Searching for Easy Effects..."
-    search_result=$(flatpak search easyeffects)
+    search_result=$(flatpak search easyeffects | grep ".easyeffects")
 
     if [ -z "$search_result" ]; then
         echo "No results found for Easy Effects. Please check your Flatpak remotes and try again."
@@ -31,10 +31,10 @@ else
     echo "Found the following options:"
     echo "$search_result"
     echo ""
-    read -p "Please enter the Application ID you want to install (e.g., com.github.wwmm.easyeffects): " app_id
+    read -p "Please enter the Application ID you want to install: " app_id
 
     # Check if the user provided a valid app_id
-    if [[ -z "$app_id" || ! "$app_id" =~ ^com.github.wwmm.easyeffects$ ]]; then
+    if [[ -z "$app_id" || ! "$search_result" =~ "$app_id" ]]; then
         echo "Invalid Application ID. Please try again manually."
         exit 1
     fi
@@ -62,6 +62,6 @@ run_command "ln -sf $PRESET_FILE $PRESET_DIR/$PRESET_NAME.json"
 
 run_command "pkill easyeffects || true"
 sleep 2
-run_command "nohup flatpak run com.github.wwmm.easyeffects &>/dev/null &"
+run_command "nohup flatpak run $app_id &>/dev/null &"
 
 echo "Easy Effects profile installation completed and preset preloaded. Please open Easy Effects and verify the 'fw16-easy-effects' profile is loaded."
