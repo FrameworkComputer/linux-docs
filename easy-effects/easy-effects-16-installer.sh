@@ -1,12 +1,25 @@
 #!/bin/bash
 
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" &>/dev/null
+}
+
 # Check if Easy Effects is installed via Flatpak
 if flatpak list | grep -q "com.github.wwmm.easyeffects"; then
     echo "Easy Effects is installed via Flatpak."
 else
     echo "Easy Effects is not installed via Flatpak. Installing Easy Effects..."
-    # Specify the installation source
-    flatpak install --user -y --installation=default flathub com.github.wwmm.easyeffects
+
+    # List available remotes
+    echo "Available remotes:"
+    flatpak remotes
+
+    # Prompt user to choose a remote
+    read -p "Enter the name of the remote to use for installation (e.g., flathub): " remote_name
+
+    # Install Easy Effects from the chosen remote
+    flatpak install --user -y "$remote_name" com.github.wwmm.easyeffects
 fi
 
 # Create the necessary directory and download the JSON file
