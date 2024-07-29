@@ -20,20 +20,20 @@ else
 
     # Search for Easy Effects
     echo "Searching for Easy Effects..."
-    search_result=$(flatpak search easyeffects | grep ".easyeffects")
+    search_result=$(flatpak search easyeffects)
 
     if [ -z "$search_result" ]; then
         echo "No results found for Easy Effects. Please check your Flatpak remotes and try again."
         exit 1
     fi
 
-    # Extract application IDs
-    app_ids=$(echo "$search_result" | awk '{print $3}')
-
-    # Display search results and prompt for selection
+    # Display search results and extract application IDs
     echo "Found the following options:"
     echo "$search_result"
+    app_ids=$(echo "$search_result" | awk '{print $3}')
     echo ""
+
+    # Prompt for selection
     read -p "Please enter the Application ID you want to install from the above list: " app_id
 
     # Check if the user provided a valid app_id
