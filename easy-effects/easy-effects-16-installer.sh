@@ -2,52 +2,51 @@
 
 # Function to print and execute a command
 run_command() {
-    echo "Running: $*"
-    eval "$@"
+  echo "Running: $*"
+  eval "$@"
 }
 
 # Check if Easy Effects is installed via Flatpak
 if flatpak list | grep -q ".easyeffects"; then
-    echo "Easy Effects is already installed via Flatpak."
-    exit 0
+  echo "Easy Effects is already installed via Flatpak."
+  exit 0
 fi
 
 echo "Easy Effects is not installed via Flatpak. We need to install it."
 
 # Ensure Flathub remote is added
 if ! flatpak remotes | grep -q "flathub"; then
-    echo "Adding Flathub remote..."
-    run_command "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
+  echo "Adding Flathub remote..."
+  run_command "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
 fi
 
 # Search for Easy Effects
 echo "Searching for Easy Effects..."
 search_result=$(flatpak search easyeffects)
 if [ -z "$search_result" ]; then
-    echo "No results found for Easy Effects. Please check your Flatpak remotes and try again."
-    exit 1
+  echo "No results found for Easy Effects. Please check your Flatpak remotes and try again."
+  exit 1
 fi
 
-# Display search results
-echo "Found the following options:"
-echo "$search_result"
-echo ""
+# Extract Application IDs from search results
+app_ids=($(echo "$search_result" | awk '{print $1}'))
 
-# THIS IS WHERE THE SCRIPT STOPS AND WAITS FOR USER INPUT
-read -p "Enter the Application ID you want to install (e.g., com.github.wwmm.easyeffects): " app_id
-
-# Check if the user provided a valid app_id
-if ! echo "$search_result" | grep -q "$app_id"; then
-    echo "Invalid Application ID. Please try again manually."
-    exit 1
-fi
+# Create a selection menu
+PS3="Select an Application ID: "
+select app_id in "${app_ids[@]}"
+do
+  if [[ $REPLY -gt 0 && $REPLY -le ${#app_ids[@]} ]]; then
+    break
+  fi
+  echo "Invalid selection. Please try again."
+done
 
 # Attempt to install the selected Application ID
 if run_command "flatpak install --user -y flathub $app_id"; then
-    echo "Easy Effects has been successfully installed."
+  echo "Easy Effects has been successfully installed."
 else
-    echo "Installation failed. Please try again manually."
-    exit 1
+  echo "Installation failed. Please try again manually."
+  exit 1
 fi
 
 # Rest of the script for setting up the preset
