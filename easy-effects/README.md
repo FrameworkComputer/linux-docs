@@ -84,7 +84,7 @@ Then paste this and press enter.
 curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/Ubuntu-easy-effects-13-installer.sh | bash
 ```
 
-Then just load the profile by clicking the Load profile option as shown below.
+Then just load the profile by clicking the Load profile option as shown below. Yes, the image below shows FW16, but the image is merely a visual aid. It will reflect the apprpriate profile.
 
 ![image](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/images/ubuntu-easy-effects.png)
 
