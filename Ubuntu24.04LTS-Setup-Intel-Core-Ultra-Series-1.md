@@ -1,5 +1,6 @@
 # This is for Intel® Core™ Ultra Series 1 Framework Laptop 13 ONLY.
 
+#### Requires Ubuntu 24.04.1 (due Aug. 15th, 2024)
 
 ## This will:
 
