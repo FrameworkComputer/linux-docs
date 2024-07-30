@@ -47,16 +47,46 @@ Then just load the profile by clicking the Load profile option as shown below.
 
 
 --------------------------
-## For Fedora users on their Framework Laptop 16:
+## For Ubuntu users on their Framework Laptop 16:
 
-Coming soon
+### Automated method:
 
+Ensure curl is installed:
+
+```
+sudo apt install curl -y
+```
+
+Then paste this and press enter.
+
+```
+curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/Ubuntu-easy-effects-16-installer.sh | bash
+```
+
+Then just load the profile by clicking the Load profile option as shown below.
+
+![image](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/images/ubuntu-easy-effects.png)
 
 --------------------------
 ## For Ubuntu users on their Framework Laptop 13:
 
-Coming soon
+### Automated method:
 
+Ensure curl is installed:
+
+```
+sudo apt install curl -y
+```
+
+Then paste this and press enter.
+
+```
+curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/Ubuntu-easy-effects-13-installer.sh | bash
+```
+
+Then just load the profile by clicking the Load profile option as shown below.
+
+![image](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/images/ubuntu-easy-effects.png)
 
 --------------------------
 
