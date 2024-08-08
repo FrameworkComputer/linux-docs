@@ -5,7 +5,7 @@
 
 - Update your Ubuntu install's packages.
 - (Optional) Stop buzzing sound from headphone jack if its present.
-- We are NOT recommending an OEM kernel at this time, this may change in the future. Default kernel is where you need to be.
+- Unlike in 22.04, we are NOT recommending an OEM kernel at this time, this may change in the future. Default kernel is where you need to be.
 
 
 &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -103,10 +103,10 @@ Then:
 
 ### Bonus Step (for former Mac users) Reduce Font Scaling to Match Your Needs
 
-We received feedback that for users coming from OS X, installing GNOME Tweaks, browsing to Fonts, and reducing the font size from 1.00 to 0.80 may be preferred. 
+We received feedback that for users coming from macOS, that installing GNOME Tweaks, browsing to Fonts, and reducing the font size from 1.00 to 0.80 may be preferred. 
 
 - Goto Displays, set scaling to 200%. This will look too large, so let's fix the fonts.
-- Install with:
+- Install GNOME Tweaks either by searching for it in Ubuntu Software or on the terminal with:
   
 ```
 sudo apt update && sudo apt install gnome-tweaks -y
