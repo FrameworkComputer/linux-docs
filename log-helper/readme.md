@@ -46,10 +46,15 @@ It can also gather logs from specific time ranges or filter existing logs for ke
   Sections provided and clearly isolated:
   
   ===== System Information =====
+  
   ===== dmesg output starts =====
+  
   ===== journalctl output starts =====
+  
   ===== Focused Summary of Potential Issues =====
+  
   ===== General Summary of Potential Issues (excluding gnome-shell errors) =====
+  
 
 
 Curl should already be installed.
@@ -70,7 +75,7 @@ sudo apt install curl -y
 **Then run:**
 
 ```
-curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/log-helper/combined.sh && clear && sh combined.sh
+curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/log-helper/combined.sh && clear Gathersombined.sh
 ```
 
 <br />
