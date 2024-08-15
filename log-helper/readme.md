@@ -2,19 +2,19 @@
 ## Framework Log Helper aka "combined.sh"
 
 This script collects and analyzes system logs from your computer, helping Framework support to identify potential issues or errors. 
-It can also gather logs from specific time ranges or filter existing logs for keywords, providing summaries of potential problems related to graphics, networking, and critical system errors.
+It can also gather logs from specific time ranges or filter existing logs for keywords, providing summaries of potential problems related to graphics, networking, and critical sytem errors.
 
 
 ### How it works
 
-• Main Features:
+ Main Features:
   - Gathers logs from two main sources: dmesg (kernel messages) and journalctl (system and service logs)
-  - Allows users to choose a time range for log collection
+  - Provides a time range for log collection
   - Can filter existing log files for specific keywords or phrases
   - Provides summaries of potential issues, focusing on graphics, networking, and critical errors
 
 • How it's used:
-  1. The user chooses from four options:
+  1. Choose from four options:
      - Collect logs from the last X minutes
      - Collect logs from the last 24 hours
      - Collect logs for a specific time range
