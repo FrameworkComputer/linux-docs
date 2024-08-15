@@ -75,7 +75,7 @@ sudo apt install curl -y
 **Then run:**
 
 ```
-curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/log-helper/combined.sh && clear && sh combined.sh
+curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/log-helper/combined.sh -o combined.sh && clear && sh combined.sh
 ```
 
 <br />
