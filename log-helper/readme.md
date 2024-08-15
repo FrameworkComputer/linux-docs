@@ -11,3 +11,6 @@ Ubuntu
 sudo apt install curl -y
 
 
+```
+curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/log-helper/combined.sh && clear && sh combined.sh
+```
