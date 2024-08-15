@@ -77,7 +77,7 @@ curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/log-hel
 
 #### Running the script in the future
 
->After the install, you can run going forward with the following in the HOME direcotory. So merely opening a terminal and running this will work if the original script has not been moved.<br />
+>After the install, you can run going forward with the following in the HOME directory. So merely opening a terminal and running this will work if the original script has not been moved.<br />
 
 ```
 sh combined.sh
