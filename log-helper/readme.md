@@ -13,7 +13,7 @@ It can also gather logs from specific time ranges or filter existing logs for ke
   - Can filter existing log files for specific keywords or phrases
   - Provides summaries of potential issues, focusing on graphics, networking, and critical errors
 
-• How it works:
+• How it's used:
   1. The user chooses from four options:
      - Collect logs from the last X minutes
      - Collect logs from the last 24 hours
