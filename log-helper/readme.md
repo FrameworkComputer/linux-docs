@@ -84,7 +84,7 @@ sh combined.sh
 ```
 <br /><br />
 
-#### Last X Minutes (How many minutes ago you wish to gather logs from)
+#### Last X Minutes (How many minutes ago do you wish to gather logs from)
 ![Last X Minutes](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/log-helper/images/1.gif "Last X Minutes")
 
 
