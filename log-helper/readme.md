@@ -55,28 +55,35 @@ It can also gather logs from specific time ranges or filter existing logs for ke
 Curl should already be installed.
 But just in case:
 
-Fedora
+#### Fedora
 ```
 sudo dnf install curl -y
 ```
 
 or
 
-Ubuntu
+#### Ubuntu
 ```
 sudo apt install curl -y
 ```
 
-Then run
+**Then run:**
 
 ```
 curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/log-helper/combined.sh && clear && sh combined.sh
 ```
-After the install, you can run going forward with the following in the HOME direcotory. So merely opening a terminal and running this will work if the original script has not been moved.
+
+<br />
+
+#### Running the script in the future
+
+>After the install, you can run going forward with the following in the HOME direcotory. So merely opening a terminal and running this will work if the original script has not been moved.<br />
 
 ```
 sh combined.sh
 ```
+<br /><br />
+
 #### Last X Minutes (How many minutes ago you wish to gather logs from)
 ![Last X Minutes](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/log-helper/images/1.gif "Last X Minutes")
 
