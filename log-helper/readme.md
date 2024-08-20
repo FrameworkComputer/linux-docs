@@ -6,6 +6,10 @@ It can also gather logs from specific time ranges or filter existing logs for ke
 
 ### How to use this tool?
 
+####
+- [Deep dive into how it works](https://github.com/FrameworkComputer/linux-docs/blob/main/log-helper/how-it-works.md#how-it-works).
+- [Troubleshooting common issues](https://github.com/FrameworkComputer/linux-docs/blob/main/log-helper/how-it-works.md#troubleshooting).
+
 **For customer self-support, this is useful in that you can grab your logs from any of the three options:**
 
 ### Install Curl
