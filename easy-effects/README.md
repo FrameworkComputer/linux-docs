@@ -3,7 +3,7 @@
 ### Sourced from [this Arch wiki guide](https://wiki.archlinux.org/title/Framework_Laptop_16#Easy_Effects).
 #### fw16-easy-effects.json is based on [amesb's fw16 EE profile.json](https://gist.github.com/amesb/cc5d717472d7e322b5f551b643ff03f4) and fw13-easy-effects.json is based on [Gracefu's Edits.json](https://github.com/cab404/framework-dsp/blob/master/config/output/Gracefu's%20Edits.json).
 
-> It's worth noting, you can load these both up - even running one script after another is fine and will not overwrite anything. So if you want to compare fw13 vs fw16 scripts, you can. I find the fw16 option has more bass whereas the fw13 profile has more clarity.
+> It's worth noting, you can load these both up - even running one script after another is fine and will not overwrite anything. So if you want to compare fw13 vs fw16 scripts, you can. I find the fw16 option has more bass whereas the fw13 profile has more clarity. In other words, install both profiles with confidence that this is supported fully. It will attempt to install the flatpak twice, which is totally fine and won't change anything as it will sense the flatpak is already install and move on, installing the second sound profile.
 
 ## For Fedora users on their Framework Laptop 16:
 
