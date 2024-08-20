@@ -21,7 +21,7 @@ curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-ef
 \
 \
 \
-**IMPORTANT:** Load the profile by clicking the "Load profile" option as shown below.
+**IMPORTANT:** Load the profile by clicking the "Presets" pulldown, then "Load profile" option as shown below.
 
 ![image](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/images/fw16-easyeffects.png)
 
@@ -45,7 +45,7 @@ curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-ef
 \
 \
 \
-**IMPORTANT:** Load the profile by clicking the "Load profile" option as shown below.
+**IMPORTANT:** Load the profile by clicking the "Presets" pulldown, then "Load profile" option as shown below.
 
 ![image](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/images/fw16-easyeffects.png)
 
