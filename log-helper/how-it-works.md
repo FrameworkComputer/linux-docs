@@ -49,6 +49,7 @@
   ===== General Summary of Potential Issues (excluding gnome-shell errors) =====
 
   ---------------------------------------
+  <br /><br /><br /><br /><br /><br /><br /><br />
 
   ## Troubleshooting
 
@@ -61,3 +62,6 @@ sudo journalctl --vacuum-time=30d --vacuum-size=500M
 
 - Your log file keeps getting overwritten.
   >This is by design. So if you wish to prevent this and keep this from happening, copy your output file to another location so it will not be overwritten.
+  
+  <br /><br /><br /><br /><br /><br /><br /><br />
+
