@@ -100,8 +100,8 @@ sh combined.sh
 
 - Paste in the code mentioned previously, press enter, type in option 4.
 
-- You will be asked two questions; do you wish to grep for a keyword or a key phrase. Make your selection if you are familiar with Linux.
-> If you are not, this is an ideal time to stop, open a support ticket. When support replies, send them the combined_log.txt file in your home directory.
+- You will be asked two questions; do you wish to grep for a keyword or a key phrase.
+> Make your selection if you are familiar with Linux. If you are not, this is an ideal time to stop, open a support ticket. When support replies, send them the combined_log.txt file in your home directory.
 
 - If you selected Grep for a key phrase, type in the phrase without any quotes. Press enter.
 
