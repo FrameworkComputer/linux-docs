@@ -10,7 +10,7 @@ It can also gather logs from specific time ranges or filter existing logs for ke
 
 - Ubuntu
 - Fedora
-- Bazzite/Project Bluefin
+- Bazzite/Project Bluefin (curl is installed already)
 - (This "should work" on anything using curl with sane paths to dmesg and journalctl)
 
 ### How to use this tool?
