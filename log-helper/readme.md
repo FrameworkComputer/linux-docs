@@ -4,6 +4,15 @@
 This script collects and analyzes system logs from your computer, helping Framework support to identify potential issues or errors. 
 It can also gather logs from specific time ranges or filter existing logs for keywords, providing summaries of potential problems related to graphics, networking, and critical sytem errors.
 
+### Which distros does this work on?
+
+**This is tested to work with the following Linux distros.**
+
+- Ubuntu
+- Fedora
+- Bazzite/Project Bluefin
+- (This "should work" on anything using curl with sane paths to dmesg and journalctl)
+
 ### How to use this tool?
 
 ####
