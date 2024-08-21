@@ -41,7 +41,7 @@ curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/log-
 >After the install, you can run going forward with the following in the HOME directory. So merely opening a terminal and running this will work if the original script has not been moved.<br />
 
 ```
-sh combined.sh
+bash combined.sh
 ```
 <br /><br />
 
