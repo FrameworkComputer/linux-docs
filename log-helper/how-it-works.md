@@ -63,7 +63,7 @@ sudo journalctl --vacuum-time=30d --vacuum-size=500M
 (Then reboot, run the script again)
 
 - Your log file keeps getting overwritten.
-  >This is by design. So if you wish to prevent this and keep this from happening, copy your output file to another location so it will not be overwritten.
+  >This is by design. So if you wish to prevent this and keep this from happening, copy your combined_log.txt file to another location so it will not be overwritten.
 
 **[BACK TO MAIN PAGE](https://github.com/FrameworkComputer/linux-docs/tree/main/log-helper#framework-log-helper-aka-combinedsh)**
   
