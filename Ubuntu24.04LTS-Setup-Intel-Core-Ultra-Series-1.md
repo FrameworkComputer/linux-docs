@@ -1,6 +1,7 @@
 # This is for Intel® Core™ Ultra Series 1 Framework Laptop 13 ONLY.
 
-#### Requires Ubuntu 24.04.1 (due Aug. 15th, 2024)
+#### Requires kernel 6.8.0-40 or better. Officially supporting from Ubuntu 24.04.1
+Please use the **"Get everything updated"** section below if you are on standard Ubuntu 24.04 without the the dot 1.
 
 ## This will:
 
