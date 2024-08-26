@@ -77,7 +77,7 @@ sudo dnf install nvtop
 Create a script with the following:
 
 ```
-sudo /usr/local/bin/external_video.sh
+sudo nano /usr/local/bin/external_video.sh
 ```
 Paste in:
 
