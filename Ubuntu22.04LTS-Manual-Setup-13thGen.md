@@ -1,13 +1,5 @@
 # This is for 13th Gen Intel® Core™ Framework Laptop 13 ONLY.
 
-## This will:
-
-- Disable the ALS sensor so that your brightness keys work.
-
-&nbsp; &nbsp; &nbsp; &nbsp; 
-
-
-### Step 1
 
 - Browse to Activities in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
