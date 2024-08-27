@@ -37,7 +37,7 @@ or
 sudo apt install curl -y
 ```
 
-**Then run:**
+#### (Either distro) Then run:
 
 ```
 curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/log-helper/combined.sh -o combined.sh && clear && bash combined.sh
