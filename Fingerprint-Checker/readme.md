@@ -29,3 +29,38 @@ Fingerprint Checker is merely a friendly terminal front end to [fprintd](https:/
 Pausing for Review: After each operation, the script pauses and prompts the user to press Enter, ensuring they have time to review the output before returning to the menu.
 
 ![Fingerprint Checker](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/Fingerprint-Checker/images/checker.png)
+
+-------------------------------------------------------------
+
+### Install Curl
+
+Curl should already be installed, but just in case:
+
+#### Fedora
+```
+sudo dnf install curl -y
+```
+
+or
+
+#### Ubuntu
+```
+sudo apt install curl -y
+```
+
+### To Install, simply run:
+
+```
+curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/Fingerprint-Checker/fpr-checker.sh -o fpr-checker.sh && clear && bash fpr-checker.sh
+```
+
+<br />
+
+#### Running the script in the future
+
+>After the install, you can run going forward with the following in the HOME directory. So merely opening a terminal and running this will work if the original script has not been moved.<br />
+
+```
+bash fpr-checker.sh
+```
+<br /><br />
