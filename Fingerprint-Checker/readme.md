@@ -27,4 +27,4 @@
 - **Input Validation:** The script handles invalid input gracefully, providing feedback and re-prompting the user when necessary.
 Pausing for Review: After each operation, the script pauses and prompts the user to press Enter, ensuring they have time to review the output before returning to the menu.
 
-![Fingerprint Checker]()
+![Fingerprint Checker](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/Fingerprint-Checker/images/checker.png)
