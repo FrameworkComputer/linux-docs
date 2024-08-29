@@ -1,5 +1,6 @@
 ## Fingerprint Checker
 
+Fingerprint Checker is merely a friendly terminal front end to [fprintd](https://fprint.freedesktop.org/)
 
 ### Desktop Environment Detection
 
