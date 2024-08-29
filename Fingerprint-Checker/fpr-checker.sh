@@ -1,12 +1,25 @@
 #!/bin/bash
 
-# fpr-clear.sh - A script to manage fingerprint data using fprintd with a selectable menu.
+# fpr-checker.sh - A script to manage fingerprint data using fprintd with a selectable menu.
 
 # Colors for output
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 YELLOW=$(tput setaf 3)
 RESET=$(tput sgr0)
+
+# Determine the actual user invoking the script, whether through sudo or not
+if [ -n "$SUDO_USER" ]; then
+    USER=$SUDO_USER
+else
+    USER=$(whoami)
+fi
+
+# Cache sudo password to avoid multiple prompts
+if ! sudo -v; then
+    echo "${RED}Failed to authenticate with sudo.${RESET}"
+    exit 1
+fi
 
 # Function to detect the desktop environment
 detect_desktop_environment() {
@@ -20,72 +33,75 @@ detect_desktop_environment() {
     fi
 }
 
-# Function to list fingerprints for the current or specified user
-list_fingerprints() {
-    local user=$1
-    if [ -z "$user" ]; then
-        user="$USER"
-    fi
-    echo "${YELLOW}Listing fingerprints for user: $user${RESET}"
-    fprintd-list "$user" | while read -r line; do
-        if [[ "$line" == *"-"* ]]; then
-            # Highlight fingerprints
-            echo "${YELLOW}$line${RESET}"
-        else
-            echo "$line"
-        fi
-    done
-    read -p "Press [Enter] key to continue..."  # Pause to let the user see the output
-}
-
-# Function to enroll a new fingerprint for the current or specified user
-enroll_fingerprint() {
-    local user=$1
-    if [ -z "$user" ]; then
-        user="$USER"
-    fi
-    echo "${YELLOW}Enrolling a new fingerprint for user: $user${RESET}"
-    fprintd-enroll "$user"
-    read -p "Press [Enter] key to continue..."  # Pause to let the user see the output
-}
-
-# Function to delete fingerprints for the current or specified user
-delete_fingerprints() {
-    local user=$1
-    if [ -z "$user" ]; then
-        user="$USER"
-    fi
-    echo "${RED}Deleting fingerprints for user: $user${RESET}"
-    sudo fprintd-delete "$user"
-    read -p "Press [Enter] key to continue..."  # Pause to let the user see the output
-}
-
-# Function to verify a fingerprint for the current or specified user
-verify_fingerprint() {
-    local user=$1
-    if [ -z "$user" ]; then
-        user="$USER"
-    fi
-    echo "${YELLOW}Verifying fingerprint for user: $user${RESET}"
-    fprintd-verify "$user" | while read -r line; do
-        if [[ "$line" == *"Verifying:"* ]]; then
-            echo "${YELLOW}$line${RESET}"
-        else
-            echo "$line"
-        fi
-    done
-    read -p "Press [Enter] key to continue..."  # Pause to let the user see the output
-}
-
-# Function to restart the fprintd service
-restart_fprintd_service() {
-    echo "${YELLOW}Restarting the fprintd service...${RESET}"
-    sudo systemctl restart fprintd
+# Function to enroll a specific finger for the actual user
+enroll_finger() {
+    local finger=$1
+    echo "${YELLOW}Enrolling $finger for user $USER...${RESET}"
+    sudo -u "$USER" fprintd-enroll -f "$finger"
     if [ $? -eq 0 ]; then
-        echo "${GREEN}fprintd service restarted successfully.${RESET}"
+        echo "${GREEN}Fingerprint enrolled successfully for $finger.${RESET}"
     else
-        echo "${RED}Failed to restart fprintd service.${RESET}"
+        echo "${RED}Failed to enroll fingerprint for $finger.${RESET}"
+        echo "${YELLOW}If this is a duplicate fingerprint, consider deleting existing fingerprints and re-enrolling.${RESET}"
     fi
+    read -p "Press [Enter] key to continue..."  # Pause to let the user see the output
+}
+
+# Function to delete all fingerprints for all users, excluding clevis and setroubleshoot
+delete_all_fingerprints() {
+    echo "${RED}Deleting all fingerprints for all users...${RESET}"
+    local deleted_any=0
+
+    for user in $(cut -d: -f1 /etc/passwd); do
+        if [[ "$user" == "clevis" || "$user" == "setroubleshoot" ]]; then
+            continue
+        fi
+
+        sudo fprintd-delete "$user" 2>/dev/null
+        if [ $? -eq 0 ]; then
+            echo "${GREEN}Fingerprints deleted for user: $user${RESET}"
+            deleted_any=1
+        else
+            echo "${YELLOW}No fingerprints found or failed to delete for user: $user${RESET}"
+        fi
+    done
+    
+    if [ $deleted_any -eq 0 ]; then
+        echo "${YELLOW}No fingerprints were found to delete.${RESET}"
+    fi
+    
+    read -p "Press [Enter] key to continue..."  # Pause to let the user see the output
+}
+
+# Function to list registered fingerprints for all users, excluding clevis and setroubleshoot
+list_fingerprints_for_all() {
+    echo "${YELLOW}Listing registered fingerprints for all users...${RESET}"
+    local registered=0
+
+    for user in $(cut -d: -f1 /etc/passwd); do
+        if [[ "$user" == "clevis" || "$user" == "setroubleshoot" ]]; then
+            continue
+        fi
+
+        output=$(sudo fprintd-list "$user" 2>/dev/null)
+        
+        if [[ "$output" != *"no fingers enrolled"* && -n "$output" ]]; then
+            echo "Fingerprints for user: $user"
+            echo "$output" | while read -r line; do
+                if [[ "$line" == -* ]]; then
+                    echo "${GREEN}$line${RESET}"
+                else
+                    echo "$line"
+                fi
+            done
+            registered=1
+        fi
+    done
+    
+    if [ $registered -eq 0 ]; then
+        echo "${YELLOW}No fingerprints registered for any users.${RESET}"
+    fi
+    
     read -p "Press [Enter] key to continue..."  # Pause to let the user see the output
 }
 
@@ -96,15 +112,19 @@ show_menu() {
     echo "===================================="
     echo "  Fingerprint Management Script"
     echo "===================================="
-    echo "1. List fingerprints for the current user"
-    echo "2. List fingerprints for a specific user"
-    echo "3. Enroll a new fingerprint for the current user"
-    echo "4. Enroll a new fingerprint for a specific user"
-    echo "5. Delete fingerprints for the current user"
-    echo "6. Delete fingerprints for a specific user"
-    echo "7. Verify a fingerprint for the current user"
-    echo "8. Restart the fprintd service"
-    echo "9. Exit"
+    echo "1. Enroll Left Thumb"
+    echo "2. Enroll Left Index Finger"
+    echo "3. Enroll Left Middle Finger"
+    echo "4. Enroll Left Ring Finger"
+    echo "5. Enroll Left Little Finger"
+    echo "6. Enroll Right Thumb"
+    echo "7. Enroll Right Index Finger"
+    echo "8. Enroll Right Middle Finger"
+    echo "9. Enroll Right Ring Finger"
+    echo "10. Enroll Right Little Finger"
+    echo "11. Delete All Fingerprints for All Users"
+    echo "12. List Registered Fingerprints for All Users"
+    echo "13. Exit"
     echo "===================================="
     echo -n "Choose an option: "
 }
@@ -114,35 +134,26 @@ read_options() {
     local choice
     read -r choice
     case $choice in
-        1) list_fingerprints "$USER" ;;
-        2) 
-            echo -n "Enter the username: "
-            read -r username
-            list_fingerprints "$username"
-            ;;
-        3) enroll_fingerprint "$USER" ;;
-        4) 
-            echo -n "Enter the username: "
-            read -r username
-            enroll_fingerprint "$username"
-            ;;
-        5) delete_fingerprints "$USER" ;;
-        6) 
-            echo -n "Enter the username: "
-            read -r username
-            delete_fingerprints "$username"
-            ;;
-        7) verify_fingerprint "$USER" ;;
-        8) restart_fprintd_service ;;
-        9) exit 0 ;;
+        1) enroll_finger "left-thumb" ;;
+        2) enroll_finger "left-index-finger" ;;
+        3) enroll_finger "left-middle-finger" ;;
+        4) enroll_finger "left-ring-finger" ;;
+        5) enroll_finger "left-little-finger" ;;
+        6) enroll_finger "right-thumb" ;;
+        7) enroll_finger "right-index-finger" ;;
+        8) enroll_finger "right-middle-finger" ;;
+        9) enroll_finger "right-ring-finger" ;;
+        10) enroll_finger "right-little-finger" ;;
+        11) delete_all_fingerprints ;;
+        12) list_fingerprints_for_all ;;
+        13) exit 0 ;;
         *) echo "${RED}Invalid option!${RESET}" && sleep 2
     esac
 }
 
-# Loop until the user chooses to exit
+# Main script loop
 while true
 do
     show_menu
     read_options
 done
-
