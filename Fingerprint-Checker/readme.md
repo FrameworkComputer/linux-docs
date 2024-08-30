@@ -71,9 +71,14 @@ bash fpr-checker.sh
 ### FAQ
 
 - _Why do we need this?_
+
+<br />
 You likely do not, but, it you find that you get your finterprint reader detection your prints, this is a little more user friendly than using fprintd-list, fprintd-enroll, fprintd-delete and fprintd-verify.
+<br /><br />
 
 - _I would rather do this the manual way._
-Great, simply use fprintd-list, fprintd-enroll, fprintd-delete and fprintd-verify and $USER for each command.
 
+<br />
+Great, simply use fprintd-list, fprintd-enroll, fprintd-delete and fprintd-verify and $USER for each command.
+<br />
 Example: ```fprintd-verify $USER```
