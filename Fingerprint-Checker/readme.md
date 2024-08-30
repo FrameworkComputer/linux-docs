@@ -78,4 +78,9 @@ You likely do not, but, if you find that you get your finterprint reader detecti
 <br />
 Great, simply use fprintd-list, fprintd-enroll, fprintd-delete and fprintd-verify and $USER for each command.
 <br />
-Example: ```fprintd-verify $USER```
+
+Example:
+
+```
+fprintd-verify $USER
+```
