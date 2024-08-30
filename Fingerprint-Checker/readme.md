@@ -63,6 +63,7 @@ curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/Fing
 ```
 bash fpr-checker.sh
 ```
+
 <br /><br />
 
 -------------------------------------------------------------
