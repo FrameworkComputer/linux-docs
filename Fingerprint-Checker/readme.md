@@ -84,3 +84,8 @@ Example:
 ```
 fprintd-verify $USER
 ```
+
+
+#### Return to the Fingerprint Troubleshooting guides
+
+- Return to the [Ubuntu Fingerprint Troubleshooting](https://knowledgebase.frame.work/en_us/ubuntu-fingerprint-troubleshooting-r1_DA0TMn) or [Fedora Fingerprint Troubleshooting](https://knowledgebase.frame.work/en_us/fedora-fingerprint-troubleshooting-SyfIAyCM3) guides.
