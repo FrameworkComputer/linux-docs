@@ -42,7 +42,7 @@ enroll_finger() {
 
 # Function to get standard Linux users (UID between 1000 and 60000)
 get_standard_users() {
-    awk -F: '$3 >= 1000 && $3 <= 60000 {print $1}' /etc/passwd
+    awk -F: '($3 == 0 || ($3 >= 1000 && $3 <= 60000)) {print $1}' /etc/passwd
 }
 
 # Function to delete all fingerprints for standard Linux users
