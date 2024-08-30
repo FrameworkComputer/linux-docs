@@ -15,12 +15,6 @@ else
     USER=$(whoami)
 fi
 
-# Cache sudo password to avoid multiple prompts
-if ! sudo -v; then
-    echo "${RED}Failed to authenticate with sudo.${RESET}"
-    exit 1
-fi
-
 # Function to detect the desktop environment
 detect_desktop_environment() {
     if [ "$XDG_CURRENT_DESKTOP" ]; then
@@ -42,7 +36,6 @@ enroll_finger() {
         echo "${GREEN}Fingerprint enrolled successfully for $finger.${RESET}"
     else
         echo "${RED}Failed to enroll fingerprint for $finger.${RESET}"
-        echo "${YELLOW}If this is a duplicate fingerprint, consider deleting existing fingerprints and re-enrolling.${RESET}"
     fi
     read -p "Press [Enter] key to continue..."  # Pause to let the user see the output
 }
@@ -59,10 +52,10 @@ delete_all_fingerprints() {
 
         sudo fprintd-delete "$user" 2>/dev/null
         if [ $? -eq 0 ]; then
-            echo "${GREEN}Fingerprints deleted for user: $user${RESET}"
+            echo "${GREEN}All fingerprints deleted successfully for user: $user${RESET}"
             deleted_any=1
         else
-            echo "${YELLOW}No fingerprints found or failed to delete for user: $user${RESET}"
+            echo "${YELLOW}No fingerprints found for user: $user${RESET}"
         fi
     done
     
@@ -86,14 +79,9 @@ list_fingerprints_for_all() {
         output=$(sudo fprintd-list "$user" 2>/dev/null)
         
         if [[ "$output" != *"no fingers enrolled"* && -n "$output" ]]; then
-            echo "Fingerprints for user: $user"
-            echo "$output" | while read -r line; do
-                if [[ "$line" == -* ]]; then
-                    echo "${GREEN}$line${RESET}"
-                else
-                    echo "$line"
-                fi
-            done
+            echo "${GREEN}Fingerprints for user: $user${RESET}"
+            echo "$output"
+            echo
             registered=1
         fi
     done
