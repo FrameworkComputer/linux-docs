@@ -15,13 +15,10 @@ Fingerprint Checker is merely a friendly terminal front end to [fprintd](https:/
 ### Fingerprint Management
 
 - **Listing Fingerprints:** Users can list all enrolled fingerprints for the current or a specified user.
-- **Enrolling Fingerprints:** The script supports enrolling new fingerprints for the current or a specified user.
-- **Deleting Fingerprints:** Users can delete all fingerprints for the current or a specified user.
+- **Enrolling Fingerprints:** The script supports enrolling new fingerprints for the current user.
+- **Deleting Fingerprints:** Users can delete all fingerprints for users.
 - **Verifying Fingerprints:** The script allows users to verify an enrolled fingerprint for the current user, with the verification process highlighted in yellow.
 
-### Guided fpintd Management
-
-- **Restarting fprintd:** The script includes an option to restart the fprintd service, which is often necessary after making changes to fingerprint data.
 
 ### Error Handling and Feedback:
 
