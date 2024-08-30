@@ -3,6 +3,7 @@
 ### A step by step guide 
 #### This assumes you are on a disro such as Ubuntu LTS or Fedora, and have libfprint version of **at least** v1.92.0 or newer. 
 
+
 - Verify that this is in fact, firmare version 01000320.
 - You must use a distro that is has a libfprint version of **at least** v1.92.0 or **newer**. Fully package updated Ubuntu LTS and Fedora Workstation will meet this requirement. Other distros, even based on these distros, may or may not. 
 - You will need to open a terminal from your launcher, then paste in the provided lines of code to get validcation of firmware version, update it and so forth.
@@ -93,3 +94,9 @@ fwupdmgr get-devices 1e8c8470-a49c-571a-82fd-19c9fa32b8c3
 - At this point, you should be looking at Current version:	01000334
 
 - From here, we can enroll fingerprints from GNOME on Ubuntu LTS or Fedora Workstation. 
+
+#### Return to the Fingerprint Troubleshooting guides
+
+- Return to the [Ubuntu Fingerprint Troubleshooting](https://knowledgebase.frame.work/en_us/ubuntu-fingerprint-troubleshooting-r1_DA0TMn) or [Fedora Fingerprint Troubleshooting](https://knowledgebase.frame.work/en_us/fedora-fingerprint-troubleshooting-SyfIAyCM3) guides.
+
+
