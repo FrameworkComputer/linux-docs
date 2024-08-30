@@ -1,6 +1,7 @@
 
-## For Framework Laptop Fingerprint Readers with 01000320 firmware
+## Framework Laptop Fingerprint Readers with 01000320 Firmware Update Guide
 ### A step by step guide 
+#### This assumes you are on a disro such as Ubuntu LTS or Fedora, and have libfprint version of **at least** v1.92.0 or newer. 
 
 - Verify that this is in fact, firmare version 01000320.
 - You must use a distro that is has a libfprint version of **at least** v1.92.0 or **newer**. Fully package updated Ubuntu LTS and Fedora Workstation will meet this requirement. Other distros, even based on these distros, may or may not. 
