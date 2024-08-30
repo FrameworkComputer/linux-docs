@@ -40,16 +40,17 @@ enroll_finger() {
     read -p "Press [Enter] key to continue..."  # Pause to let the user see the output
 }
 
-# Function to delete all fingerprints for all users, excluding clevis and setroubleshoot
+# Function to get standard Linux users (UID between 1000 and 60000)
+get_standard_users() {
+    awk -F: '$3 >= 1000 && $3 <= 60000 {print $1}' /etc/passwd
+}
+
+# Function to delete all fingerprints for standard Linux users
 delete_all_fingerprints() {
-    echo "${RED}Deleting all fingerprints for all users...${RESET}"
+    echo "${RED}Deleting all fingerprints for standard Linux users...${RESET}"
     local deleted_any=0
 
-    for user in $(cut -d: -f1 /etc/passwd); do
-        if [[ "$user" == "clevis" || "$user" == "setroubleshoot" ]]; then
-            continue
-        fi
-
+    for user in $(get_standard_users); do
         sudo fprintd-delete "$user" 2>/dev/null
         if [ $? -eq 0 ]; then
             echo "${GREEN}All fingerprints deleted successfully for user: $user${RESET}"
@@ -58,26 +59,22 @@ delete_all_fingerprints() {
             echo "${YELLOW}No fingerprints found for user: $user${RESET}"
         fi
     done
-    
+
     if [ $deleted_any -eq 0 ]; then
-        echo "${YELLOW}No fingerprints were found to delete.${RESET}"
+        echo "${YELLOW}No fingerprints were found to delete for standard Linux users.${RESET}"
     fi
-    
+
     read -p "Press [Enter] key to continue..."  # Pause to let the user see the output
 }
 
-# Function to list registered fingerprints for all users, excluding clevis and setroubleshoot
+# Function to list registered fingerprints for standard Linux users
 list_fingerprints_for_all() {
-    echo "${YELLOW}Listing registered fingerprints for all users...${RESET}"
+    echo "${YELLOW}Listing registered fingerprints for standard Linux users...${RESET}"
     local registered=0
 
-    for user in $(cut -d: -f1 /etc/passwd); do
-        if [[ "$user" == "clevis" || "$user" == "setroubleshoot" ]]; then
-            continue
-        fi
-
+    for user in $(get_standard_users); do
         output=$(sudo fprintd-list "$user" 2>/dev/null)
-        
+
         if [[ "$output" != *"no fingers enrolled"* && -n "$output" ]]; then
             echo "${GREEN}Fingerprints for user: $user${RESET}"
             echo "$output"
@@ -85,11 +82,11 @@ list_fingerprints_for_all() {
             registered=1
         fi
     done
-    
+
     if [ $registered -eq 0 ]; then
-        echo "${YELLOW}No fingerprints registered for any users.${RESET}"
+        echo "${YELLOW}No fingerprints registered for any standard Linux users.${RESET}"
     fi
-    
+
     read -p "Press [Enter] key to continue..."  # Pause to let the user see the output
 }
 
@@ -110,8 +107,8 @@ show_menu() {
     echo "8. Enroll Right Middle Finger"
     echo "9. Enroll Right Ring Finger"
     echo "10. Enroll Right Little Finger"
-    echo "11. Delete All Fingerprints for All Users"
-    echo "12. List Registered Fingerprints for All Users"
+    echo "11. Delete All Fingerprints for Standard Users"
+    echo "12. List Registered Fingerprints for Standard Users"
     echo "13. Exit"
     echo "===================================="
     echo -n "Choose an option: "
