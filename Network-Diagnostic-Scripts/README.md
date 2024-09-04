@@ -111,3 +111,9 @@ bash Wifi-Diagnostic.sh
 
 - Does this support Project Bluefin or Bazzite?
 >I have specific scripts in testing for these distros. We will be using Homebrew for them. Will update this repo when they are ready.
+
+- Does this work for a laptop whereas I cannot use the internet at all?
+>No. This is for performance issues spefifically. That said, if you download the file onto another computer, move it to the Framework Laptop that is lacking internet, the wifi script will provide some hints as to what might be going on and how to fix it.
+
+- My wifi card keeps dropping out.
+> Please use [this script](https://github.com/FrameworkComputer/network-tester?tab=readme-ov-file#mediatekintel-wi-fi-drop-tester), run it for one hour. It will tell you when it's done running. Grab both the ping_logfile.log and iw_logfile.log logs it creates in your home directory and send it to support. This should capture the timeout and indicate if there was a signal drop, frequency change or another event.
