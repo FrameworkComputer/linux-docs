@@ -107,5 +107,7 @@ bash Wifi-Diagnostic.sh
 
 
 - Will this tell me why my network is so slow?
-
 >Indirectly, yes. It can indicate items such as frequency, crowded wifi channels, among a number of other variables to examine. VPNs are a huge one.
+
+- Does this support Project Bluefin or Bazzite?
+>I have specific scripts in testing for these distros. We will be using Homebrew for them. Will update this repo when they are ready.
