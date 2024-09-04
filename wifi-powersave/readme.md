@@ -16,10 +16,12 @@ or
 ### Ubuntu
 ```
 sudo apt install curl -y
+```
 
 ------------------------------------------------------------------------------------------------------------------------------
 
 ## To Install Ethernet Diagnostic Script, simply run:
+
 ```
 curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/wifi-powersave/powersave.sh -o powersave.sh && clear && bash powersave.sh
 ```
@@ -29,5 +31,5 @@ After the install, you can run going forward with the following in the HOME dire
 
 ```
 bash powersave.sh
-
+```
 
