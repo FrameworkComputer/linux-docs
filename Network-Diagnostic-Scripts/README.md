@@ -16,7 +16,14 @@ or
 ```
 sudo apt install curl -y
 ```
+&nbsp;
+&nbsp;
+&nbsp;
 
+
+**Looking for the [Wi-Fi Diagnostic tool](https://github.com/FrameworkComputer/linux-docs/tree/main/Network-Diagnostic-Scripts#to-install-wi-fi-diagnostic-script-simply-run)? Click here to scroll down.**
+
+&nbsp;
 
 
 ------------------------------------------------------------------------------------------------------------------------------
