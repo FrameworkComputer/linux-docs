@@ -19,13 +19,13 @@ fwupdmgr get-devices | awk '/Fingerprint Sensor:/{flag=1} flag; /Device Flags:/{
 
 - Making sure we are using the correct **GUID** from the output above:
 
-- To verify you have the correct GUI, you can run this to verify it's correct with the output from this code:
+- To verify you have the correct GUID, you can run this to verify it's correct with the output from this code:
 
 ```
 fwupdmgr get-devices | awk '/Fingerprint Sensor:/{flag=1} flag; /Device Flags:/{flag=0}' | grep 'GUID:' | awk -F'GUID: ' '{print $2}' | awk '{print $1}'
 ```
 
-The GUI should return with: 1e8c8470-a49c-571a-82fd-19c9fa32b8c3. With the GUID verified:
+The GUID should return with: 1e8c8470-a49c-571a-82fd-19c9fa32b8c3. With the GUID verified:
 
 ```
 fwupdmgr get-devices 1e8c8470-a49c-571a-82fd-19c9fa32b8c3
