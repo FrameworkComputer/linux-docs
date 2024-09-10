@@ -20,10 +20,10 @@ sudo apt install curl -y
 
 ------------------------------------------------------------------------------------------------------------------------------
 
-## To Install Ethernet Diagnostic Script, simply run:
+## To Install Power Save Script, simply run:
 
 ```
-curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/wifi-powersave/powersave.sh -o powersave.sh && clear && bash powersave.sh
+curl -s https://github.com/FrameworkComputer/linux-docs/blob/main/wifi-powersave/powersave.sh -o powersave.sh && clear && bash powersave.sh
 ```
 
 Running the script in the future
