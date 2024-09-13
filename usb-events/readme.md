@@ -1,4 +1,6 @@
-This USB Event Logger script is designed to collect, organize, and summarize USB-related events from your system logs. Here's an overview of its main functions:
+# USB Event Logger script
+
+This is designed to collect, organize, and summarize USB-related events from your system logs. Here's an overview of its main functions:
 
 - Log Collection: It uses the journalctl command to retrieve today's system logs.
 - Event Filtering: The script filters these logs to focus on USB-related events, including connections, disconnections, errors, resets, and device information.
@@ -14,7 +16,7 @@ This USB Event Logger script is designed to collect, organize, and summarize USB
 This tool is useful for troubleshooting USB-related issues. It provides a comprehensive yet easy-to-read overview of all USB activity on the system for the current day.
 
 
-This provides the output as follows:
+### This provides the output as follows:
 
   - Other USB Events: 
   - New USB Connections: 
@@ -22,4 +24,32 @@ This provides the output as follows:
   - USB Resets:
 
 
+### Install Curl
 
+Curl should already be installed, but just in case:
+
+### Fedora
+```
+sudo dnf install curl -y
+```
+
+or
+
+### Ubuntu
+```
+sudo apt install curl -y
+```
+
+## To Install USB Event Logger script, simply run:
+
+
+```
+curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/usb-events/usbevents.sh -o powersave.sh && clear && sudo bash usbevents.sh
+```
+
+Running the script in the future
+After the install, you can run going forward with the following in the HOME directory. So merely opening a terminal and running this will work if the original script has not been moved.
+
+```
+sudo bash usbevents.sh
+```
