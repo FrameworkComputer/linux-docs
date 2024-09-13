@@ -44,7 +44,7 @@ sudo apt install curl -y
 
 
 ```
-curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/usb-events/usbevents.sh -o powersave.sh && clear && sudo bash usbevents.sh
+curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/usb-events/usbevents.sh -o usbevents.sh && clear && sudo bash usbevents.sh
 ```
 
 Running the script in the future
