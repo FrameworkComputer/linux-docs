@@ -53,3 +53,10 @@ After the install, you can run going forward with the following in the HOME dire
 ```
 sudo bash usbevents.sh
 ```
+
+### Log file
+
+Log file is provioded as usb_events.txt in your home directory.
+
+
+![USB Event Logger script](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/usb-events/images/stitched_image.png)
