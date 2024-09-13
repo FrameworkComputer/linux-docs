@@ -1,14 +1,25 @@
 This USB Event Logger script is designed to collect, organize, and summarize USB-related events from your system logs. Here's an overview of its main functions:
 
-Log Collection: It uses the journalctl command to retrieve today's system logs.
-Event Filtering: The script filters these logs to focus on USB-related events, including connections, disconnections, errors, resets, and device information.
-Event Categorization: It categorizes these events into different types such as new connections, disconnections, failures, errors, resets, attachments, enumerations, and device information.
-Context Preservation: For each event, it includes 10 lines of context (5 before and 5 after) to provide more detailed information.
-Formatted Output: The script organizes the events by category, making the log easy to read and navigate.
-Event Summary: At the end of the log, it provides a summary that counts the occurrences of each event type and calculates the total number of USB events.
-Log File Creation: All this information is saved to a text file (default name: usb_events.txt).
-File Location: The script records and displays the full path of the log file, making it easy to locate for future reference.
-Timestamp: It includes the date and time when the log was generated.
-Display: After processing, the script displays the entire log content in the terminal.
+- Log Collection: It uses the journalctl command to retrieve today's system logs.
+- Event Filtering: The script filters these logs to focus on USB-related events, including connections, disconnections, errors, resets, and device information.
+- Event Categorization: It categorizes these events into different types such as new connections, disconnections, failures, errors, resets, attachments, enumerations, and device information.
+- Context Preservation: For each event, it includes 10 lines of context (5 before and 5 after) to provide more detailed information.
+- Formatted Output: The script organizes the events by category, making the log easy to read and navigate.
+- Event Summary: At the end of the log, it provides a summary that counts the occurrences of each event type and calculates the total number of USB events.
+- Log File Creation: All this information is saved to a text file (default name: usb_events.txt).
+- File Location: The script records and displays the full path of the log file, making it easy to locate for future reference.
+- Timestamp: It includes the date and time when the log was generated.
+- Display: After processing, the script displays the entire log content in the terminal.
 
-This tool is particularly useful for system administrators, developers working on USB devices, or users troubleshooting USB-related issues. It provides a comprehensive yet easy-to-read overview of all USB activity on the system for the current day.
+This tool is useful for troubleshooting USB-related issues. It provides a comprehensive yet easy-to-read overview of all USB activity on the system for the current day.
+
+
+This provides the output as follows:
+
+  - Other USB Events: 
+  - New USB Connections: 
+  - USB Errors: 
+  - USB Resets:
+
+
+
