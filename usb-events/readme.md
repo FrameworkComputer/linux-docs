@@ -15,6 +15,11 @@ This is designed to collect, organize, and summarize USB-related events from you
 
 This tool is useful for troubleshooting USB-related issues. It provides a comprehensive yet easy-to-read overview of all USB activity on the system for the current day.
 
+Plus the summary can be helpful as well. 
+
+![Summary](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/usb-events/images/summary.png)
+
+
 
 ### This provides the output as follows:
 
