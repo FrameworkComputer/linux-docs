@@ -29,22 +29,35 @@ echo -e "Creating configuration directory...\n" | tee -a "$log_file"
 # Define config directory and file
 config_dir=~/.config/easyeffects/output
 config_file="$config_dir/fw13-easy-effects.json"
+irs_dir=~/.config/easyeffects/irs
+irs_file="$irs_dir/IR_22ms_27dB_5t_15s_0c.irs"
 
 # Create config directory if it doesn't exist
 mkdir -p "$config_dir"
+mkdir -p "$irs_dir"
 
 echo -e "Downloading the configuration file...\n" | tee -a "$log_file"
 
 # Download the configuration file
-curl -o "$config_file" https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/fw13-easy-effects.json | tee -a "$log_file"
+curl -fo "$config_file" https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/fw13-easy-effects.json | tee -a "$log_file"
 
 # Check if the downloaded file is empty
 if [ ! -s "$config_file" ]; then
     echo -e "Error: The downloaded configuration file is empty. Please check the source URL.\n" | tee -a "$log_file"
     exit 1
 fi
-
 echo -e "Configuration file downloaded to $config_file\n" | tee -a "$log_file"
+
+echo -e "Downloading the convolver impact file...\n" | tee -a "$log_file"
+
+curl -fo "$irs_file" https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/irs/IR_22ms_27dB_5t_15s_0c.irs | tee -a "$log_file"
+# Check if the downloaded file is empty
+if [ ! -s "$irs_file" ]; then
+    echo -e "Error: The downloaded convolver file is empty. Please check the source URL.\n" | tee -a "$log_file"
+    exit 1
+fi
+
+echo -e "Convolver impact file downloaded to $irs_file\n" | tee -a "$log_file"
 
 echo -e "Stopping any running Easy Effects processes...\n" | tee -a "$log_file"
 
