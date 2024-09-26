@@ -1,7 +1,7 @@
 #!/bin/bash
 
-output_file="$HOME/combined_log.txt"
-filtered_output_file="$HOME/filtered_log.txt"
+output_file="$(pwd)/combined_log.txt"  # Using current directory for input file
+filtered_output_file="$(pwd)/filtered_log.txt"  # Using current directory for output file
 summary_file="summary_temp.txt"
 focused_summary_file="focused_summary_temp.txt"
 
@@ -181,6 +181,14 @@ case $choice in
 esac
 
 if [ "$choice" == "4" ]; then
+    echo "Looking for file called combined_log.txt in current directory..."
+    output_file="$(pwd)/combined_log.txt"  # Change to current directory
+    if [ ! -f "$output_file" ]; then
+        echo "File not found: $output_file"
+        exit 1
+    fi
+    echo "File found. Proceeding with filtering options."
+
     echo "Choose filtering option:"
     echo "1. Grep for a key phrase"
     echo "2. Grep for a keyword"
@@ -190,12 +198,14 @@ if [ "$choice" == "4" ]; then
       1)
         echo "Enter the key phrase to grep for:"
         read key_phrase
-        grep -i -B 3 -A 5 "$key_phrase" "$output_file" > "$filtered_output_file"
+        key_phrase=$(echo "$key_phrase" | xargs)  # Trim whitespace
+        grep -F -i -B 3 -A 5 "$key_phrase" "$output_file" > "$filtered_output_file"
         ;;
       2)
         echo "Enter the keyword to grep for:"
         read keyword
-        grep -i -w -B 3 -A 5 "$keyword" "$output_file" > "$filtered_output_file"
+        keyword=$(echo "$keyword" | xargs)  # Trim whitespace
+        grep -w -i -B 3 -A 5 "$keyword" "$output_file" > "$filtered_output_file"
         ;;
       *)
         echo "Invalid choice. No filtering applied."
@@ -203,13 +213,14 @@ if [ "$choice" == "4" ]; then
         ;;
     esac
 
+    if [ ! -s "$filtered_output_file" ]; then
+        echo "No matches found. Filtered log file is empty."
+        exit 1
+    fi
+
     echo -e "\n${BOLD}Filtered log saved in $filtered_output_file${RESET}"
     line_count=$(wc -l < "$filtered_output_file")
     echo -e "${BOLD}Total lines in filtered output: $line_count${RESET}"
-else
-    echo -e "\n${BOLD}Log collection complete. Results saved in $output_file${RESET}"
-    line_count=$(wc -l < "$output_file")
-    echo -e "${BOLD}Total lines in output: $line_count${RESET}"
 fi
 
 # Remove temporary files
