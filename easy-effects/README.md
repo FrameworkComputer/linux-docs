@@ -90,7 +90,7 @@ Then paste this and press enter.
 curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/Ubuntu-easy-effects-13-installer.sh | bash
 ```
 
-Then just load the profile by clicking the Load profile option as shown below. Yes, the image below shows FW16, but the image is merely a visual aid. It will reflect the apprpriate profile.
+Then just load the profile by clicking the Load profile option as shown below. Yes, the image below shows FW16, but the image is merely a visual aid. It will reflect the appropriate profile.
 
 ![image](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/easy-effects/images/ubuntu-easy-effects.png)
 
@@ -102,10 +102,10 @@ Then just load the profile by clicking the Load profile option as shown below. Y
 > Yes, you can. Nothing is overwritten, it will just try to install the flatpack twice which is fine and affects nothing.
 
 - Do you need to look for the profile once it's installed?
-> Nope, just follow the iamge. It's browsed for you, just load it.
+> Nope, just follow the image. It's browsed for you, just load it.
 
 - I'd rather load this manually. How?
-> We're going to reocmmend the automated method, but if you on our own, wish to do this:
+> We're going to recommend the automated method, but if you on our own, wish to do this:
 > - Install Easy Effects.
 > - Download the json file you wish to use.
 > - Browse to it from the present menu.
