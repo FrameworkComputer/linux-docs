@@ -68,6 +68,30 @@ EOF
     echo "Persistent service created and enabled."
 }
 
+# Function to install a package if not installed
+install_if_needed() {
+    local package=$1
+    if ! command -v $package &> /dev/null; then
+        echo "$package not found, installing..."
+        if [ -f /etc/fedora-release ]; then
+            sudo dnf install -y $package
+        elif [ -f /etc/lsb-release ]; then
+            sudo apt-get update
+            sudo apt-get install -y $package
+        else
+            echo "Unsupported Linux distribution. Please install $package manually."
+            exit 1
+        fi
+    else
+        echo "$package is already installed."
+    fi
+}
+
+# Install iw and lshw if necessary
+install_if_needed iw
+install_if_needed lshw
+clear
+
 # Get all wireless interfaces
 wireless_interfaces=$(iw dev | awk '$1=="Interface"{print $2}')
 
