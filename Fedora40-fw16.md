@@ -159,3 +159,15 @@ sudo dnf install gnome-tweaks -y
 &nbsp;
 &nbsp;
 &nbsp;
+
+----------------------------------------
+
+## Framework Laptop 16 not providing all of the expected refresh rates in kernels 6.9 and up.
+
+[Framework Laptop 16 not providing all of the expected refresh rates ](https://github.com/FrameworkComputer/linux-docs/blob/main/amdgpu-workarounds/amdgpu_freesync_video/amdgpu_freesync_video.md#amdgpufreesync_video1-parameter-workaround-franework-laptop-16-only)
+
+&nbsp;
+&nbsp;
+&nbsp;&nbsp;
+&nbsp;
+&nbsp;
