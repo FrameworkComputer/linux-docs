@@ -117,3 +117,19 @@ sudo apt update && sudo apt install gnome-tweaks -y
 - At the top, select fonts. Now in that panel, scroll all the way down. Look for Size. Change from 1.00 to 0.80. Close Tweaks.
 
   Note: This is for the displays for the laptop only. This will look super odd on external displays and likely too large even still.
+
+&nbsp;
+&nbsp;
+&nbsp;
+
+----------------------------------------
+
+## Framework Laptop 16 not providing all of the expected refresh rates in kernels 6.9 and up.
+
+[Framework Laptop 16 not providing all of the expected refresh rates ](https://github.com/FrameworkComputer/linux-docs/blob/main/amdgpu-workarounds/amdgpu_freesync_video/amdgpu_freesync_video.md#amdgpufreesync_video1-parameter-workaround-franework-laptop-16-only)
+
+&nbsp;
+&nbsp;
+&nbsp;&nbsp;
+&nbsp;
+&nbsp;
