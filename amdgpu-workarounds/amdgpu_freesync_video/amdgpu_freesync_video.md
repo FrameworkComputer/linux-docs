@@ -18,7 +18,7 @@ Please ONLY run this if you were told to by support or, you meet the following c
 
 
 
-- **Ubuntu 24.10 script grub workaround (most users)**
+- **Ubuntu 24.10 Or for Ubuntu users on 6.9+ kernels - script grub workaround (most users)**
 ```
 curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/amdgpu-workarounds/amdgpu_freesync_video/Ubuntu_amdgpu.freesync_video_workaround.sh -o Ubuntu_amdgpu.freesync_video_workaround.sh && clear && bash Ubuntu_amdgpu.freesync_video_workaround.sh
 ```
@@ -27,7 +27,7 @@ curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/head
 
 ## Or if you prefer to do this manually on Ubuntu 24.10
 
-**Ubuntu 24.10 manual method, no script (advanced users)**
+**Ubuntu 24.10 manual method, no script for Ubuntu users on 6.9+ kernels - (advanced users)**
 
 ```
 GRUB_CMDLINE_LINUX_DEFAULT="..........existing entries....amdgpu.freesync_video=1"
