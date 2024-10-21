@@ -37,7 +37,7 @@ clear
 # Define config directory and file
 config_dir=~/.var/app/com.github.wwmm.easyeffects/config/easyeffects/output
 config_file="$config_dir/fw13-easy-effects.json"
-irs_dir=/.var/app/com.github.wwmm.easyeffects/config/easyeffects/irs
+irs_dir=~/.var/app/com.github.wwmm.easyeffects/config/easyeffects/irs
 irs_file="$irs_dir/IR_22ms_27dB_5t_15s_0c.irs"
 
 # Create config directory if it doesn't exist
