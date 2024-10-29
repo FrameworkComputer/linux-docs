@@ -5,7 +5,6 @@
 - Getting  your laptop fully updated.
 - Enable improved fractional scaling support Fedora's GNOME environment using Wayland.
 - Enabling tap to click on the touchpad.
-- Enabling brightness keys.
 
 &nbsp;
 &nbsp;
