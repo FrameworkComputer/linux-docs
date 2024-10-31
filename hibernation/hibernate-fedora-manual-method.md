@@ -2,13 +2,18 @@
 # Manual Guide: Configuring Lid Close and Hibernate Settings on Linux
 
 This guide provides manual steps to configure lid-close and hibernate settings, install dependencies, and manage a GNOME extension for hibernation control.
-**IMPORTANT:** This assumes you setup your partitions per our instructions, first!
 
-**THIS GUIDE IS NOT COMPLETE, STILL ADDING MORE, LIKE THE PARTITION GUIDE**
+**IMPORTANT:** This assumes you set up your partitions per our [instructions](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/hibernate-fedora-automatic.md#access-partition-layout), first!
+
+**NOTE:** If you feel strongly about using btrfs subvolumes, other other approaches that are untested by us, below are some links for community guides on that front:
+
+- [GUIDE] Framework 16 Hibernate (w/ swapfile) Setup on Fedora 40: [Read the full guide here](https://community.frame.work/t/guide-framework-16-hibernate-w-swapfile-setup-on-fedora-40/53080/1)
+- [Guide] Fedora 36+: Hibernation with enabled secure boot and full disk encryption (FDE) decrypting over TPM2: [Read the guide here](https://community.frame.work/t/guide-fedora-36-hibernation-with-enabled-secure-boot-and-full-disk-encryption-fde-decrypting-over-tpm2/25474)
+- Subvolume Btrfs Hibernate Approach: [Read more about this approach here](https://terminal.space/tech/hibernating-is-easy-now/).
 
 ---
 
-## 1. Configure Hibernate
+## 1. Configure Hibernate using a swap partition
 
 ### Step 1: Create `/etc/systemd/sleep.conf` (if it doesn't exist)
    ```bash
