@@ -11,7 +11,7 @@ This guide provides manual steps to configure lid-close and hibernate settings, 
 - [Guide] Fedora 36+: Hibernation with enabled secure boot and full disk encryption (FDE) decrypting over TPM2: [Read the guide here](https://community.frame.work/t/guide-fedora-36-hibernation-with-enabled-secure-boot-and-full-disk-encryption-fde-decrypting-over-tpm2/25474)
 - Subvolume Btrfs Hibernate Approach: [Read more about this approach here](https://terminal.space/tech/hibernating-is-easy-now/).
 
-Otherwise, the manual method of doing this is outlined below: [See the automatic method here](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/hibernate-fedora-automatic.md#fedora-41-hibernation-option-not-fedora-official-beta).
+Otherwise, the manual method of doing this is outlined below: [ Prefer an app? See the automatic method here](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/hibernate-fedora-automatic.md#fedora-41-hibernation-option-not-fedora-official-beta).
 
 ---
 
