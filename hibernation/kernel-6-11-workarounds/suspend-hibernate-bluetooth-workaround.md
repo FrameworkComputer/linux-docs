@@ -32,3 +32,34 @@ After the install, you can run going forward with the following in the HOME dire
 
 ```
 bash powersave.sh
+```
+
+## To remove the services installed
+
+```
+sudo systemctl stop bluetooth-rfkill-suspend.service
+```
+
+```
+sudo systemctl disable bluetooth-rfkill-suspend.service
+```
+
+```
+sudo systemctl stop bluetooth-rfkill-resume.service
+```
+
+```
+sudo systemctl disable bluetooth-rfkill-resume.service
+```
+
+```
+sudo rm /etc/systemd/system/bluetooth-rfkill-suspend.service
+```
+
+```
+sudo rm /etc/systemd/system/bluetooth-rfkill-resume.service
+```
+
+```
+sudo systemctl daemon-reload
+```
