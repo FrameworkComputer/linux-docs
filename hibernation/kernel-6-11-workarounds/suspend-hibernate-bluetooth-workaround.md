@@ -24,7 +24,7 @@ sudo apt install curl -y
 ## To Install rfkill-suspender Script, simply run:
 
 ```
-curl -s url-coming-soon/rfkill-suspender.sh -o rfkill-suspender.sh && clear && bash rfkill-suspender.sh
+curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/hibernation/kernel-6-11-workarounds/rfkill-suspender.sh -o rfkill-suspender.sh && clear && bash rfkill-suspender.sh
 ```
 
 Running the script in the future
