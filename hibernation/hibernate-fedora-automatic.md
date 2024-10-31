@@ -147,6 +147,8 @@ This guide provides step-by-step instructions to install and use the **Lid Close
 
 ### Using Lid Close and Hibernate Settings
 
+**NOTE:** If you suspsend or hibernate with Bluetooth enable and happen to be on kernel 6.11 or greater, Please use this [workaround](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/kernel-6-11-workarounds/suspend-hibernate-bluetooth-workaround.md#workaround-for-suspendhibernate-black-screen-on-resume-kernel-611) (open in a new tab), then return to this step.
+
 After installation, you can launch the application from your applications menu.
 
 [![Launch from applications menu](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/hibernation/images/installed1.png)](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/hibernation/images/installed1.png)
