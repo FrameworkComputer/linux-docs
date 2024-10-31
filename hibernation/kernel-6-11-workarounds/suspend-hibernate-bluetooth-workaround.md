@@ -31,7 +31,7 @@ Running the script in the future
 After the install, you can run going forward with the following in the HOME directory. So merely opening a terminal and running this will work if the original script has not been moved.
 
 ```
-bash powersave.sh
+bash rfkill-suspender.sh
 ```
 
 ## To remove the services installed
