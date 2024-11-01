@@ -1,6 +1,6 @@
 # Workaround for suspend/hibernate black screen on resume kernel 6.11
 
-- Issue: Bluetooth on kernel 6.11 causes black screen on resume attempt.
+- Issue: Bluetooth on kernel 6.11 causes black screen on resume attempt when using a MediaTek Wi-Fi card.
 - Workaround provides two systemd services. First one rfkills bluetooth when suspend or hibernate is detected. Second service re-activates Bluetooth upon resume.
 
 ### Install Curl
