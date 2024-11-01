@@ -133,8 +133,9 @@ This guide provides step-by-step instructions to install and use the **Lid Close
 
 1. **Download the RPM Package**  
    [Download the latest RPM](https://github.com/FrameworkComputer/suspend-then-hibernate-settings/releases/tag/Python)
+   _Recommened that you open in a new tab as not to lose this page._
 
-2. **Install Using GNOME Software Center**  
+3. **Install Using GNOME Software Center**  
    Double-click the downloaded RPM file. This will open the GNOME Software Center for installation.
    Follow the prompts in the Software Center to complete the installation.
 
