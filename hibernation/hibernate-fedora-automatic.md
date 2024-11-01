@@ -3,6 +3,14 @@
 
 **NOTE:** Prefer to do this manually on Fedora? [Follow the manual guide here](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/hibernate-fedora-manual-method.md#manual-guide-configuring-lid-close-and-hibernate-settings-on-linux).
 
+**NOTE:** If you feel strongly about using btrfs subvolumes, other other approaches that are untested by us, below are some links for community guides on that front:
+
+- [GUIDE] Framework 16 Hibernate (w/ swapfile) Setup on Fedora 40: [Read the full guide here](https://community.frame.work/t/guide-framework-16-hibernate-w-swapfile-setup-on-fedora-40/53080/1)
+- [Guide] Fedora 36+: Hibernation with enabled secure boot and full disk encryption (FDE) decrypting over TPM2: [Read the guide here](https://community.frame.work/t/guide-fedora-36-hibernation-with-enabled-secure-boot-and-full-disk-encryption-fde-decrypting-over-tpm2/25474)
+- Subvolume Btrfs Hibernate Approach: [Read more about this approach here](https://terminal.space/tech/hibernating-is-easy-now/).
+
+Otherwise, continue below to use the partition with application method.
+
 **Tested successfully on:**
 
 - Framework Laptop 13 AMD Ryzen 7040 Series
