@@ -60,7 +60,7 @@ If you have existing partitions, you will need to delete them.
    - Click the `>` indicator next to Fedora Linux to expand the default layout.
    - You will see default partitions such as:
      - `/boot/efi` (600 MB)
-     - `/boot` (1 GB)
+     - `/boot` (1.2 GB)
      - `/` (rest of the drive)
 
 
@@ -75,6 +75,7 @@ If you have existing partitions, you will need to delete them.
 1. **EFI System Partition** (Existing):
    - Identify the **EFI System Partition** in the list (usually on the NVMe drive).
    - Set the mount point to `/boot/efi`.
+   - Set the size to **600 MB**.
    - Click **Update Settings**.
 
 2. **Create New Partitions**:
