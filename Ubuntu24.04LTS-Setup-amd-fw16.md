@@ -39,7 +39,7 @@ But you may find instances where you wish to connect to this port (HDMI/DP dongl
 - Installing nvtop, then using this method.
 
 ```
-sudo apt update && sudo apt install install nvtop -y
+sudo apt update && sudo apt install nvtop -y
 ```
 Create a script with the following:
 
