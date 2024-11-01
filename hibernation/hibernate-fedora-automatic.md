@@ -3,7 +3,7 @@
 
 **NOTE:** Prefer to do this manually on Fedora? [Follow the manual guide here](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/hibernate-fedora-manual-method.md#manual-guide-configuring-lid-close-and-hibernate-settings-on-linux).
 
-**NOTE:** If you feel strongly about using btrfs subvolumes, other other approaches that are untested by us, below are some links for community guides on that front:
+**NOTE:** If you feel strongly about using btrfs subvolumes, other approaches that are untested by us, below are some links for community guides on that front:
 
 - [GUIDE] Framework 16 Hibernate (w/ swapfile) Setup on Fedora 40: [Read the full guide here](https://community.frame.work/t/guide-framework-16-hibernate-w-swapfile-setup-on-fedora-40/53080/1)
 - [Guide] Fedora 36+: Hibernation with enabled secure boot and full disk encryption (FDE) decrypting over TPM2: [Read the guide here](https://community.frame.work/t/guide-fedora-36-hibernation-with-enabled-secure-boot-and-full-disk-encryption-fde-decrypting-over-tpm2/25474)
@@ -30,7 +30,7 @@ This enhanced performance makes hibernation a practical and efficient option for
 
 - While tested working great internally, users may have improvements and tweaks to make it better.
 - COPR is coming for the released version. This is designed with Framework Laptops in mind, but, should work with any compatible laptop.
-- If you are comfortable adjusting the partition settings suggested below, go for it - do understand if something fails to and you deviate fromt the layout, you will be asked to redo the partitions as suggested by support to verify your settings.
+- If you are comfortable adjusting the partition settings suggested below, go for it - do understand if something fails to and you deviate from the layout, you will be asked to redo the partitions as suggested by support to verify your settings.
 - As you enter partition sizes as stated below, the actual size allotted will differ as that is how partitioning works. This is fine. 
 
 
@@ -154,7 +154,7 @@ This guide provides step-by-step instructions to install and use the **Lid Close
 
 ### Using Lid Close and Hibernate Settings
 
-**NOTE:** If you suspsend or hibernate with Bluetooth enable and happen to be on kernel 6.11 or greater, Please use this [workaround](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/kernel-6-11-workarounds/suspend-hibernate-bluetooth-workaround.md#workaround-for-suspendhibernate-black-screen-on-resume-kernel-611) (open in a new tab), then return to this step.
+**NOTE:** If you suspend or hibernate with Bluetooth enabled and happen to be on kernel 6.11 or greater, Please use this [workaround](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/kernel-6-11-workarounds/suspend-hibernate-bluetooth-workaround.md#workaround-for-suspendhibernate-black-screen-on-resume-kernel-611) (open in a new tab), then return to this step.
 
 After installation, you can launch the application from your applications menu.
 
@@ -168,7 +168,7 @@ Each button in the **Lid Close and Hibernate Settings** application provides spe
 
 
 1. **Install Dependencies**  
-   (**NOTE:** This is already installed, but this is offered just in case and as the software progresses, new stuff will be added.)
+   (**NOTE:** This is already installed, but this is offered just in case and as the software progresses, new features will be added.)
    Click **Install Dependencies** to ensure all necessary packages are installed. This will check and install any missing dependencies for hibernation functionality.
 
 3. **Configure Hibernate**  
@@ -197,7 +197,7 @@ Each button in the **Lid Close and Hibernate Settings** application provides spe
 
 ---
 
-**Note:** No system reboot is required after using the application, except when prompted as part of the extension installation process.
+**NOTE:** No system reboot is required after using the application, except when prompted as part of the extension installation process.
 
 
 
