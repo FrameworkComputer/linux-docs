@@ -1,7 +1,7 @@
 # Fedora 41 hibernation option (NOT Fedora official) (BETA)
 (Suspends to disk/powered off with saved state to partition)
 
-**THIS GUIDE IS NOT COMPLETE, STILL ADDING MORE, LIKE THE RPM PACKAGE/SOURCE**
+**NOTE:** Prefer to do this manually on Fedora? [Follow the manual guide here](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/hibernate-fedora-manual-method.md#manual-guide-configuring-lid-close-and-hibernate-settings-on-linux).
 
 **Tested successfully on:**
 
