@@ -104,6 +104,14 @@ sudo tee /etc/modprobe.d/alsa.conf <<< "options snd-hda-intel index=1,0 model=au
 &nbsp;
 &nbsp;
 &nbsp;
+
+## MediaTek Bluetooth with s2idle workaround 
+
+- [Simply visit this page](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/kernel-6-11-workarounds/suspend-hibernate-bluetooth-workaround.md#workaround-for-suspendhibernate-black-screen-on-resume-kernel-611) (new tab), copy/paste the one liner, reboot. Now Bluetooth will stop for suspend and resume when you resume from s2idle suspend.
+
+&nbsp;
+&nbsp;
+&nbsp;
 ### Bonus Step (for former Mac users) Reduce Font Scaling to Match Your Needs
 
 We received feedback that for users coming from OS X, installing GNOME Tweaks, browsing to Fonts, and reducing the font size from 1.00 to 0.80 may be preferred. 
