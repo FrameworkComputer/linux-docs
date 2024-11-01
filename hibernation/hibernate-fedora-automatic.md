@@ -132,9 +132,7 @@ This guide provides step-by-step instructions to install and use the **Lid Close
 ### Installation Steps
 
 1. **Download the RPM Package**  
-   [Download the latest RPM](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/kernel-6-11-workarounds/suspend-hibernate-bluetooth-workaround.md#workaround-for-suspendhibernate-black-screen-on-resume-kernel-611)
-
-   View the [release page](https://github.com/FrameworkComputer/suspend-then-hibernate-settings/releases/tag/Python) for more information.
+   [Download the latest RPM](https://github.com/FrameworkComputer/suspend-then-hibernate-settings/releases/tag/Python)
 
 2. **Install Using GNOME Software Center**  
    Double-click the downloaded RPM file. This will open the GNOME Software Center for installation.
