@@ -16,6 +16,7 @@ Otherwise, continue below to use the partition with application method.
 - Framework Laptop 13 AMD Ryzen 7040 Series
 - Framework Laptop 13 Intel® Core™ Ultra Series 1
 - Framework laptop 16 AMD Ryzen 7040 Series
+- Secure boot needs to disabled.
 
 **Guide Sections:**
 
