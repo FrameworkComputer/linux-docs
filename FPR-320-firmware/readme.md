@@ -31,6 +31,18 @@ The GUID should return with: 1e8c8470-a49c-571a-82fd-19c9fa32b8c3. With the GUID
 fwupdmgr get-devices 1e8c8470-a49c-571a-82fd-19c9fa32b8c3
 ```
 
+- Let's enable testing as at this time, lvfs testing has the firmware.
+
+```
+fwupdmgr enable-remote lvfs-testing
+```
+
+- Now refresh everything:
+
+```
+fwupdmgr refresh --force
+```
+
 - Let's try to update the firmeware now.
 
 ```
