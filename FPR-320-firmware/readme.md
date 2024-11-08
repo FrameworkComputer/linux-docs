@@ -105,7 +105,14 @@ fwupdmgr get-devices 1e8c8470-a49c-571a-82fd-19c9fa32b8c3
 
 - At this point, you should be looking at Current version:	01000334
 
-- From here, we can enroll fingerprints from GNOME on Ubuntu LTS or Fedora Workstation. 
+- From here, we can enroll fingerprints from GNOME on Ubuntu LTS or Fedora Workstation.
+
+#### Troubleshooting
+
+- You may find it times out. Let it sit for a few minutes, then sudo sytemctl reboot -i
+- fwupdmgr get-devices 1e8c8470-a49c-571a-82fd-19c9fa32b8c3 again.
+- fwupdmgr update 1e8c8470-a49c-571a-82fd-19c9fa32b8c3  again.
+- This may take up to three times, but it will eventually go.
 
 #### Return to the Fingerprint Troubleshooting guides
 
