@@ -16,7 +16,7 @@ Otherwise, continue below to use the partition with application method.
 - Framework Laptop 13 AMD Ryzen 7040 Series
 - Framework Laptop 13 Intel® Core™ Ultra Series 1
 - Framework laptop 16 AMD Ryzen 7040 Series
-- Secure boot needs to be disabled.
+- Secure boot [needs to be disabled](https://github.com/FrameworkComputer/linux-docs/blob/main/misc/secure-boot.md#secure-boot-explained).
 
 **Guide Sections:**
 
