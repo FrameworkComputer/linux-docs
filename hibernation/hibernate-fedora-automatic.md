@@ -111,7 +111,7 @@ If you have existing partitions, you will need to delete them.
    - This can later be verified with `lsblk -o NAME,FSTYPE,MOUNTPOINT`.
 
 2. **Finish Setup**:
-   - Click **Done** upper right corner.
+   - Click **Done** upper left corner.
    - Set an **encryption password** when prompted.
    - Accept the **Summary of Changes** to apply the partition layout.
 
