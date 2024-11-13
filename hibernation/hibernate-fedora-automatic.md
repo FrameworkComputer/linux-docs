@@ -1,6 +1,8 @@
 # Fedora 41 hibernation option (NOT Fedora official) (BETA)
 (Suspends to disk/powered off with saved state to partition)
 
+> What is hibernate? [Learn more here.](https://knowledgebase.frame.work/en_us/hibernation-on-linux-BkL1N5ffJg)
+
 **NOTE:** Prefer to do this manually on Fedora? [Follow the manual guide here](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/hibernate-fedora-manual-method.md#manual-guide-configuring-lid-close-and-hibernate-settings-on-linux).
 
 **NOTE:** If you feel strongly about using btrfs subvolumes, other approaches that are untested by us, below are some links for community guides on that front:
