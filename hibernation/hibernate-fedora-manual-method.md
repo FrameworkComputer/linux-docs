@@ -3,6 +3,8 @@
 
 This guide provides manual steps to configure lid-close and hibernate settings, install dependencies, and manage a GNOME extension for hibernation control.
 
+> What is hibernate? [Learn more here.](https://knowledgebase.frame.work/en_us/hibernation-on-linux-BkL1N5ffJg)
+
 **IMPORTANT:** This assumes you set up your partitions per our [instructions](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/hibernate-fedora-automatic.md#access-partition-layout), first!
 
 **NOTE:** - Secure boot needs to be disabled.
