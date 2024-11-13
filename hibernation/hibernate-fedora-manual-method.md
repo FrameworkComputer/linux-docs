@@ -1,5 +1,5 @@
 
-# Manual Guide: Configuring Lid Close and Hibernate Settings on Linux
+# Manual Guide: Configuring Lid Close and Hibernate Settings on Linux (NOT Fedora official)
 
 This guide provides manual steps to configure lid-close and hibernate settings, install dependencies, and manage a GNOME extension for hibernation control.
 
