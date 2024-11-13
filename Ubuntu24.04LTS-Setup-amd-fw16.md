@@ -56,7 +56,14 @@ timeout 2 nvtop
 
 echo "nvtop run completed."
 ```
-Save the file. Now setup a udev rule.
+
+Save the file. Then set it to executable.
+
+```
+sudo chmod +x /usr/local/bin/external_video.sh
+```
+
+Now setup a udev rule.
 ```
 sudo nano /etc/udev/rules.d/99-external_video.rules
 ```
