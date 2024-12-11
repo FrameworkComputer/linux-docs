@@ -1,4 +1,4 @@
-# Fedora 41 hibernation option (NOT Fedora official) (BETA)
+# Fedora 41 hibernation option (NOT Fedora official)
 (Suspends to disk/powered off with saved state to partition)
 
 > What is hibernate? [Learn more here.](https://knowledgebase.frame.work/en_us/hibernation-on-linux-BkL1N5ffJg)
