@@ -2,7 +2,7 @@
 
 - Step 1
 ```
-sudo apt install curl -y && curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/flatpaks/mission-center-installer.sh | bash
+sudo apt install curl -y && curl https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/flatpaks/mission-center-installer.sh | bash mission-center-installer.sh
 ```
 
 - Step 2
