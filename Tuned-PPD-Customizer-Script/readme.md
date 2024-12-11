@@ -5,7 +5,7 @@ Out of the box, by default, Fedora 41 power settings are excellent. However, for
 
 ## What Does This Script Do?
 
-This script helps you customize how your Fedora system manages power and performance through GNOME's power menu. It lets you change which power management profiles are used when you select "Power Saver" or "Performance" in the GNOME power menu.
+This script helps you customize how **your Fedora install** manages power and performance through GNOME's power menu. It lets you change which power management profiles are used when you select "Power Saver" or "Performance" in the GNOME power menu.
 
 This script is part of the [Fedora Battery Life optimization page](https://knowledgebase.frame.work/en_us/optimizing-fedora-battery-life-r1baXZh).
 
