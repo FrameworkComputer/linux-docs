@@ -28,17 +28,17 @@ ensure_bsdtar() {
             . /etc/os-release  # Source OS details
             
             if [[ "$ID" == "ubuntu" || "$ID" == "debian" ]]; then
-                echo -e "${CYAN_BOLD}Detected Ubuntu/Debian. Installing libarchive-tools (bsdtar)...${RESET}"
-                sudo apt update && sudo apt install -y libarchive-tools || {
-                    echo -e "${RED}Failed to install bsdtar. Please install libarchive-tools manually.${RESET}"
-                    exit 1
-                }
-            elif [[ "$ID" == "fedora" ]]; then
-                echo -e "${CYAN_BOLD}Detected Fedora. Installing bsdtar...${RESET}"
-                sudo dnf install -y bsdtar || {
-                    echo -e "${RED}Failed to install bsdtar. Please install it manually.${RESET}"
-                    exit 1
-                }
+    echo -e "${CYAN_BOLD}Detected Ubuntu/Debian. Installing libarchive-tools (bsdtar)...${RESET}"
+    sudo apt update &>/dev/null && sudo apt install -y libarchive-tools &>/dev/null || {
+        echo -e "${RED}Failed to install bsdtar. Please install libarchive-tools manually.${RESET}"
+        exit 1
+    }
+elif [[ "$ID" == "fedora" ]]; then
+    echo -e "${CYAN_BOLD}Detected Fedora. Installing bsdtar...${RESET}"
+    sudo dnf install -y bsdtar &>/dev/null || {
+        echo -e "${RED}Failed to install bsdtar. Please install it manually.${RESET}"
+        exit 1
+    }
             else
                 echo -e "${RED}Unsupported distribution. Please install bsdtar manually.${RESET}"
                 exit 1
@@ -50,6 +50,7 @@ ensure_bsdtar() {
     else
         echo -e "${GREEN}bsdtar is already installed.${RESET}"
     fi
+    
 }
 
 # Describe the purpose of the script and explain tuned-ppd and GNOME's PPD menu
