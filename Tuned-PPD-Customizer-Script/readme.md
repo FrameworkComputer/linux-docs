@@ -25,7 +25,7 @@ This script is part of the [Fedora Battery Life optimization page](https://knowl
 - View your current configuration.
 - Restore previous settings from backup.
 
-**IMPORTANT:** Run options 1, 2 and then you can apply option 4 to apply a new profile. Use [the guidance below](https://github.com/FrameworkComputer/linux-docs/tree/main/Tuned-PPD-Customizer-Script#recommendations) to select the right one for your powersaver and performance settings.
+**IMPORTANT:** Run options 1, 2 and then you can run option 4 to apply a new profile. Use [the guidance below](https://github.com/FrameworkComputer/linux-docs/tree/main/Tuned-PPD-Customizer-Script#recommendations) to select the right one for your powersaver and performance settings.
 
 ![Launch screen](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/Tuned-PPD-Customizer-Script/images/1.png)
 
