@@ -152,7 +152,7 @@ If you see the error `Error: /etc/tuned/ppd.conf does not exist!`:
    - Create the file manually
    - Reinstall the tuned package
 
-Contact support before making additional changes if issues persist.
+3. [Contact support before making additional changes if issues persist](https://framework.kustomer.help/contact/support-request-ryon9uAuq)
 
 ## Important Notes and FAQ
 
