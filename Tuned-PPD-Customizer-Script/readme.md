@@ -165,7 +165,7 @@ If you see the error `Error: /etc/tuned/ppd.conf does not exist!`:
 - Always keep a backup of your settings using this script.
 - These recommendations are based on typical use cases; your specific needs may vary.
 - The script clears the terminal screen between sections for better readability.
-- Why are you using bsdtar vs something else? It's been shown to be more reliable for this script. For Fedora users, it self-installs.
+- Why are is this using bsdtar vs something else? It's been shown to be more reliable for this script. For Fedora users, it self-installs.
 - **For enhanced control**, consider using the [TunedSwitcher](https://flathub.org/apps/org.easycoding.TunedSwitcher) Flatpak (compatible with GNOME/KDE).
 - Ubuntu support is planned for future releases.
 
