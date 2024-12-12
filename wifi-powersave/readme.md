@@ -1,4 +1,4 @@
-# Wi-Fi Power Save Utility
+# Wi-Fi Power Save Utility 
 A terminal unitilty to disable or enable Wi-Fi power save functionality.
 
 
