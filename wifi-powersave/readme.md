@@ -1,5 +1,5 @@
 # Wi-Fi Power Save Utility 
-A terminal unitilty to disable or enable Wi-Fi power save functionality.
+A terminal utility to disable or enable Wi-Fi power save functionality.
 
 
 ### Install Curl
