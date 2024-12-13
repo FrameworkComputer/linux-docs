@@ -256,7 +256,7 @@ perform_speed_test() {
     loading_pid=$!
 
     # Run the speed test
-    speed_test=$(speedtest-cli --simple 2>/dev/null)
+    speed_test=$(speedtest-cli --secure 2>/dev/null)
     speed_test_exit_code=$?
 
     # Stop the loading bar
