@@ -8,12 +8,6 @@ If you need to rollback a kernel or restore your grub settings, this is the tool
 
 Curl should already be installed, but just in case:
 
-### Fedora
-```
-sudo dnf install curl -y
-```
-
-or
 
 ### Ubuntu
 ```
