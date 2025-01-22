@@ -1,5 +1,7 @@
 # Disable Accidental Wakeup Script
 
+**Which laptop does this work with:** Framework Laptop 16.
+
 **The problem:** In some instances, Framework Laptop 16 can accidentally come out of its suspend state. This usually occurs when traveling, walking, taking a bus, placing the laptop into a backpack.
 Overall the agreed upon cause is that this happens due to keyboard presses while it's in a state of suspend, thus waking it up.
 
