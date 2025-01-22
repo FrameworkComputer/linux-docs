@@ -49,7 +49,7 @@ curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/disa
 
 
 
-## Stop, disable and remove the activate the Disable Accidental Wakeup Script
+## Stop, disable and remove the Disable Accidental Wakeup Script
 (Including the removal of disable-wakeup.service) 
 (No reboot is needed, it's ready to go after running this script)
 
