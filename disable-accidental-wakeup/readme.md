@@ -10,6 +10,8 @@ Overall the agreed upon cause is that this happens due to keyboard presses while
 **What this script does:** This script creates and enables a systemd service that prevents specific devices from waking the laptop from suspend. It disables wakeup functionality for **keyboard presses, touchpad presses, and lid lift events** by modifying the wakeup settings for USB devices and other relevant system devices. However, it ensures the system can still be brought out of suspend with a power button push. 
 The script configures the service to run at boot, ensuring these settings are applied consistently, and reloads the systemd daemon to recognize the new service.
 
+**How do I resume from suspend after running this script:** Press the power button one time.
+
 **Does this break functionality:** No, this script does not break functionality as long as it is implemented using this script on Ubuntu LTS or Fedora. 
 The script ensures that specific wakeup events, such as keyboard presses, touchpad presses, and lid lifts, are disabled, but it leaves the power button functional for resuming the system from suspend.
 
