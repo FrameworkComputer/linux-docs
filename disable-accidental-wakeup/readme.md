@@ -42,6 +42,11 @@ Simply paste in this command into your kernel, press the enter:
 curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/disable-accidental-wakeup/wakeup.sh -o wakeup.sh && clear && sudo bash wakeup.sh
 ```
 
+![Download the script](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/disable-accidental-wakeup/images/install.png)
+
+
+
+
 ## Stop, disable and remove the activate the Disable Accidental Wakeup Script
 (Including the removal of disable-wakeup.service) 
 (No reboot is needed, it's ready to go after running this script)
@@ -49,5 +54,7 @@ curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/disa
 ```
 curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/disable-accidental-wakeup/restore_defaults.sh -o restore_defaults.sh && clear && sudo bash restore_defaults.sh
 ```
+
+![Removal script](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/disable-accidental-wakeup/images/remove.png)
 
 
