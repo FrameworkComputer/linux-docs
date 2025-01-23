@@ -9,6 +9,33 @@ focused_summary_file="focused_summary_temp.txt"
 BOLD='\033[1m'
 RESET='\033[0m'
 
+
+# Ensure necessary packages are installed based on the operating system
+if [ -f /etc/os-release ]; then
+    # Extract OS details using grep
+    OS_ID=$(grep ^ID= /etc/os-release | cut -d'=' -f2 | tr -d '"')
+    OS_VERSION_ID=$(grep ^VERSION_ID= /etc/os-release | cut -d'=' -f2 | tr -d '"')
+
+    # Check and install required packages based on the distribution
+    case "$OS_ID" in
+        ubuntu)
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq pciutils iw inxi speedtest-cli lsb-release || { echo "${BOLD}Package installation failed on Ubuntu.${RESET}"; exit 1; }
+            ;;
+        fedora)
+            sudo dnf install -y -q pciutils iw inxi speedtest-cli redhat-lsb-core || { echo "${BOLD}Package installation failed on Fedora.${RESET}"; exit 1; }
+            ;;
+        *)
+            echo "${BOLD}Unsupported distribution: $OS_ID${RESET}"
+            exit 1
+            ;;
+    esac
+else
+    echo "${BOLD}Could not detect the OS distribution.${RESET}"
+    exit 1
+fi
+
+
 # Function to display progress bar
 show_progress() {
     local width=50
