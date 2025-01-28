@@ -75,16 +75,23 @@ sudo grubby --update-kernel=ALL --args="amdgpu.sg_display=0"
 
 - Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
-- Copy/paste in the following code below.
-- Press the enter key, user password, enter key.
+- Copy/paste in the code below (use either the immediate temporary fix or persistent fix).
+- Then press the enter key, user password, enter key.
 
 ```
+# Immediate temporary fix to disable power save for running session (no reboot required)
 echo 0 | sudo tee /sys/module/snd_hda_intel/parameters/power_save
 ```
+
+```
+# Persistent fix to disable power save using Tuned
+sudo mkdir -p /etc/tuned/profiles/balanced/
+sudo cp /usr/lib/tuned/profiles/balanced/tuned.conf /etc/tuned/profiles/balanced/
+sudo sed -i 's/timeout=10/timeout=0/g' /etc/tuned/profiles/balanced/tuned.conf
+```
+
 > **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
 
-
-**Reboot**
 
 &nbsp;
 &nbsp;
