@@ -32,6 +32,7 @@ sudo dnf upgrade
 
 ### Step 2 - If you want to enable fractional scaling on Wayland:
 
+- Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word Displays.
 - Look for scale you want and select it, click Apply.
 
