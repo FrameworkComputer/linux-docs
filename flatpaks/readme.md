@@ -12,6 +12,8 @@ sudo apt install curl -y && curl -O https://raw.githubusercontent.com/FrameworkC
 
 ![Flatseal main page](https://raw.githubusercontent.com/ahoneybun/linux-docs/blob/flatseal-steps/flatpaks/images/flatseal.png)
 
+![Flatseal GIMP page](https://raw.githubusercontent.com/ahoneybun/linux-docs/blob/flatseal-steps/flatpaks/images/flatseal-gimp-filesystem.png)
+
 ## Mission Center Installer for Ubuntu 24.04
 
 - Step 1
