@@ -10,9 +10,9 @@ By design of Flatpaks they have limited access to your home folder and system in
 sudo apt install curl -y && curl -O https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/flatpaks/flatseal-installer.sh && bash flatseal-installer.sh
 ```
 
-![Flatseal main page](https://raw.githubusercontent.com/ahoneybun/linux-docs/blob/flatseal-steps/flatpaks/images/flatseal.png)
+![Flatseal main page](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/blob/flatseal-steps/flatpaks/images/flatseal.png)
 
-![Flatseal GIMP page](https://raw.githubusercontent.com/ahoneybun/linux-docs/blob/flatseal-steps/flatpaks/images/flatseal-gimp-filesystem.png)
+![Flatseal GIMP page](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/blob/flatseal-steps/flatpaks/images/flatseal-gimp-filesystem.png)
 
 ## Mission Center Installer for Ubuntu 24.04
 
