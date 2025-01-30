@@ -84,7 +84,8 @@ echo 0 | sudo tee /sys/module/snd_hda_intel/parameters/power_save
 ```
 
 ```
-# Persistent fix to disable power save using Tuned
+# Persistent fix to disable power save using Tuned (either change the power profile or reboot to apply)
+# Note: Change "balanced" to the profile you want this set on
 sudo mkdir -p /etc/tuned/profiles/balanced/
 sudo cp /usr/lib/tuned/profiles/balanced/tuned.conf /etc/tuned/profiles/balanced/
 sudo sed -i 's/timeout=10/timeout=0/g' /etc/tuned/profiles/balanced/tuned.conf
