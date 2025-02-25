@@ -18,7 +18,7 @@ With this script,you will need to **Fn space bar to turn off the backlight** bef
 **The problem:** In some instances, Framework Laptop 16 can accidentally come out of its suspend state. This usually occurs when traveling, walking, taking a bus, placing the laptop into a backpack.
 Overall the agreed upon cause is that this happens due to keyboard presses while it's in a state of suspend, thus waking it up.
 
-**The workaround:** While our engineering team has it [on their roadmap](https://community.frame.work/t/responded-waking-from-suspend-w-lid-closed/47497/73?u=matt_hartley) to fix this on the BIOS level, but I wanted to make sure there was a solid, reliable workaround available right now.
+**The workaround:** Our engineering team has it [on their roadmap](https://community.frame.work/t/responded-waking-from-suspend-w-lid-closed/47497/73?u=matt_hartley) to fix this on the BIOS level, however until that is available this script is a reliable workaround.
 
 **What this script does:** This script creates and enables a systemd service that prevents specific devices from waking the laptop from suspend. It disables wakeup functionality for **keyboard presses, touchpad presses, and lid lift events** by modifying the wakeup settings for USB devices and other relevant system devices. However, it ensures the system can still be brought out of suspend with a power button push. 
 The script configures the service to run at boot, ensuring these settings are applied consistently, and reloads the systemd daemon to recognize the new service.
