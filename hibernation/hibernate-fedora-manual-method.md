@@ -7,7 +7,7 @@ This guide provides manual steps to configure lid-close and hibernate settings, 
 
 **IMPORTANT:** This assumes you set up your partitions per our [instructions](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/hibernate-fedora-automatic.md#access-partition-layout), first!
 
-**NOTE:** - Secure boot needs to be disabled.
+**NOTE:** - [Secure boot needs to be disabled](https://github.com/FrameworkComputer/linux-docs/blob/main/misc/secure-boot.md#secure-boot-explained) (<--This affects EFI updaters for example
 
 **NOTE:** If you feel strongly about using btrfs subvolumes, other approaches that are untested by us, below are some links for community guides on that front:
 
