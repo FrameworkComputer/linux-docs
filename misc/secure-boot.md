@@ -29,7 +29,7 @@
 - Secure Boot may interfere with hibernate resuming from cold boot (unsigned kernels for example), and with certain alternative boot methods (e.g., PXE boot) or older bootloaders.
 So for hibernation, Ubuntu will likely work with hibernation whereas Fedora will not when using secure boot. All comes down to kernel signing. 
 
-> Remember. We advice leaving this enabled - disabling may lead to issues with our various upgrade processes.
+> Remember. We advice leaving this enabled - disabling may lead to issues with our various upgrade processes. This also means it will interfere with EFI firmware updates if secure boot is disabled. So before you disable it, make sure you acknowledge this. No EFI updaters if secure boot is disabled.
 
 ### How to disable it if you choose to.
 
