@@ -9,10 +9,8 @@ focused_summary_file="focused_summary_temp.txt"
 BOLD='\033[1m'
 RESET='\033[0m'
 
-
 # Ensure necessary packages are installed based on the operating system
 if [ -f /etc/os-release ]; then
-    # Extract OS details using grep
     OS_ID=$(grep ^ID= /etc/os-release | cut -d'=' -f2 | tr -d '"')
     OS_VERSION_ID=$(grep ^VERSION_ID= /etc/os-release | cut -d'=' -f2 | tr -d '"')
 
@@ -20,10 +18,14 @@ if [ -f /etc/os-release ]; then
     case "$OS_ID" in
         ubuntu)
             sudo apt-get update -qq
-            sudo apt-get install -y -qq pciutils iw inxi speedtest-cli lsb-release || { echo "${BOLD}Package installation failed on Ubuntu.${RESET}"; exit 1; }
+            sudo apt-get install -y -qq pciutils iw inxi || { echo "${BOLD}Package installation failed on Ubuntu.${RESET}"; exit 1; }
             ;;
         fedora)
-            sudo dnf install -y -q pciutils iw inxi speedtest-cli redhat-lsb-core || { echo "${BOLD}Package installation failed on Fedora.${RESET}"; exit 1; }
+            sudo dnf install -y -q pciutils iw inxi || { echo "${BOLD}Package installation failed on Fedora.${RESET}"; exit 1; }
+            ;;
+        bluefin|bazzite)
+            # Do not install any packages on these distributions
+            # Just skip installation.
             ;;
         *)
             echo "${BOLD}Unsupported distribution: $OS_ID${RESET}"
@@ -34,7 +36,6 @@ else
     echo "${BOLD}Could not detect the OS distribution.${RESET}"
     exit 1
 fi
-
 
 # Function to display progress bar
 show_progress() {
@@ -61,7 +62,15 @@ get_system_info() {
     echo "" >> "$output_file"
     echo "Kernel version: $(uname -r)" >> "$output_file"
     echo "Desktop Environment: $XDG_CURRENT_DESKTOP" >> "$output_file"
-    echo "Distribution: $(lsb_release -d | cut -f2)" >> "$output_file"
+
+    # For distribution, read from /etc/os-release
+    if [ -f /etc/os-release ]; then
+        OS_NAME=$(grep PRETTY_NAME /etc/os-release | cut -d= -f2 | tr -d '"')
+        echo "Distribution: $OS_NAME" >> "$output_file"
+    else
+        echo "Distribution: Unknown (no /etc/os-release)" >> "$output_file"
+    fi
+
     echo "BIOS Version: $(sudo dmidecode -s bios-version)" >> "$output_file"
     echo "" >> "$output_file"
 }
@@ -70,8 +79,7 @@ get_system_info() {
 process_logs() {
     local start_time=$1
     local end_time=$2
-    
-    # Convert start and end times to seconds since epoch for comparison
+
     local start_seconds=$(date -d "$start_time" +%s)
     local end_seconds=$(date -d "$end_time" +%s)
 
@@ -103,11 +111,9 @@ process_logs() {
     done
 
     echo -e "\nDmesg processing complete."
-
     echo "" >> "$output_file"
 
     # Create a header for journalctl section with spacing
-    echo "" >> "$output_file"
     echo "===== journalctl output starts =====" >> "$output_file"
     echo "" >> "$output_file"
 
@@ -131,7 +137,7 @@ process_logs() {
 # Function to add summaries to the file
 add_summaries() {
     local file=$1
-    
+
     # Add focused summary section to the end of the output file
     echo "" >> "$file"
     echo "===== Focused Summary of Potential Issues =====" >> "$file"
@@ -159,7 +165,10 @@ add_summaries() {
     echo "" >> "$file"
 }
 
+########################################
 # Main script starts here
+########################################
+
 echo "Choose an option:"
 echo "1. Last x minutes"
 echo "2. Last 24 hours"
@@ -194,22 +203,7 @@ case $choice in
     add_summaries "$output_file"
     ;;
   4)
-    echo "Looking for file called combined_log.txt in home directory..."
-    if [ ! -f "$output_file" ]; then
-        echo "File not found: $output_file"
-        exit 1
-    fi
-    echo "File found. Proceeding with filtering options."
-    ;;
-  *)
-    echo "Invalid choice"
-    exit 1
-    ;;
-esac
-
-if [ "$choice" == "4" ]; then
     echo "Looking for file called combined_log.txt in current directory..."
-    output_file="$(pwd)/combined_log.txt"  # Change to current directory
     if [ ! -f "$output_file" ]; then
         echo "File not found: $output_file"
         exit 1
@@ -248,8 +242,13 @@ if [ "$choice" == "4" ]; then
     echo -e "\n${BOLD}Filtered log saved in $filtered_output_file${RESET}"
     line_count=$(wc -l < "$filtered_output_file")
     echo -e "${BOLD}Total lines in filtered output: $line_count${RESET}"
-fi
+    ;;
+  *)
+    echo "Invalid choice"
+    exit 1
+    ;;
+esac
 
-# Remove temporary files
+# Clean up temporary files
 [ -f "$summary_file" ] && rm "$summary_file"
 [ -f "$focused_summary_file" ] && rm "$focused_summary_file"
