@@ -29,7 +29,9 @@ sudo apt update && sudo apt upgrade -y && sudo snap refresh
 
 &nbsp; &nbsp; &nbsp;
 
-### USB-C Video Out from dGPU directly
+### (No Longer Needed) USB-C Video Out from dGPU directly
+UPDATED: CURRENT FIRMWARE MAKES THIS UNNEEDED, JUST MAKE SURE [YOUR FIRMWARE IS CURRENT](https://guides.frame.work/Guide/Fedora+41+Installation+on+the+Framework+Laptop+16/394?lang=en#s2261).
+**With the latest firmware, just connect your display**.
 
 By default, when you attach a USB-C cable to the dGPU port, it will not come out of [D3cold](https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/device-power-states) - this is by design and is to preserve your battery life during everyday usage.
 
