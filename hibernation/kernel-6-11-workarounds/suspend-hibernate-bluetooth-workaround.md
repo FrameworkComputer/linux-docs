@@ -1,3 +1,5 @@
+## THIS IS NO LONGER NEEDED. 
+If you need to undo this workaround, [simply visit this section](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/kernel-6-11-workarounds/suspend-hibernate-bluetooth-workaround.md#to-remove-the-services-installed) and run the commands to remove the service(s).
 # Workaround for suspend/hibernate black screen on resume kernel 6.11
 
 - Issue: Bluetooth on kernel 6.11 causes black screen on resume attempt when using a MediaTek Wi-Fi card.
