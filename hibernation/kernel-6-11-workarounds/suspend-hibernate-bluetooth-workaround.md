@@ -2,19 +2,19 @@
 If you need to undo this workaround, [simply visit this section](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/kernel-6-11-workarounds/suspend-hibernate-bluetooth-workaround.md#to-remove-the-services-installed) and run the commands to remove the service(s).
 # Workaround for suspend/hibernate black screen on resume kernel 6.11
 
-- Issue: Bluetooth on kernel 6.11 causes black screen on resume attempt when using a MediaTek Wi-Fi card.
-- Workaround provides two systemd services. First one rfkills Bluetooth when suspend or hibernate is detected. Second service re-activates Bluetooth upon resume.
+- ~~Issue: Bluetooth on kernel 6.11 causes black screen on resume attempt when using a MediaTek Wi-Fi card.~~
+- ~~Workaround provides two systemd services. First one rfkills Bluetooth when suspend or hibernate is detected. Second service re-activates Bluetooth upon resume.~~
 
 ### Install Curl
 
-Curl should already be installed, but just in case:
+~~Curl should already be installed, but just in case:~~
 
 ### Fedora
 ```
 sudo dnf install curl -y
 ```
 
-or
+~~or~~
 
 ### Ubuntu
 ```
@@ -29,8 +29,8 @@ sudo apt install curl -y
 curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/hibernation/kernel-6-11-workarounds/rfkill-suspender.sh -o rfkill-suspender.sh && clear && bash rfkill-suspender.sh
 ```
 
-Running the script in the future
-After the install, you can run going forward with the following in the HOME directory. So merely opening a terminal and running this will work if the original script has not been moved.
+~~Running the script in the future~~
+~~After the install, you can run going forward with the following in the HOME directory. So merely opening a terminal and running this will work if the original script has not been moved.~~
 
 ```
 bash rfkill-suspender.sh
