@@ -51,8 +51,32 @@ sudo dnf upgrade
 &nbsp;
 &nbsp;
 &nbsp;
+### Bonus Step (for former Mac users) Reduce Font Scaling to Match Your Needs
 
-## MediaTek Bluetooth with s2idle workaround
+We received feedback that for users coming from OS X, installing GNOME Tweaks, browsing to Fonts, and reducing the font size from 1.00 to 0.80 may be preferred. 
+
+- Goto Displays, set scaling to 200%. This will look too large, so let's fix the fonts.
+- Install with:
+  
+```
+sudo dnf install gnome-tweaks -y
+```
+
+- Open Tweaks by using the "Super" or Windows key, search tweaks, and enter.
+
+- At the top, select fonts. Now in that panel, scroll all the way down. Look for Size. Change from 1.00 to 0.80. Close Tweaks.
+
+  Note: This is for the displays for the laptop only. This will look super odd on external displays and likely too large even still.
+
+&nbsp;
+&nbsp;
+&nbsp;
+
+----------------------------------------
+----------------------------------------
+## Workarounds below are no longer needed
+
+## ~~MediaTek Bluetooth with s2idle workaround~~
 (**UPDATED:** No longer is this needed)
 
 - ~~[Simply visit this page](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/kernel-6-11-workarounds/suspend-hibernate-bluetooth-workaround.md#workaround-for-suspendhibernate-black-screen-on-resume-kernel-611) (new tab), copy/paste the one liner, reboot. Now Bluetooth will stop for suspend and resume when you resume from s2idle suspend.~~
@@ -62,8 +86,8 @@ sudo dnf upgrade
 &nbsp;
 
 ### (No Longer Needed) USB-C Video Out from dGPU directly
-(**UPDATED:** CURRENT FIRMWARE MAKES THIS UNNEEDED, JUST MAKE SURE [YOUR FIRMWARE IS CURRENT](https://guides.frame.work/Guide/Fedora+41+Installation+on+the+Framework+Laptop+16/394?lang=en#s2261).
-**With the latest firmware, just connect your display**.
+~~(**UPDATED:** CURRENT FIRMWARE MAKES THIS UNNEEDED, JUST MAKE SURE [YOUR FIRMWARE IS CURRENT](https://guides.frame.work/Guide/Fedora+41+Installation+on+the+Framework+Laptop+16/394?lang=en#s2261).
+**With the latest firmware, just connect your display**.~~
 
 ~~By default, when you attach a USB-C cable to the dGPU port, it will not come out of D3cold - this is by design and is to preserve your battery life during everyday usage.~~
 
@@ -120,52 +144,32 @@ ACTION=="add", SUBSYSTEM=="usb", RUN+="/usr/local/bin/external_video.sh"
 &nbsp;
 &nbsp;
 
-## Optional and *only if needed* - current AMD Ryzen 7040 Series workarounds to common issues
+## (**NO LONGER NEEDED**): Optional and *only if needed* - current AMD Ryzen 7040 Series workarounds to common issues
+(**UPDATED:** CURRENT FIRMWARE MAKES THIS UNNEEDED, JUST MAKE SURE [YOUR FIRMWARE IS CURRENT](https://guides.frame.work/Guide/Fedora+41+Installation+on+the+Framework+Laptop+16/394?lang=en#s2261).
 
-### To prevent graphical artifacts from appearing:
-(Note, this workaround may be unneeded as it is difficult to reproduce, however, if you find you're experiencing [the issue described here](https://bugzilla.redhat.com/show_bug.cgi?id=2247154#c3), you can implement this boot parameter)
+### ~~To prevent graphical artifacts from appearing:~~
+~~(Note, this workaround may be unneeded as it is difficult to reproduce, however, if you find you're experiencing [the issue described here](https://bugzilla.redhat.com/show_bug.cgi?id=2247154#c3), you can implement this boot parameter)~~
 
 
-- Browse to the horizontal line in the upper left corner, click to open it.
-- Type out the word terminal, click to open it.
-- Then press the enter key, user password, enter key.
+- ~~Browse to the horizontal line in the upper left corner, click to open it.~~
+- ~~Type out the word terminal, click to open it.~~
+- ~~Then press the enter key, user password, enter key.~~
 
 ```
 sudo grubby --update-kernel=ALL --args="amdgpu.sg_display=0"
 ```
-> **TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.
+> ~~**TIP:** You can use the little clipboard icon to the right of the code to copy to your clipboard.~~
 
 
 **Reboot**
 
-## Addtionally, we recommend the following as well if you are experiencing graphical artifacts from appearing
+## (NO LONGER NEEDED) ~~Addtionally, we recommend the following as well if you are experiencing graphical artifacts from appearing~~
+(**UPDATED:** CURRENT FIRMWARE MAKES THIS UNNEEDED, JUST MAKE SURE [YOUR FIRMWARE IS CURRENT](https://guides.frame.work/Guide/Fedora+41+Installation+on+the+Framework+Laptop+16/394?lang=en#s2261).
+**With the latest firmware, just connect your display**.
 
-- Please follow the steps outlined in this guide:
-  https://knowledgebase.frame.work/allocate-additional-ram-to-igpu-framework-laptop-13-amd-ryzen-7040-series-BkpPUPQa
+- ~~Please follow the steps outlined in this guide:
+  https://knowledgebase.frame.work/allocate-additional-ram-to-igpu-framework-laptop-13-amd-ryzen-7040-series-BkpPUPQa~~
 
-&nbsp;
-&nbsp;
-&nbsp;
-### Bonus Step (for former Mac users) Reduce Font Scaling to Match Your Needs
-
-We received feedback that for users coming from OS X, installing GNOME Tweaks, browsing to Fonts, and reducing the font size from 1.00 to 0.80 may be preferred. 
-
-- Goto Displays, set scaling to 200%. This will look too large, so let's fix the fonts.
-- Install with:
-  
-```
-sudo dnf install gnome-tweaks -y
-```
-
-- Open Tweaks by using the "Super" or Windows key, search tweaks, and enter.
-
-- At the top, select fonts. Now in that panel, scroll all the way down. Look for Size. Change from 1.00 to 0.80. Close Tweaks.
-
-  Note: This is for the displays for the laptop only. This will look super odd on external displays and likely too large even still.
-
-&nbsp;
-&nbsp;
-&nbsp;
 
 ----------------------------------------
 
