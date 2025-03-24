@@ -144,7 +144,7 @@ ACTION=="add", SUBSYSTEM=="usb", RUN+="/usr/local/bin/external_video.sh"
 &nbsp;
 &nbsp;
 
-## (**NO LONGER NEEDED**): Optional and *only if needed* - current AMD Ryzen 7040 Series workarounds to common issues
+## (**NO LONGER NEEDED**): ~~Optional and *only if needed* - current AMD Ryzen 7040 Series workarounds to common issues~~
 (**UPDATED:** CURRENT FIRMWARE MAKES THIS UNNEEDED, JUST MAKE SURE [YOUR FIRMWARE IS CURRENT](https://guides.frame.work/Guide/Fedora+41+Installation+on+the+Framework+Laptop+16/394?lang=en#s2261).
 
 ### ~~To prevent graphical artifacts from appearing:~~
