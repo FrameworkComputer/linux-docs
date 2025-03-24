@@ -52,7 +52,8 @@ sudo dnf upgrade
 &nbsp;
 &nbsp;
 
-## MediaTek Bluetooth with s2idle workaround 
+## MediaTek Bluetooth with s2idle workaround
+(**UPDATED:** No longer is this needed)
 
 - [Simply visit this page](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/kernel-6-11-workarounds/suspend-hibernate-bluetooth-workaround.md#workaround-for-suspendhibernate-black-screen-on-resume-kernel-611) (new tab), copy/paste the one liner, reboot. Now Bluetooth will stop for suspend and resume when you resume from s2idle suspend.
 
@@ -61,7 +62,7 @@ sudo dnf upgrade
 &nbsp;
 
 ### (No Longer Needed) USB-C Video Out from dGPU directly
-UPDATED: CURRENT FIRMWARE MAKES THIS UNNEEDED, JUST MAKE SURE [YOUR FIRMWARE IS CURRENT](https://guides.frame.work/Guide/Fedora+41+Installation+on+the+Framework+Laptop+16/394?lang=en#s2261).
+(**UPDATED:** CURRENT FIRMWARE MAKES THIS UNNEEDED, JUST MAKE SURE [YOUR FIRMWARE IS CURRENT](https://guides.frame.work/Guide/Fedora+41+Installation+on+the+Framework+Laptop+16/394?lang=en#s2261).
 **With the latest firmware, just connect your display**.
 
 By default, when you attach a USB-C cable to the dGPU port, it will not come out of D3cold - this is by design and is to preserve your battery life during everyday usage.
