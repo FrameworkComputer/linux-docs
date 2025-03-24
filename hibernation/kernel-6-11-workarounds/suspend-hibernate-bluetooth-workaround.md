@@ -35,6 +35,10 @@ curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/head
 ```
 bash rfkill-suspender.sh
 ```
+------------------------------------------------------------------------------------------------------------------------------
+
+
+
 
 ## To remove the services installed
 
