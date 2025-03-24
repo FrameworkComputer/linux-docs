@@ -55,7 +55,7 @@ sudo dnf upgrade
 ## MediaTek Bluetooth with s2idle workaround
 (**UPDATED:** No longer is this needed)
 
-- [Simply visit this page](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/kernel-6-11-workarounds/suspend-hibernate-bluetooth-workaround.md#workaround-for-suspendhibernate-black-screen-on-resume-kernel-611) (new tab), copy/paste the one liner, reboot. Now Bluetooth will stop for suspend and resume when you resume from s2idle suspend.
+- ~~[Simply visit this page](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/kernel-6-11-workarounds/suspend-hibernate-bluetooth-workaround.md#workaround-for-suspendhibernate-black-screen-on-resume-kernel-611) (new tab), copy/paste the one liner, reboot. Now Bluetooth will stop for suspend and resume when you resume from s2idle suspend.~~
 
 &nbsp;
 &nbsp;
@@ -65,22 +65,22 @@ sudo dnf upgrade
 (**UPDATED:** CURRENT FIRMWARE MAKES THIS UNNEEDED, JUST MAKE SURE [YOUR FIRMWARE IS CURRENT](https://guides.frame.work/Guide/Fedora+41+Installation+on+the+Framework+Laptop+16/394?lang=en#s2261).
 **With the latest firmware, just connect your display**.
 
-By default, when you attach a USB-C cable to the dGPU port, it will not come out of D3cold - this is by design and is to preserve your battery life during everyday usage.
+~~By default, when you attach a USB-C cable to the dGPU port, it will not come out of D3cold - this is by design and is to preserve your battery life during everyday usage.~~
 
-But you may find instances where you wish to connect to this port (HDMI/DP dongle to USB-C for example). There are a few ways to bring the dGPU out of D3cold.
+~~But you may find instances where you wish to connect to this port (HDMI/DP dongle to USB-C for example). There are a few ways to bring the dGPU out of D3cold.~~
 
-- [Mission Center](https://missioncenter.io/) or ``lspci -v``
-- Installing nvtop, then using this method.
+- ~~[Mission Center](https://missioncenter.io/)~~ or ``lspci -v``
+- ~~Installing nvtop, then using this method.~~
 
 ```
 sudo dnf install nvtop
 ```
-Create a script with the following:
+~~Create a script with the following:~~
 
 ```
 sudo nano /usr/local/bin/external_video.sh
 ```
-Paste in:
+~~Paste in:~~
 
 ```
 #!/bin/bash
@@ -90,31 +90,31 @@ timeout 2 nvtop
 
 echo "nvtop run completed."
 ```
-Save the file. Then set it to executable.
+~~Save the file. Then set it to executable.~~
 
 ```
 sudo chmod +x /usr/local/bin/external_video.sh
 ```
 
-Now setup a udev rule.
+~~Now setup a udev rule.~~
 ```
 sudo nano /etc/udev/rules.d/99-external_video.rules
 ```
 
-Paste in.
+~~Paste in.~~
 
 ```
 ACTION=="add", SUBSYSTEM=="usb", RUN+="/usr/local/bin/external_video.sh"
 ```
 
-Save the file, then run these commands.
+~~Save the file, then run these commands.~~
 
 ``sudo udevadm control --reload-rules``
-then
+~~then~~
 ``sudo udevadm trigger``
 
-- Plug in your adapter into the USB-C port on your dGPU port on the back, your display will come on.
-- NOTE: If you are using HDMI, USB-C or DP explansion cards in the expansion bays on the side of the laptop, this is not needed.
+- ~~Plug in your adapter into the USB-C port on your dGPU port on the back, your display will come on.~~
+- ~~NOTE: If you are using HDMI, USB-C or DP explansion cards in the expansion bays on the side of the laptop, this is not needed.~~
 
 &nbsp;
 &nbsp;
