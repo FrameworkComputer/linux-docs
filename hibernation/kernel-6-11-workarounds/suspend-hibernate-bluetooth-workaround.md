@@ -5,7 +5,7 @@ If you need to undo this workaround, [simply visit this section](https://github.
 - ~~Issue: Bluetooth on kernel 6.11 causes black screen on resume attempt when using a MediaTek Wi-Fi card.~~
 - ~~Workaround provides two systemd services. First one rfkills Bluetooth when suspend or hibernate is detected. Second service re-activates Bluetooth upon resume.~~
 
-### Install Curl
+### ~~Install Curl~~
 
 ~~Curl should already be installed, but just in case:~~
 
@@ -16,14 +16,14 @@ sudo dnf install curl -y
 
 ~~or~~
 
-### Ubuntu
+~~### Ubuntu~~
 ```
 sudo apt install curl -y
 ```
 
 ------------------------------------------------------------------------------------------------------------------------------
 
-## To Install rfkill-suspender Script, simply run:
+## ~~To Install rfkill-suspender Script, simply run:~~
 
 ```
 curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/hibernation/kernel-6-11-workarounds/rfkill-suspender.sh -o rfkill-suspender.sh && clear && bash rfkill-suspender.sh
