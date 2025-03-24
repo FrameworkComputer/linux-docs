@@ -1,3 +1,4 @@
+# NO Longer Needed - retaining just in case it resurfaces again
 ## amdgpu.freesync_video=1 parameter workaround Franework Laptop 16 ONLY
 ### For Framework Laptop 16 not providing all of the expected refresh rates in kernels 6.9 and up.
 
