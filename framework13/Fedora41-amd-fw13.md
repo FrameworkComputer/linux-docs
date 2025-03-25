@@ -71,7 +71,7 @@ sudo dnf install gnome-tweaks -y
 &nbsp;
 &nbsp;
 
-## Optional and *only if needed* - current AMD Ryzen 7040 Series workarounds to common issues
+## **Optional** and *only if needed* - current AMD Ryzen 7040 Series workarounds to common issues
 
 ### Laggy or stuttering touchpad:
 
