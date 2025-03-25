@@ -17,7 +17,7 @@
             "bypass": false,
             "input-gain": 0.0,
             "ir-width": 100,
-            "kernel-path": "%CFG%/irs/IR_22ms_27dB_5t_15s_0c.irs",
+            "kernel-name": "IR_22ms_27dB_5t_15s_0c",
             "output-gain": 6.0
         },
         "filter#0": {
