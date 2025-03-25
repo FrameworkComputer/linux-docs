@@ -29,7 +29,7 @@
 - Secure Boot may interfere with hibernate resuming from cold boot (unsigned kernels for example), and with certain alternative boot methods (e.g., PXE boot) or older bootloaders.
 So for hibernation, Ubuntu will likely work with hibernation whereas Fedora will not when using secure boot. All comes down to kernel signing. 
 
-
+> Remember. We advice leaving this enabled - disabling may lead to issues with our various upgrade processes. This also means it will interfere with EFI firmware updates if secure boot is disabled. So before you disable it, make sure you acknowledge this. No EFI updaters if secure boot is disabled.
 
 ### How to disable it if you choose to.
 
@@ -76,3 +76,27 @@ So for hibernation, Ubuntu will likely work with hibernation whereas Fedora will
 - Select Enforce Secure Boot, press enter, select Disable, press enter.
 
 - Press F10 to save and reboot. With Yes selected, press Enter.
+
+--------------
+
+## Machine Owner Key Enrollment (MOK)
+
+MOK is part of the Secure Boot mechanism that ensures only trusted code can run during the boot process.
+
+- Purpose: Secure Boot authentication
+- What it does: Allows the system to load signed kernel modules and drivers when Secure Boot is enabled
+- When you use it: When installing third-party drivers (like NVIDIA) or custom kernel modules on a system with Secure Boot enabled
+- Level of operation: Boot process (firmware/UEFI level)
+- User interaction: Usually only when installing drivers or enrolling new keys
+
+If you have secure boot enabled, you will see something asking you to enroll MOK. 
+
+Two options are available:
+
+- Continue Boot (**Most people choose this option**)
+
+- Enroll MOK (You are looking at something involving proprietary modules, VirtualBox built with DKMS for example)
+
+  -   [Enrolling MOK with Fedora](https://docs.fedoraproject.org/en-US/quick-docs/mok-enrollment/)
+  -   [Enrolling MOK with Bazzite](https://docs.bazzite.gg/General/Installation_Guide/secure_boot/)
+  -   [Enrolling MOK with Ubuntu](https://wiki.ubuntu.com/UEFI/SecureBoot)
