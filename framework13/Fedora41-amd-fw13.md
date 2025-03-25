@@ -72,6 +72,21 @@ sudo dnf install gnome-tweaks -y
 
 ## Optional and *only if needed* - current AMD Ryzen 7040 Series workarounds to common issues
 
+### Laggy or stuttering touchpad:
+
+- Browse to the horizontal line in the upper left corner, click to open it.
+- Type out the word terminal, click to open it.
+- Then press the enter key, user password, enter key.
+
+```
+sudo grubby --update-kernel=ALL --args="amdgpu.dcdebugmask=0x10"
+```
+> **TIP:** If you've set other kernel parameters, like from the section above, include both inside `--args=""`.
+
+
+**Reboot**
+
+
 ### Buzzing sound from 3.5mm jack
 
 - Browse to the horizontal line in the upper left corner, click to open it.
