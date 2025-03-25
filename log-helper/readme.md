@@ -37,6 +37,12 @@ or
 sudo apt install curl -y
 ```
 
+or
+
+#### Bazzite or Bluefin
+
+Simply goto the next step below to run it, nothing else needs to be added.
+
 #### (Either distro) Then run:
 
 ```
