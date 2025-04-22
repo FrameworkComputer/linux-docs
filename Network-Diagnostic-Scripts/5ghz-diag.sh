@@ -311,7 +311,7 @@ install_dependencies() {
     echo "Loaded Firmware Version:"
     if [ -n "$IFACE" ]; then
         # Use dmesg with proper privileges
-        run_with_privilege dmesg | grep -i "firmware\|mt7921" | grep -v "Direct firmware load" | tail -5
+        run_with_privilege dmesg | grep -iE "firmware|iwlwifi|mt79" | grep -v "Direct firmware load" | tail -5
     fi
     echo ""
     
