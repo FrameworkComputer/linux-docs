@@ -116,7 +116,7 @@ This script is a comprehensive diagnostic tool specifically designed to troubles
 
 
 ```
-curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/Network-Diagnostic-Scripts/5ghz-diag.sh -o 5ghz-diag.sh && clear && bash 5ghz-diag.sh
+curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/Network-Diagnostic-Scripts/5ghz-diag.sh -o 5ghz-diag.sh && clear && sudo bash 5ghz-diag.sh
 ```
 
 Running the tool in the future
