@@ -124,7 +124,7 @@ After the install, you can run going forward with the following in the HOME dire
 
 
 ```
-bash 5ghz-diag.sh
+sudo bash 5ghz-diag.sh
 ```
 
 ![Frequency Diagnostic Script](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/Network-Diagnostic-Scripts/images/5gz1.png)
