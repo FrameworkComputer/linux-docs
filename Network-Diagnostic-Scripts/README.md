@@ -109,6 +109,11 @@ bash Wifi-Diagnostic.sh
 ------------------------------------------------------------------------------------------------------------------------------
 
 ## To Install 5Ghz/6Ghz Frequency Diagnostic Tool, simply run:
+**Important: **The images below are merely the bottom half of the data piped out into a log file into your home directory. They only reflect a brief summary of the findings.
+You cam take the completed log to get help from the support team.
+
+This script is a comprehensive diagnostic tool specifically designed to troubleshoot issues related to 5GHz (and 6GHz) WiFi connections on Linux systems, including those using immutable distributions like Bazzite and Project Bluefin. It automates the collection of detailed information about your wireless hardware, software configuration, and network environment to help identify potential problems preventing successful connection or optimal performance on faster WiFi bands.
+
 
 ```
 curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/Network-Diagnostic-Scripts/5ghz-diag.sh -o 5ghz-diag.sh && clear && bash 5ghz-diag.sh
@@ -125,6 +130,7 @@ bash 5ghz-diag.sh
 ![Frequency Diagnostic Script](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/Network-Diagnostic-Scripts/images/5gz1.png)
 
 ![Frequency Diagnostic Script](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/Network-Diagnostic-Scripts/images/5gz2.png)
+
 
 
 - Checks for pending reboots: Determines if a system reboot is required, especially relevant after installing dependencies on immutable systems.
