@@ -25,6 +25,10 @@ sudo apt install curl -y
 
 **Looking for the [Frequency Diagnostic Tool](https://github.com/FrameworkComputer/linux-docs/tree/main/Network-Diagnostic-Scripts#to-install-5ghz6ghz-frequency-diagnostic-tool-simply-run)? Click here to scroll down.**
 
+  >Use Wifi‑Diagnostic.sh when you want a broad view of your Wi‑Fi health (interfaces, speed, VPN, overall environment).
+  
+  >Use 5ghz‑diag.sh when you need to deeply troubleshoot why your system isn’t seeing or staying on 5 GHz/6 GHz (reg domains, PHY capabilities, DFS, band‑steering, driver/firmware issues).
+
 &nbsp;
 
 
