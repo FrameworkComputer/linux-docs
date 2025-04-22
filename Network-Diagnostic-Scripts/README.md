@@ -23,7 +23,7 @@ sudo apt install curl -y
 
 **Looking for the [Wi-Fi Diagnostic tool](https://github.com/FrameworkComputer/linux-docs/tree/main/Network-Diagnostic-Scripts#to-install-wi-fi-diagnostic-script-simply-run)? Click here to scroll down.**
 
-**Looking for the [Frequency Diagnostic Tool](https://github.com/FrameworkComputer/linux-docs/tree/main/Network-Diagnostic-Scripts#to-install-5Ghz/6Ghz-frequency-diagnostic-tool)? Click here to scroll down.**
+**Looking for the [Frequency Diagnostic Tool](https://github.com/FrameworkComputer/linux-docs/tree/main/Network-Diagnostic-Scripts#to-install-wi-fi-diagnostic-script-simply-run)? Click here to scroll down.**
 
 &nbsp;
 
