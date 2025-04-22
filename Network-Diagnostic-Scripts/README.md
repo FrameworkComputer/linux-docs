@@ -145,7 +145,9 @@ bash 5ghz-diag.sh
 - Investigates Band Steering and Roaming Settings: Displays information about BSS transition management capabilities and NetworkManager's band selection configuration.
 - Identifies 5GHz Connection Issues: Performs specific checks to diagnose common 5GHz connection problems, such as hardware support, current connection band, visibility of 5GHz networks, band selection settings, DFS issues, and driver/firmware errors.
 - Generates a Summary and Recommendations: Provides a concise summary of the connection status, hardware details, and performance analysis, along with tailored recommendations based on the findings.
-- Logs Output: Saves the entire diagnostic report to a timestamped log file.
+
+  ### Important
+- **Logs Output**: Saves the entire diagnostic report to a timestamped log file.
 
 
 
