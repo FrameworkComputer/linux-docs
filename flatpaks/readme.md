@@ -2,7 +2,7 @@
 
 By design, Flatpaks have limited access to your home folder and system in general. For most applications, this is perfectly fine, though in some cases this may limit the access you need—such as a webcam or microphone for Zoom, or a directory outside your home folder (for example, an external flash/thumb drive). You can extend this access using Flatseal, which itself can be installed via Flatpak.
 
-## Setting up Flatseal
+## Setting up Flatseal on Ubuntu
 
 - Step 1
 
@@ -12,8 +12,7 @@ curl -O https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/flat
 bash flatseal-installer.sh
 ```
 
-Mission Center Installer for Ubuntu 24.04
-
+## Setting up Mission Center Installer for Ubuntu 
 - Step 1
 
 ```
