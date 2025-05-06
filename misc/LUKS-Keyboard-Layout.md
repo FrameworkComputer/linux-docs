@@ -1,156 +1,94 @@
-# ⚠️ Known Limitation: LUKS Keyboard Layout
 
-> ⚠️ **Important for non-US keyboard users:**  
-> The keyboard layout selected during installation is not used for the LUKS unlock screen. Regardless of your selection during the installation process, the keyboard layout available for the LUKS unlock screen will default to `en-US` (English - United States of America).  
->  
-> This means characters on your keyboard may produce different letters than expected when typing your passphrase at boot time.
+# ⚠️ Known Limitation — LUKS Keyboard Layout
 
----
-
-## During Installation
-
-To avoid problems unlocking your system after installation:
-- Consider setting a disk encryption passphrase that only uses characters that are in the same position on both your keyboard layout and the US layout
-- Avoid special characters that may be in different positions across keyboard layouts
-
-> 💡 **Simplest solution:**  
-> - **Use a passphrase made only of numbers and/or letters A–Z.**  
-> - These characters are almost always in the same position across all keyboard layouts and will work reliably at the unlock screen.
+> ⚠️ **Important for non‑US keyboard users:**  
+> The keyboard layout selected during installation is **not** used for the LUKS unlock screen. The early‑boot environment defaults to **`en‑US`**.  
+> As a result, the keys you press may produce different characters when you enter your passphrase at boot.
 
 ---
 
-## After Installation – First Boot
+## During Installation
+- Choose a passphrase you can type on **both** US‑QWERTY *and* your local layout, **or**  
+- Use only **A–Z** and **0–9** (keys that do not change position).
 
-> ✅ **You can skip this section if:**  
-> You used the **simplest passphrase** — only **letters A–Z and/or numbers 0–9**,  
-> and you are able to unlock your encrypted disk without any issues.  
->  
-> 🎉 You're all set — **no further changes are necessary.**
+> 💡 **Simplest solution:** use a passphrase made **only** of letters A–Z and/or numbers 0–9. These keys map the same on nearly every layout and will always work at the unlock prompt.
 
 ---
 
-> ⚠️ **Follow the instructions below if:**  
-> - You use **special characters** in your passphrase, **or**  
-> - Your keyboard layout is **not en-US**, and  
-> - You **cannot reliably enter your passphrase** at the LUKS unlock screen.
+## After Installation (first boot)
 
-Follow the steps below based on your Linux distribution to permanently apply your keyboard layout during early boot:
+> ✅ **Skip the entire section below** if you used only A–Z/0‑9 **and** you can already unlock successfully.
 
----
+### ✅ Fedora Atomic desktops  
+*(Silverblue / Kinoite / Bazzite / Bluefin …)*
 
-### ✅ For Atomic desktops (Silverblue, Kinoite, Bazzite, Bluefin):
+    # 1 Write your keymap
+    echo 'KEYMAP=de' | sudo tee /etc/vconsole.conf
 
-```bash
-# 1. Set your desired keymap in /etc/vconsole.conf
-# Replace 'de' with your actual layout (e.g., fr, uk, colemak)
-echo 'KEYMAP=de' | sudo tee /etc/vconsole.conf
+    # 2 Track that file so every future deployment includes it
+    sudo rpm-ostree initramfs-etc --track=/etc/vconsole.conf
 
-# 2. Track the file so it gets included in future initramfs builds
-sudo rpm-ostree initramfs-etc --track=/etc/vconsole.conf
+    # 3 Rebuild the initramfs now *and* enable automatic rebuilds
+    sudo rpm-ostree initramfs --enable
 
-# 3. Regenerate the initramfs now so the change applies immediately
-sudo dracut -f
+    # 4 (Optional but harmless) force a dracut run on the current deployment
+    sudo dracut -f
 
-# 4. Reboot to apply the updated initramfs and keyboard layout
-sudo reboot
-```
+    # 5 Reboot
+    sudo reboot
 
 ---
 
-### ✅ For Fedora Workstation and other traditional RPM-based systems:
+### ✅ Fedora Workstation / Server (traditional RPM systems)
 
-```bash
-# 1. Set your desired keymap in /etc/vconsole.conf
-sudo nano /etc/vconsole.conf
-# Example content:
-# KEYMAP=de
-
-# 2. Rebuild the initramfs
-sudo dracut -f
-
-# 3. Reboot to apply the updated layout
-sudo reboot
-```
+    sudo nano /etc/vconsole.conf          # add or edit: KEYMAP=de
+    sudo dracut -fv --regenerate-all      # rebuild every installed kernel
+    sudo reboot
 
 ---
 
-### ✅ For Ubuntu and Ubuntu-based systems:
+### ✅ Ubuntu & Debian‑based systems
 
-```bash
-# 1. Edit the keyboard configuration file
-sudo nano /etc/default/keyboard
-# Example: XKBLAYOUT="de"
-
-# 2. Optionally reconfigure to regenerate supporting files
-sudo dpkg-reconfigure keyboard-configuration
-
-# 3. Rebuild the initramfs
-sudo update-initramfs -u
-
-# 4. Reboot to apply the changes
-sudo reboot
-```
-
-Once your system reboots, your chosen keymap will be applied during the early boot process and at the LUKS unlock screen. You can then safely change your disk encryption passphrase using GNOME Disks or a terminal tool like `cryptsetup` if desired.
+    sudo nano /etc/default/keyboard       # e.g. XKBLAYOUT="de"
+    sudo dpkg-reconfigure keyboard-configuration   # interactive; rebuilds current initrd
+    sudo update-initramfs -u -k all                 # rebuild all other initrds
+    sudo reboot
 
 ---
 
-## 🛠️ If You Can't Boot (Emergency Recovery)
+### ✅ Arch Linux & derivatives
 
-If you're unable to enter your passphrase correctly at the LUKS unlock screen due to the wrong keymap, you can temporarily set the correct layout from the GRUB menu:
-
----
-
-### ✅ For Fedora-based systems (Atomic or traditional):
-
-1. At the GRUB boot menu, press `e` to edit the boot entry  
-2. Find the line starting with `linux` (the longest line)  
-3. Add this to the end of the line:
-   ```
-   rd.vconsole.keymap=de
-   ```
-   Replace `de` with your desired layout  
-4. Press `Ctrl+X` or `F10` to boot  
-5. After logging in, follow the permanent fix steps above to make it persist
+    echo 'KEYMAP=de' | sudo tee /etc/vconsole.conf
+    sudo sed -i 's/^HOOKS=.*/HOOKS=(base udev autodetect modconf kms keyboard keymap encrypt filesystems)/' /etc/mkinitcpio.conf
+    sudo mkinitcpio -P                       # rebuild every preset
+    sudo reboot
 
 ---
 
-### ✅ For Ubuntu-based systems:
+## 🛠️ Emergency Unlock (if the keymap is wrong)
 
-1. Boot into **Recovery Mode** from the GRUB menu  
-2. Select **"Drop to root shell prompt"**  
-3. Remount the filesystem with write permissions:
-   ```bash
-   mount -o remount,rw /
-   ```
-4. Edit the keyboard layout:
-   ```bash
-   nano /etc/default/keyboard
-   ```
-5. (Optional) Reconfigure the keyboard:
-   ```bash
-   dpkg-reconfigure keyboard-configuration
-   ```
-6. Rebuild the initramfs:
-   ```bash
-   update-initramfs -u
-   ```
-7. Reboot:
-   ```bash
-   reboot
-   ```
+### Fedora / Atomic
+1. At the GRUB menu press **e**.  
+2. Append `rd.vconsole.keymap=de` to the end of the `linux` line.  
+3. Boot with **Ctrl + X** or **F10**.  
+4. After login, apply the permanent fix above.
+
+### Ubuntu family
+
+    # At GRUB choose “Recovery Mode → root shell”
+    mount -o remount,rw /
+    nano /etc/default/keyboard            # set XKBLAYOUT="de"
+    update-initramfs -u -k all
+    reboot
 
 ---
 
-## 📘 Additional Notes
+## 📘 Helpful Commands
 
-- To list available keymaps:
-  ```bash
-  localectl list-keymaps | grep -i <lang>
-  ```
+    # List available keymaps
+    localectl list-keymaps | grep -i <lang>
 
-- These changes affect the **initramfs environment** (LUKS unlock screen and early boot TTYs). Once your desktop session starts, it will follow the layout defined in your user settings.
+    # Verify your map is embedded in the current initrd
+    lsinitramfs /boot/initrd.img-$(uname -r) | grep kmap
 
----
-
-This guide ensures your keymap is fully and correctly applied across all boot stages and system variants.
+Once these steps are complete, your chosen layout is active at the LUKS prompt, early TTYs, and Plymouth. Your desktop environment continues to use the layout configured in GNOME, KDE, etc.
