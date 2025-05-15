@@ -14,7 +14,7 @@ Install Curl, copy, paste into a terminal, enter key:
 sudo apt install curl -y
 ```
 
-Then run, copy, paste into a terminal, enter key:
+Then run, copy, paste into a terminal, enter key - reboot when prompted at the end:
 ```
 curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework12/scripts/Framework-12-Ubuntu-25-04-tablet-mode.sh -o Framework-12-Ubuntu-25-04-tablet-mode.sh && clear && sudo bash Framework-12-Ubuntu-25-04-tablet-mode.sh
 ```
@@ -22,7 +22,7 @@ curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/head
 > IMPORTANT: When rebooting, log back in. Wait about 20 second until the desktop loads, it will flash for a second then all is well. This is the extension installing itself and activating. Do not rush this.
 
 
-Running the script in the future After the install, you can run going forward with the following in the HOME directory. So merely opening a terminal and running this will work if the original script has not been moved.
+Running the script in the future After the install, you can run going forward with the following in the HOME directory. So merely opening a terminal and running this will work if the original script has not been moved - remember to reboot when prompted at the end.
 
 ```
 sudo bash Framework-12-Ubuntu-25-04-tablet-mode.sh
