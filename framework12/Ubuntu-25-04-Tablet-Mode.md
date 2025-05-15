@@ -31,6 +31,10 @@ sudo bash Framework-12-Ubuntu-25-04-tablet-mode.sh
 
 > IMPORTANT: When rebooting, log back in. Wait about 20 second until the desktop loads, it will flash for a second then all is well. This is the extension installing itself and activating. Do not rush this.
 
+
+![Running Script](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework12/images/install.png)
+
+
 -------------------------
 
 ## What does this do and why is it using an extension?
