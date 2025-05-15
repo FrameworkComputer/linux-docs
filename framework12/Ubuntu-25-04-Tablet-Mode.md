@@ -14,7 +14,7 @@ Install Curl, copy, paste into a terminal, enter key:
 sudo apt install curl -y
 ```
 
-Then run, copy, paste into a terminal, enter key - reboot when prompted at the end:
+Copy, paste code below into a terminal, enter key - reboot when prompted at the end - _one and done_:
 ```
 curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework12/scripts/Framework-12-Ubuntu-25-04-tablet-mode.sh -o Framework-12-Ubuntu-25-04-tablet-mode.sh && clear && sudo bash Framework-12-Ubuntu-25-04-tablet-mode.sh
 ```
