@@ -53,10 +53,11 @@ This script configures auto-rotation and on-screen keyboard functionality for th
 
 ### Why It Uses a GNOME Extension
 
-The script uses a GNOME Shell extension ("screen-rotate@shyzus.github.io") for several important reasons:
+The script uses a GNOME Shell extension (screen-rotate(at)shyzus.github.io) for several important reasons:
 
 - Integration with GNOME Desktop Environment - The extension hooks into GNOME Shell's display management system to handle rotation properly
 - User Interface Integration - The extension provides visual feedback during rotation and handles the UI transform smoothly
 - Event Handling - It properly processes sensor events from iio-sensor-proxy and applies the appropriate screen transformations
+- We will fork it and maintain it if needed in the future
 
 The extension serves as the crucial interface layer between the low-level sensor drivers (iio-sensor-proxy) and the user-facing desktop environment, allowing the Framework Laptop 12 to function properly as a convertible device with automatic screen rotation when switching between laptop and tablet modes on Ubuntu 25.04.
