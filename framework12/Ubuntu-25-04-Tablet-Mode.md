@@ -39,7 +39,7 @@ sudo bash Framework-12-Ubuntu-25-04-tablet-mode.sh
 
 This script configures auto-rotation and on-screen keyboard functionality for the Framework Laptop 12 running Ubuntu. Here's what it accomplishes:
 
-- Sets up and UPDATED iio-sensor-proxy service - Installs and configures the sensor proxy service that detects device orientation changes
+- Sets up an UPDATED iio-sensor-proxy service - Installs and configures the sensor proxy service that detects device orientation changes
 - Installs required packages - Adds necessary dependencies for sensor detection and screen rotation
 - Installs Fedora's iio-sensor-proxy package - Uses a version known to work well with the Framework hardware
 - Sets up proper device access for sensor hardware
