@@ -2,12 +2,14 @@
 
 This script will set up tablet mode support for your laptop on Ubuntu 25.04, giving you an experience similar to what Fedora 42 and Bazzite offer out of the box.
 
+> Rather not deal with this at all? [Bazzite](https://guides.frame.work/Guide/Bazzite+Installation+on+the+Framework+Laptop+12/409?lang=en) and [Fedora](https://guides.frame.work/Guide/Fedora+42+Installation+on+the+Framework+Laptop+12/410?lang=en) are ready to go out of the box, zero configuration.
+
 What This Script Does
 
 - Installs necessary packages for tablet mode detection
 - Sets up automatic screen rotation
 
-## To setup tablet mode compatibility for Ubuntu 25.04 (ONLY), simply run:
+## To setup tablet mode compatibility for Ubuntu 25.04 (ONLY):
 
 Install Curl, copy, paste into a terminal, enter key:
 ```
