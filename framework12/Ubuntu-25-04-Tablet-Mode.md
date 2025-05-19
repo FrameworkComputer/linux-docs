@@ -69,7 +69,7 @@ The extension serves as the crucial interface layer between the low-level sensor
 
 ---------------------------
 
-# Undoing the Tablet-Mode Setup
+# Revert to Ubuntu's defaults for testing any potencial solutions from Ubuntu updates
 
 If you need to roll back all of the auto-rotation and on-screen keyboard customizations and return to Ubuntu’s vanilla `iio-sensor-proxy`, follow these steps or save the script below as `undo-tablet-mode.sh` and run it under `sudo`.
 
