@@ -63,3 +63,33 @@ The script uses a GNOME Shell extension (screen-rotate(at)shyzus.github.io) for 
 - We will fork it and maintain it if needed in the future
 
 The extension serves as the crucial interface layer between the low-level sensor drivers (iio-sensor-proxy) and the user-facing desktop environment, allowing the Framework Laptop 12 to function properly as a convertible device with automatic screen rotation when switching between laptop and tablet modes on Ubuntu 25.04.
+
+---------------------------
+
+# Undoing the Tablet-Mode Setup
+
+If you need to roll back all of the auto-rotation and on-screen keyboard customizations and return to Ubuntu’s vanilla `iio-sensor-proxy`, follow these steps or save the script below as `undo-tablet-mode.sh` and run it under `sudo`.
+
+```
+curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework12/scripts/Un-do-tablet-customizations.sh -o Un-do-tablet-customizations.sh && clear && sudo bash Un-do-tablet-customizations.sh
+```
+
+What the Undo Script Does
+
+This helper script reverses every customization applied by the tablet-mode installer, restoring Ubuntu’s original auto‐rotation setup.
+
+- Unpins the sensor proxy package: Removes any apt-mark hold on iio-sensor-proxy so Ubuntu upgrades can manage it normally again.
+
+- Removes the Fedora/Koji fallback: Purges the alien-converted RPM build of iio-sensor-proxy and reinstalls Ubuntu’s stock version from the official repositories.
+
+- Deletes the custom systemd service: Disables and removes /etc/systemd/system/Framework-sensor-proxy.service, then reloads systemd so only Ubuntu’s default service remains.
+
+- Deletes the custom udev rule: Removes /etc/udev/rules.d/61-sensor-local.rules and triggers udev to reload, restoring default device-node permissions.
+
+- Uninstalls the GNOME screen-rotate extension: Deletes the extension directory under the user’s home (~/.local/share/gnome-shell/extensions/screen-rotate@…) and its autostart desktop file, so GNOME returns to its out-of-the-box state.
+
+- Removes the user from the plugdev group: Optionally removes the user from plugdev if they were added, undoing any group-based permission grants.
+
+- Reloads system daemons: Runs systemctl daemon-reload and udevadm trigger to apply all removals immediately, without requiring manual cleanup or a package-level reboot.
+
+After running the script and **rebooting**, your laptop will be running **Ubuntu’s unmodified iio-sensor-proxy and default tablet-mode behavior** - this is useful for testing whether upstream updates have addressed the rotation issue.
