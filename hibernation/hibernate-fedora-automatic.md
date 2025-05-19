@@ -1,6 +1,8 @@
 # Fedora 41/42 hibernation option (NOT Fedora official)
 (Suspends to disk/powered off with saved state to partition)
 
+### Reminder: Secure boot must be off per the middle section below.
+
 > What is hibernate? [Learn more here.](https://knowledgebase.frame.work/en_us/hibernation-on-linux-BkL1N5ffJg)
 
 **NOTE:** Prefer to do this manually on Fedora? [Follow the manual guide here](https://github.com/FrameworkComputer/linux-docs/blob/main/hibernation/hibernate-fedora-manual-method.md#manual-guide-configuring-lid-close-and-hibernate-settings-on-linux).
