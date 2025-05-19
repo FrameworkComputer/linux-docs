@@ -10,7 +10,7 @@ What This Script Does
 - Sets up automatic screen rotation
 
 ### Need to revert these changes back to Ubuntu defaults to test if Ubuntu updates have corrected failure to rotate the screen?
-- [Revert to Ubuntu iio-sensor-proxy defaults with Ubuntu's latest version](#undoing-the-tablet-mode-setup).
+- [Revert to Ubuntu iio-sensor-proxy defaults with Ubuntu's latest version](#revert-to-ubuntus-defaults-for-testing-any-potencial-solutions-from-ubuntu-updates).
 
 ## To setup tablet mode compatibility for Ubuntu 25.04 (ONLY):
 
