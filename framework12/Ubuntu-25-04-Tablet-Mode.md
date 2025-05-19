@@ -9,6 +9,9 @@ What This Script Does
 - Installs necessary packages for tablet mode detection
 - Sets up automatic screen rotation
 
+### Need to revert these changes back to Ubuntu defaults to test if Ubuntu updates have corrected failure to rotate the screen?
+- [Revert to Ubuntu iio-sensor-proxy defaults with Ubuntu's latest version]().
+
 ## To setup tablet mode compatibility for Ubuntu 25.04 (ONLY):
 
 Install Curl, copy, paste into a terminal, enter key:
