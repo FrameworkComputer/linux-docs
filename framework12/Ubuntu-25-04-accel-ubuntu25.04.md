@@ -7,8 +7,8 @@ This guide will help set up screen rotation support for your laptop on Ubuntu 25
 Ubuntu 25.05 currently ships with iio-sensor-proxy 3.7 that has [a bug](https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/-/issues/411) preventing it from delivering accelerometer events from kernel to userspace (GNOME, KDE, ...).
 
 ```
-sudo sed 's/.*iio-buffer-accel/#&/' -i /usr/lib/udev/rules.d/80-iio-sensor-proxy.rules
-sudo udevadm trigger
+sed 's/.*iio-buffer-accel/#&/' /usr/lib/udev/rules.d/80-iio-sensor-proxy.rules | sudo tee /etc/udev/rules.d/80-iio-sensor-proxy.rules
+sudo udevadm trigger --settle
 sudo systemctl restart iio-sensor-proxy
 ```
 
