@@ -9,13 +9,13 @@ Three options to choose from, all options are for tablet mode on Ubuntu 25.04
 #### If you feel strongly about using the iio-sensor-proxy package provided by the 25.04 release, [Udev Edit Option](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Ubuntu-25-04-accel-ubuntu25.04.md) is your best option. The other two methods install an older version of iio-sensor-proxy that requires no tweaking at all. 
 **Use the method you are most comfortable with.**
 
-- Manual install gives you full control—you download the .deb yourself and run dpkg -i, then you’re done.
+- [Manual install](#manual-package-install-option) gives you full control—you download the .deb yourself and run dpkg -i, then you’re done.
 > iio-sensor-proxy 3.5-1build2
 
-- Script option bundles dependency installation, the download, the install, and even triggers a reboot into a single curl-and-bash command for a one-and-done experience.
+- [Script install option](#script-option) bundles dependency installation, the download, the install, and even triggers a reboot into a single curl-and-bash command for a one-and-done experience.
 > iio-sensor-proxy 3.5-1build2
 
-- Udev edit skips installing any new package and instead tweaks your existing udev rules so the sensor is recognized automatically, which can be useful if you just need the sensor enabled without adding or upgrading software.
+- [Udev edit option](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Ubuntu-25-04-accel-ubuntu25.04.md) skips installing any new package and instead tweaks your existing udev rules so the sensor is recognized automatically, which can be useful if you just need the sensor enabled without adding or upgrading software.
 > Default install of iio-sensor-proxy 3.7-1
 
 
