@@ -1,5 +1,9 @@
 # Ubuntu 25.04 Tablet Mode Setup
 
+This guide will help set up screen rotation support for your laptop on Ubuntu 25.04, giving you an experience similar to what Fedora 42 and Bazzite offer out of the box.
+
+> Rather not deal with this at all? [Bazzite](https://guides.frame.work/Guide/Bazzite+Installation+on+the+Framework+Laptop+12/409?lang=en) and [Fedora](https://guides.frame.work/Guide/Fedora+42+Installation+on+the+Framework+Laptop+12/410?lang=en) are ready to go out of the box, zero configuration.
+
 Three options to choose from, all options are for tablet mode on Ubuntu 25.04
 
 #### If you feel strongly about using the provided iio-sensor-proxy package provided by the 25.04 release, [Udev Edit Option](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Ubuntu-25-04-accel-ubuntu25.04.md) is your best option. The other two methods install an older version of iio-sensor-proxy that requires no tweaking at all. 
