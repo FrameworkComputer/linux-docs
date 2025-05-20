@@ -31,6 +31,12 @@ sudo dpkg -i iio-sensor-proxy_3.5-1build2_amd64.deb
 
 3- All Done, tablet mode is ready to go for Ubuntu 25.04
 
+> Unless you choose to hold the package back, it will update automatically - which will means tablet mode may stop working, unless you hold it back.
+
+```
+sudo apt-mark hold iio-sensor-proxy
+```
+
 
 --------------------------
 ## Script option
