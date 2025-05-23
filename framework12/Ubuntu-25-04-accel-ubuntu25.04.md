@@ -20,3 +20,5 @@ Then you can check if screen rotation works:
 +++ iio-sensor-proxy appeared
 === Has accelerometer (orientation: normal)
 ```
+
+> Tablet rotation mode should work immediately. Howver if for some reason it does not, reboot then test rotation again. Remember to flip the the screen completely back to test rotation properly.
