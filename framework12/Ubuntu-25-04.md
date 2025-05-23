@@ -31,7 +31,7 @@ sudo apt update && sudo apt upgrade -y && sudo snap refresh
 
 
 - Only works on 25.04, and even then needs a little help.
-- [This script will get tablet mode set up and running fast](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Ubuntu-25-04-Tablet-Deb.md). 
+- [This script will get tablet mode set up and running fast](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Ubuntu-25-04-accel-ubuntu25.04.md#ubuntu-2504-tablet-mode-setup-udev-edit). 
 - Onscreen keyboard only appears when you call for it by interacting in a text area.
 
 ![Tablet Mode](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework12/images/tablet.png)
