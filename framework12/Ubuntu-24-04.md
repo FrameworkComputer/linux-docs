@@ -42,3 +42,14 @@ sudo apt update && sudo apt install gnome-tweaks -y
 - At the top, select fonts. Now in that panel, scroll all the way down. Look for Size. Change from 1.00 to 0.80. Close Tweaks.
 
   Note: This is for the displays for the laptop only. This will look super odd on external displays and likely too large even still.
+
+### Bonus Step - Correct blurry text rendering in the Chrome browser
+
+  - Open your Chrome browser, browse to chrome://flags/ and press enter.
+  - Look for the search box at the top of the page, type in the words _ozone platform_ then press the enter key.
+  - Look for the box marked Default, change it to Auto.
+  - With this changed to Auto, relaunch your Chrome browser.
+  
+![ozone platform](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework12/images/oszone.png)
+
+
