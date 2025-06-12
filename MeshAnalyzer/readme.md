@@ -198,6 +198,7 @@ Automatic file creation in ~/.mesh_analyzer/:
 ### WHAT YOU GET
 
 Terminal Output:
+
 • Mesh topology analysis
 
 • Signal strength zones
