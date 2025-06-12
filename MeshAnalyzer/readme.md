@@ -208,6 +208,7 @@ Terminal Output:
 • Optimization recommendations
 
 HTML Report:
+
 • Interactive mesh topology map
 
 • Signal strength distribution charts
