@@ -212,6 +212,22 @@ Permission errors
 
 
 
+#### Why some nodes or frequencies might not appear
+
+> Not all mesh nodes or Wi-Fi frequencies will always show up in scans. This is expected behavior due to how mesh networks operate and how wireless scanning works on Linux. Some reasons include:
+
+> - Background steering and band steering: Mesh systems often hide certain nodes or bands (like 5GHz backhaul links) from active scans to manage traffic automatically.
+
+> - Scan timing limitations: Some nodes may only broadcast intermittently or reduce beaconing when idle, so they can be missed in a single scan.
+
+> - Driver and chipset behavior: Certain Wi-Fi chipsets or drivers (especially on Linux) may not report all frequencies or channels reliably during passive or active scans.
+
+> - DFS channels (Dynamic Frequency Selection): Some 5GHz channels are restricted and may not be immediately visible due to regulatory delays or scanning restrictions.
+
+> If you're troubleshooting, try running multiple scans over time, or reposition your device to improve visibility. This tool captures what the system can see—but some things are designed to stay just out of sight.
+
+
+
 ### CLI Output example
 ```
 📝 Logging enabled: /home/Redacted/.mesh_analyzer/logs
