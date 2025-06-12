@@ -180,15 +180,18 @@ sudo python3 mesh_analyzer.py --reset-history           #Reset corrupted history
 sudo python3 mesh_analyzer.py --archive-only            #Create archive without new analysis
 ```
 
-
-
 #### OUTPUT FILES
 
 Automatic file creation in ~/.mesh_analyzer/:
 
-reports/              - Interactive HTML reports with visualizations
-logs/                 - Detailed analysis logs and debugging info
-data/                 - Historical BSSID performance tracking
+`reports/`             
+- Interactive HTML reports with visualizations
+
+`logs/`
+- Detailed analysis logs and debugging info
+
+`data/` 
+- Historical BSSID performance tracking
 
 
 
