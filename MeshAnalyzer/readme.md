@@ -139,13 +139,18 @@ Download the files and save these 3 files in the **same directory**:
 sudo python3 mesh_analyzer.py
 ```
 • Automatically detects WiFi interface
+
 • Scans network and analyzes mesh topology
+
 • Generates HTML report with visualizations
+
 • Provides terminal output with recommendations
 
 #### Continuous Monitoring
 • sudo python3 mesh_analyzer.py --monitor
+
 • Runs continuous analysis every 60 seconds
+
 • Press Ctrl+C to stop
 
 #### Custom Scan Interval
@@ -189,15 +194,22 @@ data/                 - Historical BSSID performance tracking
 
 Terminal Output:
 • Mesh topology analysis
+
 • Signal strength zones
+
 • Historical performance
+
 • Optimization recommendations
 
 HTML Report:
 • Interactive mesh topology map
+
 • Signal strength distribution charts
+
 • Venn overlap diagrams
+
 • Coverage issue analysis
+
 • Performance trends
 
 
