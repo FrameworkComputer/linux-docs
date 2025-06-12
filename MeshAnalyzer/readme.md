@@ -195,8 +195,12 @@ HTML Report:
 ### TROUBLESHOOTING
 
 "No WiFi interface found"
+```
 nmcli device status                          #Check available interfaces
+```
+```
 ip link show                                 #List all network interfaces
+```
 
 "0 access points found"
 • You may be on a restricted enterprise network
