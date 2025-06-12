@@ -26,6 +26,25 @@ Python 3.6+ (pre-installed on most Linux systems)
 WiFi interface (built-in or USB adapter)
 Root/sudo access (required for WiFi scanning)
 
+- [INSTALLATION](#installation)
+  - [Install system dependencies](#install-system-dependencies)
+  - [Download required files](#download-required-files)
+  - [Make the files executable](#make-the-files-executable)
+  - [Required tools](#required-tools)
+- [SYSTEM COMPATIBILITY](#system-compatibility)
+- [SETUP](#setup)
+- [BASIC USAGE](#basic-usage)
+  - [Single Analysis](#single-analysis)
+  - [Continuous Monitoring](#continuous-monitoring)
+  - [Custom Scan Interval](#custom-scan-interval)
+- [ADVANCED OPTIONS](#advanced-options)
+- [OUTPUT FILES](#output-files)
+- [WHAT YOU GET](#what-you-get)
+- [TROUBLESHOOTING](#troubleshooting)
+- [CLI Output example](#cli-output-example)
+- [HTML report](#html-report)
+- [PRO TIPS](#pro-tips)
+
 
 
 ### INSTALLATION
