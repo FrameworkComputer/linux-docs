@@ -147,7 +147,9 @@ sudo python3 mesh_analyzer.py
 • Provides terminal output with recommendations
 
 #### Continuous Monitoring
-• sudo python3 mesh_analyzer.py --monitor
+```
+sudo python3 mesh_analyzer.py --monitor
+``` 
 
 • Runs continuous analysis every 60 seconds
 
