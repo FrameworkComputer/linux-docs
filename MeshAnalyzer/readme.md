@@ -345,7 +345,10 @@ ip link show                                 #List all network interfaces
 ### PRO TIPS
 
 • Best results: Connect to the mesh network you want to analyze
+
 • Large mesh networks: May take longer to scan (15-30 seconds)
+
 **• Enterprise networks: Some corporate networks block WiFi scanning**
+
 • Multiple runs: Historical data improves recommendations over time
 
