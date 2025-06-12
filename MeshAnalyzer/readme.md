@@ -202,12 +202,19 @@ nmcli device status                          #Check available interfaces
 ip link show                                 #List all network interfaces
 ```
 
-"0 access points found"
+
+**0 access points found:**
+
 • You may be on a restricted enterprise network
+
 • Ensure you have proper WiFi scanning permissions; sudo
 
-Permission errors
+
+
+**Permission errors:**
+
 • Must run with sudo for WiFi scanning
+
 • Files are automatically created with correct user permissions
 
 
