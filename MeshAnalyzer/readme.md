@@ -47,16 +47,26 @@ In short: it exists because mesh Wi-Fi is powerful—but only if you can actuall
 This is beta software actively seeking testers and feedback!
 
 #### We need your help testing with different:
+
 • Mesh systems (eero, Orbi, Google Nest, Ubiquiti, etc.)
+
 • Linux distributions (Ubuntu, Fedora, Arch, Debian, etc.)
+
 • Network environments (home, office, enterprise)
+
 • WiFi hardware configurations
 
+
 #### Please report issues, bugs, or suggestions:
+
 • What worked well for you
+
 • What didn't work or was confusing
+
 • Your mesh system brand/model
+
 • Your Linux distribution and version
+
 • Any error messages or unexpected behavior
 
 
