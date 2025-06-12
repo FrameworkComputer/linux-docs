@@ -35,6 +35,30 @@ except ImportError:
         def get_overlap_quality_assessment(self, venn_data):
             return {'quality': 'unknown', 'score': 0, 'description': 'Venn calculator not available'}
 
+# Import the updated HTML reporter with roaming and power support
+try:
+    from mesh_html_reporter import MeshHTMLReporter
+    UPDATED_HTML_REPORTER_AVAILABLE = True
+except ImportError:
+    UPDATED_HTML_REPORTER_AVAILABLE = False
+    print("⚠️ Warning: mesh_html_reporter.py not found - using built-in reporter")
+
+# Import the roaming detector - Matt is testing some new functionality - adding two new modules for import. 
+try:
+    from mesh_roaming_detector import MeshRoamingDetector
+    ROAMING_DETECTOR_AVAILABLE = True
+except ImportError:
+    ROAMING_DETECTOR_AVAILABLE = False
+    MeshRoamingDetector = None
+
+# Import the power detective
+try:
+    from mesh_power_detective import MeshPowerDetective
+    POWER_DETECTIVE_AVAILABLE = True
+except ImportError:
+    POWER_DETECTIVE_AVAILABLE = False
+    MeshPowerDetective = None
+
 @dataclass
 class APScan:
     ssid: str
@@ -95,1058 +119,6 @@ def make_json_serializable(obj):
         return make_json_serializable(obj.__dict__)
     else:
         return obj
-
-class MeshHTMLReporter:
-    """Generate interactive HTML reports from mesh analysis data"""
-    
-    def __init__(self, output_dir: str = None):
-        if output_dir is None:
-            # Use same directory structure as main analyzer
-            import os
-            if os.geteuid() == 0 and 'SUDO_USER' in os.environ:
-                sudo_user = os.environ['SUDO_USER']
-                import pwd
-                real_user_home = pwd.getpwnam(sudo_user).pw_dir
-                output_dir = os.path.join(real_user_home, ".mesh_analyzer", "reports")
-            else:
-                home = os.path.expanduser("~")
-                output_dir = os.path.join(home, ".mesh_analyzer", "reports")
-        
-        self.output_dir = Path(output_dir)
-        self.output_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Initialize Venn calculator
-        self.venn_calc = MeshVennCalculator()
-        
-        # Fix permissions if running as sudo
-        if os.geteuid() == 0 and 'SUDO_USER' in os.environ:
-            sudo_user = os.environ['SUDO_USER']
-            import pwd
-            user_info = pwd.getpwnam(sudo_user)
-            os.chown(self.output_dir, user_info.pw_uid, user_info.pw_gid)
-    
-    def generate_report(self, analysis_data: Dict, current_connection: Optional[Dict] = None) -> str:
-        """Generate complete HTML report from analysis data"""
-        
-        # Extract mesh analysis results
-        mesh_analysis = analysis_data.get('mesh_analysis', {})
-        alternatives = analysis_data.get('alternatives', [])
-        historical_data = analysis_data.get('historical_data', {})
-        problems = analysis_data.get('problems', {})
-        
-        # Determine report type and generate appropriate HTML
-        if mesh_analysis.get('type') == 'mesh':
-            html_content = self._generate_mesh_report(
-                mesh_analysis, alternatives, current_connection, historical_data, problems
-            )
-        elif mesh_analysis.get('type') == 'single_ap':
-            html_content = self._generate_single_ap_report(
-                mesh_analysis, current_connection, historical_data
-            )
-        else:
-            html_content = self._generate_multiple_ap_report(
-                mesh_analysis, alternatives, current_connection, historical_data
-            )
-        
-        # Save report with timestamp
-        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        filename = f"mesh_analysis_{timestamp}.html"
-        filepath = self.output_dir / filename
-        
-        with open(filepath, 'w', encoding='utf-8') as f:
-            f.write(html_content)
-        
-        # Fix file permissions if running as sudo
-        import os
-        if os.geteuid() == 0 and 'SUDO_USER' in os.environ:
-            sudo_user = os.environ['SUDO_USER']
-            import pwd
-            user_info = pwd.getpwnam(sudo_user)
-            os.chown(filepath, user_info.pw_uid, user_info.pw_gid)
-        
-        return str(filepath)
-    
-    def _generate_mesh_report(self, mesh_analysis: Dict, alternatives: List[Dict], 
-                            current_conn: Optional[Dict], historical_data: Dict, 
-                            problems: Dict) -> str:
-        """Generate HTML for mesh network analysis"""
-        
-        # Extract zone data correctly
-        coverage_analysis = mesh_analysis.get('coverage_analysis', {})
-        zones = coverage_analysis.get('coverage_zones', {})
-        mesh_nodes = mesh_analysis.get('mesh_nodes', {})
-        
-        # Process nodes into visualization format
-        nodes_data = self._process_mesh_nodes(mesh_nodes, current_conn, zones)
-        
-        # Generate Venn diagram data using the calculator
-        venn_data = self.venn_calc.generate_venn_data(nodes_data)
-        overlap_assessment = self.venn_calc.get_overlap_quality_assessment(venn_data)
-        
-        # Generate coverage issues summary
-        issues_summary = self._format_coverage_issues(coverage_analysis.get('coverage_issues', []))
-        
-        # Create recommendations summary
-        recommendations = self._format_recommendations(alternatives, current_conn)
-        
-        # Historical performance summary
-        historical_summary = self._format_historical_data(historical_data)
-        
-        # Problem detection summary
-        problems_summary = self._format_problems(problems)
-        
-        # Format overlap analysis
-        overlap_summary = self._format_overlap_analysis(overlap_assessment, venn_data)
-        
-        html = self._get_base_html_template()
-        
-        # Replace template variables
-        html = html.replace('{{TITLE}}', f"WiFi Mesh Analysis - {mesh_analysis.get('brand', 'Unknown').title()} Network")
-        html = html.replace('{{MESH_TYPE}}', mesh_analysis.get('mesh_type', 'unknown').replace('_', '-').title())
-        html = html.replace('{{TOTAL_NODES}}', str(mesh_analysis.get('total_nodes', 0)))
-        html = html.replace('{{TOTAL_RADIOS}}', str(mesh_analysis.get('total_radios', 0)))
-        html = html.replace('{{TOPOLOGY_HEALTH}}', mesh_analysis.get('topology_health', 'unknown').replace('_', ' ').title())
-        html = html.replace('{{QUALITY_SCORE}}', str(coverage_analysis.get('coverage_quality_score', 0)))
-        html = html.replace('{{NODES_DATA}}', json.dumps(nodes_data))
-        html = html.replace('{{ZONES_DATA}}', json.dumps(zones))
-        html = html.replace('{{VENN_DATA}}', json.dumps(venn_data))
-        html = html.replace('{{CURRENT_CONNECTION}}', json.dumps(current_conn or {}))
-        html = html.replace('{{ISSUES_SUMMARY}}', issues_summary)
-        html = html.replace('{{RECOMMENDATIONS}}', recommendations)
-        html = html.replace('{{HISTORICAL_SUMMARY}}', historical_summary)
-        html = html.replace('{{PROBLEMS_SUMMARY}}', problems_summary)
-        html = html.replace('{{OVERLAP_SUMMARY}}', overlap_summary)
-        html = html.replace('{{TIMESTAMP}}', datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-        
-        return html
-    
-    def _process_mesh_nodes(self, mesh_nodes: Dict, current_conn: Optional[Dict], zones: Dict) -> List[Dict]:
-        """Process mesh nodes into visualization format"""
-        nodes_data = []
-        node_positions = self._calculate_node_positions(len(mesh_nodes))
-        
-        for i, (base_mac, node_info) in enumerate(mesh_nodes.items()):
-            strongest_signal = node_info.get('strongest_signal', -100)
-            
-            # Determine zone based on signal strength (matching your algorithm)
-            if strongest_signal > -50:
-                zone = 'primary'
-            elif strongest_signal > -65:
-                zone = 'secondary'
-            elif strongest_signal > -80:
-                zone = 'tertiary'
-            else:
-                zone = 'fringe'
-            
-            # Check if this is the current connection
-            is_current = False
-            if current_conn:
-                for radio in node_info.get('radios', []):
-                    if radio.get('bssid') == current_conn.get('bssid'):
-                        is_current = True
-                        break
-            
-            nodes_data.append({
-                'id': i + 1,
-                'base_mac': base_mac,
-                'label': f"Node {i + 1}",
-                'signal': strongest_signal,
-                'zone': zone,
-                'current': is_current,
-                'position': node_positions[i],
-                'radios': node_info.get('radios', []),
-                'bands': list(node_info.get('bands', []))
-            })
-        
-        return nodes_data
-    
-    def _calculate_node_positions(self, node_count: int) -> List[Dict]:
-        """Calculate optimal positions for nodes in the visualization"""
-        positions = []
-        
-        if node_count == 1:
-            positions = [{'x': 50, 'y': 50}]
-        elif node_count == 2:
-            positions = [
-                {'x': 30, 'y': 40},
-                {'x': 70, 'y': 60}
-            ]
-        elif node_count == 3:
-            positions = [
-                {'x': 25, 'y': 30},
-                {'x': 50, 'y': 60},
-                {'x': 75, 'y': 35}
-            ]
-        elif node_count == 4:
-            positions = [
-                {'x': 25, 'y': 25},
-                {'x': 50, 'y': 40},
-                {'x': 75, 'y': 65},
-                {'x': 85, 'y': 85}
-            ]
-        else:
-            # For more than 4 nodes, distribute in a spiral
-            import math
-            angle_step = 2 * math.pi / node_count
-            for i in range(node_count):
-                angle = i * angle_step
-                radius = 30 + (i * 10)  # Increasing radius
-                x = 50 + radius * math.cos(angle)
-                y = 50 + radius * math.sin(angle)
-                positions.append({
-                    'x': max(10, min(90, x)),
-                    'y': max(10, min(90, y))
-                })
-        
-        return positions
-    
-    def _format_coverage_issues(self, issues: List[Dict]) -> str:
-        """Format coverage issues for HTML display"""
-        if not issues:
-            return "<div class='no-issues'>✅ No significant coverage issues detected</div>"
-        
-        html_parts = ["<div class='issues-list'>"]
-        
-        for issue in issues:
-            severity_class = f"issue-{issue.get('severity', 'low')}"
-            severity_emoji = {
-                'high': '🔴',
-                'medium': '🟡', 
-                'low': '🟠'
-            }.get(issue.get('severity', 'low'), '🟠')
-            
-            html_parts.append(f"""
-                <div class='issue-item {severity_class}'>
-                    <div class='issue-header'>
-                        {severity_emoji} {issue.get('type', '').replace('_', ' ').title()}
-                    </div>
-                    <div class='issue-details'>{issue.get('details', '')}</div>
-                    <div class='issue-impact'>Impact: {issue.get('impact', '')}</div>
-                    {f"<div class='issue-location'>Location: {issue.get('location', '')}</div>" if issue.get('location') else ''}
-                </div>
-            """)
-        
-        html_parts.append("</div>")
-        return '\n'.join(html_parts)
-    
-    def _format_recommendations(self, alternatives: List[Dict], current_conn: Optional[Dict]) -> str:
-        """Format recommendations for HTML display"""
-        if not alternatives:
-            return "<div class='no-recommendations'>✅ Current connection is optimal</div>"
-        
-        best = alternatives[0]
-        
-        if not best.get('compelling_reason', False) or best.get('score', 0) < 110:
-            return "<div class='no-recommendations'>✅ Current connection is performing well - no changes recommended</div>"
-        
-        html_parts = ["<div class='recommendations-list'>"]
-        
-        html_parts.append(f"""
-            <div class='recommendation-main'>
-                <h4>💡 Recommended Optimization</h4>
-                <div class='rec-target'>Target: {best.get('bssid', '')}</div>
-                <div class='rec-improvement'>Signal: {current_conn.get('signal', 0)}dBm → {best.get('signal', 0)}dBm ({best.get('signal_diff', 0):+d}dB)</div>
-                <div class='rec-rating'>Rating: {best.get('recommendation', 'Unknown')}</div>
-                <div class='rec-reasons'>
-                    <strong>Reasons:</strong>
-                    <ul>
-                        {''.join(f"<li>{reason}</li>" for reason in best.get('reasons', []))}
-                    </ul>
-                </div>
-            </div>
-        """)
-        
-        if len(alternatives) > 1:
-            html_parts.append("<div class='alternative-options'><h5>Other Options:</h5>")
-            for alt in alternatives[1:3]:  # Show top 2 alternatives
-                html_parts.append(f"""
-                    <div class='alt-option'>
-                        <span class='alt-bssid'>{alt.get('bssid', '')}</span>
-                        <span class='alt-signal'>{alt.get('signal', 0)}dBm ({alt.get('signal_diff', 0):+d}dB)</span>
-                        <span class='alt-rating'>{alt.get('recommendation', '')}</span>
-                    </div>
-                """)
-            html_parts.append("</div>")
-        
-        html_parts.append("</div>")
-        return '\n'.join(html_parts)
-    
-    def _format_historical_data(self, historical_data: Dict) -> str:
-        """Format historical performance data"""
-        if not historical_data:
-            return "<div class='no-history'>📊 No historical data available</div>"
-        
-        stability = historical_data.get('stability_score', 0)
-        total_connections = historical_data.get('total_connections', 0)
-        success_rate = historical_data.get('success_rate', 0)
-        avg_signal = historical_data.get('avg_signal', 0)
-        
-        stability_class = 'excellent' if stability >= 90 else 'good' if stability >= 75 else 'fair' if stability >= 60 else 'poor'
-        
-        return f"""
-            <div class='historical-summary'>
-                <div class='history-item'>
-                    <span class='history-label'>Stability Score:</span>
-                    <span class='history-value stability-{stability_class}'>{stability:.1f}/100</span>
-                </div>
-                <div class='history-item'>
-                    <span class='history-label'>Success Rate:</span>
-                    <span class='history-value'>{success_rate:.1f}%</span>
-                </div>
-                <div class='history-item'>
-                    <span class='history-label'>Total Connections:</span>
-                    <span class='history-value'>{total_connections}</span>
-                </div>
-                <div class='history-item'>
-                    <span class='history-label'>Average Signal:</span>
-                    <span class='history-value'>{avg_signal:.1f}dBm</span>
-                </div>
-            </div>
-        """
-    
-    def _format_problems(self, problems: Dict) -> str:
-        """Format detected problems"""
-        if not problems:
-            return "<div class='no-problems'>✅ No problematic patterns detected</div>"
-        
-        total_issues = (len(problems.get('roaming_loops', [])) + 
-                       len(problems.get('auth_failure_clusters', [])) + 
-                       len(problems.get('rapid_disconnects', [])))
-        
-        if total_issues == 0:
-            return "<div class='no-problems'>✅ No problematic patterns detected</div>"
-        
-        html_parts = [f"<div class='problems-summary'>🚨 {total_issues} issues detected:"]
-        
-        if problems.get('roaming_loops'):
-            html_parts.append(f"<div class='problem-item'>🔄 Roaming Loops: {len(problems['roaming_loops'])}</div>")
-        
-        if problems.get('auth_failure_clusters'):
-            html_parts.append(f"<div class='problem-item'>🔐 Auth Failure Clusters: {len(problems['auth_failure_clusters'])}</div>")
-        
-        if problems.get('rapid_disconnects'):
-            html_parts.append(f"<div class='problem-item'>⚡ Rapid Reconnects: {len(problems['rapid_disconnects'])}</div>")
-        
-        html_parts.append("</div>")
-        return '\n'.join(html_parts)
-    
-    def _format_overlap_analysis(self, overlap_assessment: Dict, venn_data: Dict) -> str:
-        """Format mesh overlap analysis"""
-        quality = overlap_assessment.get('quality', 'unknown')
-        score = overlap_assessment.get('score', 0)
-        description = overlap_assessment.get('description', 'No overlap analysis available')
-        
-        quality_emoji = {
-            'excellent': '🟢',
-            'good': '🟡',
-            'fair': '🟠',
-            'poor': '🔴',
-            'single_node': '⚪'
-        }.get(quality, '⚪')
-        
-        html_parts = [f"<div class='overlap-analysis'>"]
-        html_parts.append(f"<div class='overlap-score'>{quality_emoji} Overlap Quality: {quality.title()} ({score}/100)</div>")
-        html_parts.append(f"<div class='overlap-description'>{description}</div>")
-        
-        overlaps = venn_data.get('overlaps', [])
-        if overlaps:
-            html_parts.append("<div class='overlap-details'><strong>Node Overlaps:</strong>")
-            for overlap in overlaps[:5]:  # Show top 5 overlaps
-                html_parts.append(f"<div class='overlap-item'>• {overlap['node1_label']} ↔ {overlap['node2_label']}: {overlap['overlap_percentage']:.1f}% overlap</div>")
-            html_parts.append("</div>")
-        
-        html_parts.append("</div>")
-        return '\n'.join(html_parts)
-    
-    def _generate_single_ap_report(self, mesh_analysis: Dict, current_conn: Optional[Dict], historical_data: Dict) -> str:
-        """Generate HTML for single AP analysis"""
-        # Use the basic template with simplified data
-        quality = mesh_analysis.get('signal_quality', 'unknown')
-        signal_strength = mesh_analysis.get('signal_strength', -100)
-        reason = mesh_analysis.get('signal_reason', 'No analysis available')
-        
-        html = f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Single AP Analysis</title>
-    <style>
-        body {{ font-family: 'Segoe UI', sans-serif; margin: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }}
-        .container {{ max-width: 800px; margin: 0 auto; background: rgba(255,255,255,0.95); border-radius: 20px; padding: 30px; }}
-        h1 {{ text-align: center; color: #2c3e50; }}
-        .card {{ background: #f8f9fa; padding: 20px; border-radius: 15px; margin: 20px 0; }}
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Single Access Point Analysis</h1>
-        <div class="card">
-            <h3>📶 Signal Quality: {quality.replace('_', ' ').title()}</h3>
-            <p><strong>Signal Strength:</strong> {signal_strength}dBm</p>
-            <p><strong>Analysis:</strong> {reason}</p>
-        </div>
-        <div class="card">
-            <h3>📈 Historical Performance</h3>
-            {self._format_historical_data(historical_data)}
-        </div>
-    </div>
-</body>
-</html>"""
-        return html
-    
-    def _generate_multiple_ap_report(self, mesh_analysis: Dict, alternatives: List[Dict], 
-                                   current_conn: Optional[Dict], historical_data: Dict) -> str:
-        """Generate HTML for multiple standalone APs"""
-        html = f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multiple APs Analysis</title>
-    <style>
-        body {{ font-family: 'Segoe UI', sans-serif; margin: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }}
-        .container {{ max-width: 1000px; margin: 0 auto; background: rgba(255,255,255,0.95); border-radius: 20px; padding: 30px; }}
-        h1 {{ text-align: center; color: #2c3e50; }}
-        .card {{ background: #f8f9fa; padding: 20px; border-radius: 15px; margin: 20px 0; }}
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Multiple Access Points Analysis ({mesh_analysis.get('nodes', 0)} APs)</h1>
-        <div class="card">
-            <h3>💡 Recommendations</h3>
-            {self._format_recommendations(alternatives, current_conn)}
-        </div>
-        <div class="card">
-            <h3>📈 Historical Performance</h3>
-            {self._format_historical_data(historical_data)}
-        </div>
-    </div>
-</body>
-</html>"""
-        return html
-    
-    def _get_base_html_template(self) -> str:
-        """Get the main HTML template for mesh analysis"""
-        return '''<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{TITLE}}</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-        }
-        
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .mesh-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .info-card {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-left: 5px solid #3498db;
-        }
-        
-        .info-title {
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        
-        .info-value {
-            font-size: 1.2em;
-            color: #34495e;
-        }
-        
-        .visualization-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .chart-container {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border: 2px solid #e3f2fd;
-        }
-        
-        .chart-title {
-            font-size: 1.4em;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #2c3e50;
-            text-align: center;
-        }
-        
-        .signal-map {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            background: linear-gradient(45deg, #f0f2f5 25%, transparent 25%), 
-                        linear-gradient(-45deg, #f0f2f5 25%, transparent 25%), 
-                        linear-gradient(45deg, transparent 75%, #f0f2f5 75%), 
-                        linear-gradient(-45deg, transparent 75%, #f0f2f5 75%);
-            background-size: 20px 20px;
-            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-            border-radius: 15px;
-            border: 3px solid #34495e;
-            overflow: hidden;
-        }
-        
-        .node {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-            font-size: 11px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        
-        .node:hover {
-            transform: scale(1.2);
-            z-index: 100;
-        }
-        
-        .node.primary { background: radial-gradient(circle, #27ae60, #16a085); }
-        .node.secondary { background: radial-gradient(circle, #f39c12, #e67e22); }
-        .node.tertiary { background: radial-gradient(circle, #e74c3c, #c0392b); }
-        .node.fringe { background: radial-gradient(circle, #8e44ad, #6c3483); }
-        .node.current { 
-            background: radial-gradient(circle, #3498db, #2980b9);
-            animation: currentPulse 2s infinite;
-            border: 3px solid #fff;
-        }
-        
-        @keyframes currentPulse {
-            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(52, 152, 219, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
-        }
-        
-        .coverage-circle {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.15;
-            pointer-events: none;
-            border: 2px solid rgba(255,255,255,0.3);
-        }
-        
-        .coverage-primary { background: radial-gradient(circle, rgba(39, 174, 96, 0.3), transparent 70%); }
-        .coverage-secondary { background: radial-gradient(circle, rgba(243, 156, 18, 0.3), transparent 70%); }
-        .coverage-tertiary { background: radial-gradient(circle, rgba(231, 76, 60, 0.3), transparent 70%); }
-        .coverage-fringe { background: radial-gradient(circle, rgba(142, 68, 173, 0.3), transparent 70%); }
-        
-        .signal-bar-chart {
-            display: flex;
-            align-items: end;
-            gap: 20px;
-            height: 300px;
-            padding: 20px;
-            background: linear-gradient(to top, #ecf0f1 0%, #bdc3c7 100%);
-            border-radius: 10px;
-        }
-        
-        .signal-bar {
-            flex: 1;
-            background: linear-gradient(to top, #e74c3c, #f1c40f, #27ae60);
-            border-radius: 8px 8px 0 0;
-            position: relative;
-            min-height: 20px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .signal-bar:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
-        
-        .signal-label {
-            position: absolute;
-            bottom: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 11px;
-            font-weight: bold;
-            color: #2c3e50;
-            text-align: center;
-            width: 100px;
-            line-height: 1.2;
-        }
-        
-        .signal-value {
-            position: absolute;
-            top: -35px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.8);
-            color: white;
-            padding: 5px 8px;
-            border-radius: 5px;
-            font-size: 12px;
-            font-weight: bold;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            white-space: nowrap;
-        }
-        
-        .signal-bar:hover .signal-value {
-            opacity: 1;
-        }
-        
-        .venn-diagram {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            overflow: hidden;
-            background: linear-gradient(45deg, #f9f9f9 25%, transparent 25%), 
-                        linear-gradient(-45deg, #f9f9f9 25%, transparent 25%), 
-                        linear-gradient(45deg, transparent 75%, #f9f9f9 75%), 
-                        linear-gradient(-45deg, transparent 75%, #f9f9f9 75%);
-            background-size: 15px 15px;
-            border-radius: 15px;
-            border: 2px solid #ddd;
-        }
-        
-        .venn-node {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.4;
-            border: 3px solid;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 12px;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-            transition: opacity 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .venn-node:hover {
-            opacity: 0.7;
-            z-index: 10;
-        }
-        
-        .venn-primary { 
-            background: rgba(39, 174, 96, 0.4);
-            border-color: #27ae60;
-        }
-        .venn-secondary { 
-            background: rgba(243, 156, 18, 0.4);
-            border-color: #f39c12;
-        }
-        .venn-tertiary { 
-            background: rgba(231, 76, 60, 0.4);
-            border-color: #e74c3c;
-        }
-        .venn-fringe { 
-            background: rgba(142, 68, 173, 0.4);
-            border-color: #8e44ad;
-        }
-        
-        .venn-current {
-            border-color: #3498db !important;
-            border-width: 5px !important;
-            animation: vennPulse 2s infinite;
-        }
-        
-        @keyframes vennPulse {
-            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(52, 152, 219, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
-        }
-        
-        .legend {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 10px;
-            border-left: 4px solid;
-        }
-        
-        .legend-primary { border-left-color: #27ae60; }
-        .legend-secondary { border-left-color: #f39c12; }
-        .legend-tertiary { border-left-color: #e74c3c; }
-        .legend-fringe { border-left-color: #8e44ad; }
-        .legend-current { border-left-color: #3498db; }
-        
-        .legend-color {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        
-        .summary-section {
-            background: linear-gradient(135deg, #e8f5e8, #f0f8f0);
-            border: 2px solid #27ae60;
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 30px;
-        }
-        
-        .summary-title {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #27ae60;
-            margin-bottom: 15px;
-        }
-        
-        .tooltip {
-            position: absolute;
-            background: rgba(0,0,0,0.9);
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 12px;
-            pointer-events: none;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            max-width: 200px;
-        }
-        
-        .timestamp {
-            text-align: center;
-            color: #7f8c8d;
-            margin-top: 20px;
-            font-style: italic;
-        }
-        
-        @media (max-width: 768px) {
-            .visualization-container, .mesh-info {
-                grid-template-columns: 1fr;
-            }
-            
-            .container {
-                padding: 15px;
-            }
-            
-            h1 {
-                font-size: 2em;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>{{TITLE}}</h1>
-        
-        <div class="mesh-info">
-            <div class="info-card">
-                <div class="info-title">Mesh Type</div>
-                <div class="info-value">{{MESH_TYPE}}</div>
-            </div>
-            <div class="info-card">
-                <div class="info-title">Total Nodes</div>
-                <div class="info-value">{{TOTAL_NODES}}</div>
-            </div>
-            <div class="info-card">
-                <div class="info-title">Total Radios</div>
-                <div class="info-value">{{TOTAL_RADIOS}}</div>
-            </div>
-            <div class="info-card">
-                <div class="info-title">Topology Health</div>
-                <div class="info-value">{{TOPOLOGY_HEALTH}}</div>
-            </div>
-            <div class="info-card">
-                <div class="info-title">Quality Score</div>
-                <div class="info-value">{{QUALITY_SCORE}}/100</div>
-            </div>
-        </div>
-        
-        <div class="visualization-container">
-            <div class="chart-container">
-                <div class="chart-title">🗺️ Mesh Network Topology</div>
-                <div class="signal-map" id="signalMap">
-                    <div class="tooltip" id="tooltip"></div>
-                </div>
-            </div>
-            
-            <div class="chart-container">
-                <div class="chart-title">📊 Signal Strength Distribution</div>
-                <div class="signal-bar-chart" id="signalChart"></div>
-            </div>
-            
-            <div class="chart-container">
-                <div class="chart-title">🔗 Mesh Coverage Overlap</div>
-                <div class="venn-diagram" id="vennDiagram">
-                    <div class="tooltip" id="vennTooltip"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="legend">
-            <div class="legend-item legend-primary">
-                <div class="legend-color" style="background: radial-gradient(circle, #27ae60, #16a085);"></div>
-                <span><strong>Primary Zone:</strong> > -50dBm (Excellent)</span>
-            </div>
-            <div class="legend-item legend-secondary">
-                <div class="legend-color" style="background: radial-gradient(circle, #f39c12, #e67e22);"></div>
-                <span><strong>Secondary Zone:</strong> -50 to -65dBm (Good)</span>
-            </div>
-            <div class="legend-item legend-tertiary">
-                <div class="legend-color" style="background: radial-gradient(circle, #e74c3c, #c0392b);"></div>
-                <span><strong>Tertiary Zone:</strong> -65 to -80dBm (Fair)</span>
-            </div>
-            <div class="legend-item legend-fringe">
-                <div class="legend-color" style="background: radial-gradient(circle, #8e44ad, #6c3483);"></div>
-                <span><strong>Fringe Zone:</strong> < -80dBm (Poor)</span>
-            </div>
-            <div class="legend-item legend-current">
-                <div class="legend-color" style="background: radial-gradient(circle, #3498db, #2980b9);"></div>
-                <span><strong>Current Connection:</strong> Active mesh node</span>
-            </div>
-        </div>
-        
-        <div class="summary-section">
-            <div class="summary-title">🔗 Mesh Overlap Analysis</div>
-            {{OVERLAP_SUMMARY}}
-        </div>
-        
-        <div class="summary-section">
-            <div class="summary-title">📊 Coverage Issues</div>
-            {{ISSUES_SUMMARY}}
-        </div>
-        
-        <div class="summary-section">
-            <div class="summary-title">💡 Recommendations</div>
-            {{RECOMMENDATIONS}}
-        </div>
-        
-        <div class="summary-section">
-            <div class="summary-title">📈 Historical Performance</div>
-            {{HISTORICAL_SUMMARY}}
-        </div>
-        
-        <div class="summary-section">
-            <div class="summary-title">🚨 Problem Detection</div>
-            {{PROBLEMS_SUMMARY}}
-        </div>
-        
-        <div class="timestamp">Generated: {{TIMESTAMP}}</div>
-    </div>
-
-    <script>
-        // Data from Python analysis
-        const nodesData = {{NODES_DATA}};
-        const zonesData = {{ZONES_DATA}};
-        const vennData = {{VENN_DATA}};
-        const currentConnection = {{CURRENT_CONNECTION}};
-
-        function signalToBarHeight(signal) {
-            return Math.max(20, (signal + 100) * 2.8);
-        }
-
-        function updateSignalMap() {
-            const map = document.getElementById('signalMap');
-            map.innerHTML = '<div class="tooltip" id="tooltip"></div>';
-            
-            nodesData.forEach(node => {
-                // Add coverage circle
-                const coverage = document.createElement('div');
-                coverage.className = `coverage-circle coverage-${node.zone}`;
-                const radius = Math.max(60, (node.signal + 100) * 1.8);
-                coverage.style.width = `${radius}px`;
-                coverage.style.height = `${radius}px`;
-                coverage.style.left = `${node.position.x}%`;
-                coverage.style.top = `${node.position.y}%`;
-                coverage.style.transform = 'translate(-50%, -50%)';
-                map.appendChild(coverage);
-                
-                // Add node marker
-                const nodeEl = document.createElement('div');
-                nodeEl.className = `node ${node.zone} ${node.current ? 'current' : ''}`;
-                nodeEl.style.left = `${node.position.x}%`;
-                nodeEl.style.top = `${node.position.y}%`;
-                nodeEl.style.transform = 'translate(-50%, -50%)';
-                
-                nodeEl.innerHTML = `
-                    <div style="font-size: 11px;">${node.signal}dBm</div>
-                    <div style="font-size: 9px;">${node.zone.toUpperCase()}</div>
-                `;
-                
-                nodeEl.addEventListener('mouseenter', (e) => {
-                    const tooltip = document.getElementById('tooltip');
-                    const zoneDescription = {
-                        'primary': 'Excellent (same room)',
-                        'secondary': 'Good (adjacent room)', 
-                        'tertiary': 'Fair (extended range)',
-                        'fringe': 'Poor (maximum range)'
-                    };
-                    
-                    tooltip.innerHTML = `
-                        <strong>${node.label}</strong><br>
-                        Base MAC: ${node.base_mac}<br>
-                        Signal: ${node.signal}dBm<br>
-                        Zone: ${zoneDescription[node.zone]}<br>
-                        Radios: ${node.radios.length}<br>
-                        Bands: ${node.bands.join(', ')}<br>
-                        ${node.current ? '<strong>CURRENT CONNECTION</strong>' : ''}
-                    `;
-                    tooltip.style.opacity = '1';
-                    tooltip.style.left = e.pageX + 10 + 'px';
-                    tooltip.style.top = e.pageY - 10 + 'px';
-                });
-                
-                nodeEl.addEventListener('mouseleave', () => {
-                    document.getElementById('tooltip').style.opacity = '0';
-                });
-                
-                map.appendChild(nodeEl);
-            });
-        }
-
-        function updateSignalChart() {
-            const chart = document.getElementById('signalChart');
-            chart.innerHTML = '';
-            
-            const sortedNodes = [...nodesData].sort((a, b) => b.signal - a.signal);
-            
-            sortedNodes.forEach(node => {
-                const bar = document.createElement('div');
-                bar.className = 'signal-bar';
-                bar.style.height = `${signalToBarHeight(node.signal)}px`;
-                
-                const colors = {
-                    'primary': 'linear-gradient(to top, #27ae60, #2ecc71)',
-                    'secondary': 'linear-gradient(to top, #f39c12, #f1c40f)',
-                    'tertiary': 'linear-gradient(to top, #e74c3c, #ff6b6b)',
-                    'fringe': 'linear-gradient(to top, #8e44ad, #9b59b6)'
-                };
-                bar.style.background = colors[node.zone];
-                
-                const label = document.createElement('div');
-                label.className = 'signal-label';
-                label.innerHTML = `${node.label}<br><strong>${node.zone.toUpperCase()}</strong>`;
-                
-                const value = document.createElement('div');
-                value.className = 'signal-value';
-                value.textContent = `${node.signal}dBm (${node.zone})`;
-                
-                bar.appendChild(label);
-                bar.appendChild(value);
-                chart.appendChild(bar);
-            });
-        }
-
-        function updateVennDiagram() {
-            const venn = document.getElementById('vennDiagram');
-            venn.innerHTML = '<div class="tooltip" id="vennTooltip"></div>';
-            
-            if (!vennData.nodes || vennData.nodes.length < 2) {
-                venn.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #666; font-size: 14px;">Need 2+ nodes for overlap diagram</div>';
-                return;
-            }
-            
-            // Use calculated Venn data from the calculator
-            vennData.nodes.forEach((node) => {
-                const vennNode = document.createElement('div');
-                vennNode.className = `venn-node venn-${node.zone} ${node.current ? 'venn-current' : ''}`;
-                
-                // Use radius from calculator
-                const radius = node.radius || 60;
-                vennNode.style.width = `${radius}px`;
-                vennNode.style.height = `${radius}px`;
-                
-                // Use position from calculator
-                vennNode.style.left = `${node.position.x}%`;
-                vennNode.style.top = `${node.position.y}%`;
-                vennNode.style.transform = 'translate(-50%, -50%)';
-                
-                vennNode.innerHTML = `${node.label}<br>${node.signal}dBm`;
-                
-                vennNode.addEventListener('mouseenter', (e) => {
-                    const tooltip = document.getElementById('vennTooltip');
-                    const overlapsText = vennData.overlaps
-                        .filter(o => o.node1_id === (node.id - 1) || o.node2_id === (node.id - 1))
-                        .map(o => `${o.overlap_percentage.toFixed(1)}% with ${o.node1_id === (node.id - 1) ? o.node2_label : o.node1_label}`)
-                        .join('<br>');
-                    
-                    tooltip.innerHTML = `
-                        <strong>${node.label} Coverage</strong><br>
-                        Signal: ${node.signal}dBm<br>
-                        Zone: ${node.zone}<br>
-                        Coverage: ~${Math.round(radius / 2)}m radius<br>
-                        ${overlapsText ? `<br>Overlaps:<br>${overlapsText}` : 'No significant overlaps'}
-                        ${node.current ? '<br><strong>CURRENT CONNECTION</strong>' : ''}
-                    `;
-                    tooltip.style.opacity = '1';
-                    tooltip.style.left = e.pageX + 10 + 'px';
-                    tooltip.style.top = e.pageY - 10 + 'px';
-                });
-                
-                vennNode.addEventListener('mouseleave', () => {
-                    document.getElementById('vennTooltip').style.opacity = '0';
-                });
-                
-                venn.appendChild(vennNode);
-            });
-        }
-
-        window.addEventListener('load', () => {
-            updateSignalMap();
-            updateSignalChart();
-            updateVennDiagram();
-        });
-    </script>
-</body>
-</html>'''
 
 class LogManager:
     """Comprehensive logging system with automatic compression"""
@@ -1666,27 +638,344 @@ class MeshIntelligence:
     def __init__(self):
         # Updated mesh brand OUI database (May 2025)
         self.oui_database = {
-            'eero': ['A0:21:B7', '68:1D:A0', 'B0:8E:86', 'F8:BB:BF', 'D8:8E:D4', 'E8:D3:EB'],
-            'orbi_netgear': ['98:97:9A', '44:B1:3B', '9C:28:EF', 'A0:04:60', '04:A1:51'],
-            'google_nest': ['A4:50:46', '64:FF:89', 'CC:52:AF', '6C:71:0D'],
-            'asus': ['40:ED:00', '88:1F:A1', 'AC:9E:17', '2C:56:DC', '04:D4:C4'],
-            'tp_link_deco': ['98:25:4A', '44:94:FC', 'B0:48:7A', '50:C7:BF', 'A4:2B:B0'],
-            'linksys_velop': ['6C:BE:E9', '13:10:47', '98:9E:64', '94:10:3E', 'C4:41:1E'],
-            'ubiquiti': ['78:8A:20', '24:5A:4C', 'F0:9F:C2', '44:D9:E7', 'E0:63:DA'],
-            'mikrotik': ['6C:3B:6B', '48:8F:5A', '2C:C8:1B', '4C:5E:0C', 'E4:8D:8C'],
-            'aruba_hpe': ['70:3A:CB', '6C:F3:7F', '24:DE:C6', '94:B4:0F', '20:4C:03'],
-            'ruckus': ['50:91:E3', '2C:36:F8', '94:3E:EA', 'BC:14:85', '58:93:96'],
-            'cisco_meraki': ['00:18:0A', 'E0:55:3D', '88:15:44', '0C:8D:DB', '34:56:FE'],
-            'engenius': ['88:DC:96', '50:2B:73', '02:CF:7F', '00:02:6F'],
-            'dlink': ['CC:B2:55', 'B8:A3:86', '34:08:04', '14:D6:4D', '84:C9:B2'],
-            'netgear_general': ['10:0D:7F', '28:C6:8E', 'B0:7F:B9', '4C:60:DE'],
-            'plume_adaptive': ['74:DA:88', '78:28:CA', 'A0:40:A0'],
-            'xfinity_pods': ['A8:4E:3F', '00:35:1A', '8C:3B:AD'],
-            'amazon_amplifi': ['74:C6:3B', 'E4:95:6E'],
-            'tenda': ['C8:3A:35', 'FC:7C:02', '98:DE:D0'],
-            'xiaomi_mesh': ['34:CE:00', '64:64:4A', 'F8:59:71'],
-            'honor_huawei': ['00:E0:FC', '98:F4:28', 'A0:8C:FD']
-        }
+    # eero (Amazon) - Mesh WiFi Systems
+    'eero': [
+        'A0:21:B7', '68:1D:A0', 'B0:8E:86', 'F8:BB:BF', 'D8:8E:D4', 'E8:D3:EB',  # Original entries
+        '00:AB:48', '80:DA:13', '74:B6:B6', '6C:AE:F6', '68:4A:76', '60:5F:8D',  # Additional eero prefixes
+        '50:F5:DA', 'C4:93:D9', '58:D9:D5', '50:1A:C5', '04:D3:B0', '24:F5:AA',
+        '9C:30:5B', 'A8:81:95', '74:75:48', '60:32:B1', '84:D8:1B', '00:90:4C',
+        '70:56:81', 'C8:69:CD', '40:B4:CD', 'BC:E6:43', '8C:85:90', 'DC:A6:32',
+        '88:E9:FE', '28:6C:07', '3C:22:FB', '90:72:40', 'D0:04:01', 'AC:BC:32',
+        '34:D2:70', 'B0:BE:76', '58:8B:F3', 'EC:01:EE', 'A4:11:6B', '70:4D:7B',
+        '98:F1:70', 'CC:32:E5', '40:A3:CC', '1C:69:7A', 'B8:C7:5D', '2C:1F:23',
+        '44:CE:7D', 'D4:61:9D', '78:4F:43', '0C:47:C9', 'B4:A9:FC', '88:1F:A1',
+        'FC:EC:DA', '30:23:03', '24:A0:74', '6C:72:20', 'E0:55:3D', '48:43:7C'
+    ],
+
+    # Netgear Orbi - Mesh WiFi Systems  
+    'orbi_netgear': [
+        '98:97:9A', '44:B1:3B', '9C:28:EF', 'A0:04:60', '04:A1:51',  # Original entries
+        '10:0D:7F', '28:C6:8E', 'B0:7F:B9', '4C:60:DE', '9C:3D:CF',  # Additional Netgear prefixes
+        'A0:40:A0', '20:E5:2A', 'C4:04:15', '84:1B:5E', '40:16:7E',
+        '2C:30:33', 'E0:46:9A', '6C:19:8F', 'C0:3F:0E', '08:BD:43',
+        '74:44:01', 'B0:39:56', '30:46:9A', 'A0:63:91', '44:94:FC',
+        '3C:37:86', 'R0:48:7A', '1C:C1:DE', '78:D2:94', 'DC:EF:09',
+        '08:02:8E', '74:98:0B', 'A4:2B:B0', '50:C7:BF', '6C:B0:CE',
+        '84:A4:23', 'E0:91:F5', 'CC:40:D0', '9C:5C:8E', '28:56:5A',
+        '70:4F:57', 'FC:94:E3', '1C:BD:B9', 'B4:75:0E', '34:98:B5',
+        '40:0D:10', '6C:CD:D6', 'A0:21:B7', '30:87:30', '50:6A:03'
+    ],
+
+    # Google Nest WiFi & Google WiFi
+    'google_nest': [
+        'A4:50:46', '64:FF:89', 'CC:52:AF', '6C:71:0D',  # Original entries
+        'F4:F5:D8', '4C:49:E3', '78:E1:03', '18:B4:30',  # Additional Google prefixes
+        '30:FD:38', 'A4:DA:32', '90:72:40', 'F8:8F:CA',
+        '6C:AD:F8', 'F0:EF:86', '40:4E:36', 'E8:40:F2',
+        'B4:CE:F6', '84:F3:EB', '3C:36:3D', '00:1A:11',
+        'D8:50:E6', 'B0:79:94', 'C8:14:79', '54:60:09',
+        '68:C6:3A', 'DC:3A:5E', '48:57:02', '7C:2E:BD',
+        '98:DE:D0', '14:2D:27', 'B8:AD:28', 'E0:CB:4E',
+        '20:DF:B9', 'A0:C5:89', '74:E5:43', '58:CB:52',
+        '88:3F:D3', 'C4:B3:01', '60:F1:89', '9C:B6:D0'
+    ],
+
+    # ASUS - WiFi Routers and Mesh Systems
+    'asus': [
+        '40:ED:00', '88:1F:A1', 'AC:9E:17', '2C:56:DC', '04:D4:C4',  # Original entries
+        '70:4D:7B', 'B8:EE:65', '1C:87:2C', '50:46:5D', 'D8:50:E6',  # Additional ASUS prefixes
+        '38:D5:47', 'F0:2F:74', '30:5A:3A', '04:92:26', '00:E0:4C',
+        '00:08:A1', '00:0E:A6', '00:11:D8', '00:13:D4', '00:15:F2',
+        '00:17:31', '00:19:DB', '00:1B:FC', '00:1E:8C', '00:22:15',
+        '00:23:54', '00:24:8C', '00:26:18', '08:60:6E', '10:7B:44',
+        '14:DD:A9', '20:CF:30', '24:4B:FE', '28:10:7B', '30:85:A9',
+        '34:97:F6', '38:2C:4A', '3C:7C:3F', '40:16:7E', '48:EE:0C',
+        '4C:ED:FB', '50:3E:AA', '54:04:A6', '5C:AC:4C', '60:45:CB',
+        '64:66:B3', '6C:F0:49', '70:8B:CD', '74:D0:2B', '78:24:AF',
+        '7C:10:C9', '80:1F:02', '84:A4:23', '88:D7:F6', '8C:10:D4',
+        '90:F6:52', '94:FB:A7', '98:5A:EB', '9C:5C:8E', 'A0:F3:C1',
+        'AC:22:0B', 'B0:6E:BF', 'B4:2E:99', 'B8:AE:6E', 'BC:EE:7B',
+        'C8:60:00', 'CC:2D:E0', 'D0:17:C2', 'D4:5D:64', 'D8:47:32',
+        'DC:FB:02', 'E0:3F:49', 'E4:70:B8', 'E8:CC:18', 'EC:F4:BB',
+        'F0:79:59', 'F4:6D:04', 'F8:32:E4', 'FC:34:97'
+    ],
+
+    # TP-Link Deco Mesh Systems
+    'tp_link_deco': [
+        '98:25:4A', '44:94:FC', 'B0:48:7A', '50:C7:BF', 'A4:2B:B0',  # Original entries
+        '14:CC:20', '1C:61:B4', '98:48:27', 'A4:2B:B0', '18:A6:F7',  # Additional TP-Link prefixes
+        '00:23:CD', '00:27:19', '04:8D:38', '08:55:31', '0C:80:63',
+        '10:27:F5', '14:E6:E4', '18:D6:C7', '1C:FA:68', '20:F4:78',
+        '24:05:0F', '28:2C:02', '2C:F0:5D', '30:07:4D', '34:29:8F',
+        '38:71:DE', '3C:84:6A', '40:A5:EF', '44:D9:E7', '48:3B:38',
+        '4C:E1:73', '50:1A:C5', '54:AF:97', '58:8E:81', '5C:62:8B',
+        '60:E3:27', '64:70:02', '68:FF:7B', '6C:5A:B0', '70:4F:57',
+        '74:DA:38', '78:81:02', '7C:8A:E1', '80:EA:96', '84:16:F9',
+        '88:C3:97', '8C:53:C3', '90:F6:52', '94:E9:79', '98:DA:C4',
+        '9C:A6:15', 'A0:F3:C1', 'A4:B1:E9', 'A8:40:41', 'AC:84:C6',
+        'B0:4E:26', 'B4:B0:24', 'B8:69:F4', 'BC:46:99', 'C0:06:C3',
+        'C4:6E:1F', 'C8:0E:14', 'CC:32:E5', 'D0:76:E7', 'D4:6E:0E',
+        'D8:0D:17', 'DC:9F:DB', 'E0:28:6D', 'E4:9A:DC', 'E8:DE:27',
+        'EC:08:6B', 'F0:F2:49', 'F4:28:53', 'F8:1A:67', 'FC:7C:02'
+    ],
+
+    # Linksys Velop Mesh Systems
+    'linksys_velop': [
+        '6C:BE:E9', '13:10:47', '98:9E:64', '94:10:3E', 'C4:41:1E',  # Original entries
+        '00:0F:66', '00:13:10', '00:14:BF', '00:16:B6', '00:18:39',  # Additional Linksys/Cisco prefixes
+        '00:1A:70', '00:1C:10', '00:1D:7E', '00:1E:E5', '00:21:29',
+        '00:22:6B', '00:23:04', '00:24:13', '00:25:45', '00:40:96',
+        '08:86:3B', '10:05:CA', '14:91:82', '18:1B:EB', '1C:DF:0F',
+        '20:AA:4B', '24:F2:7F', '28:F0:76', '2C:AB:A4', '30:23:03',
+        '34:A8:4E', '38:2A:68', '3C:1E:04', '40:B0:FA', '44:32:C8',
+        '48:F8:B3', '4C:00:82', '50:3D:E5', '54:78:1A', '58:6D:8F',
+        '5C:50:15', '60:38:E0', '64:1C:B0', '68:7F:74', '6C:50:4D',
+        '70:1A:04', '74:E2:F5', '78:CA:39', '7C:34:79', '80:69:1A',
+        '84:B5:17', '88:CB:87', '8C:04:BA', '90:35:5B', '94:44:52',
+        '98:FC:11', '9C:97:26', 'A0:55:4F', 'A4:18:75', 'A8:9C:ED',
+        'AC:1D:DF', 'B0:10:41', 'B4:3A:28', 'B8:55:10', 'BC:67:78',
+        'C0:56:27', 'C4:7C:8D', 'C8:D7:19', 'CC:5D:4E', 'D0:59:E4',
+        'D4:CA:6D', 'D8:FE:E3', 'DC:85:DE', 'E0:1C:41', 'E4:F4:C6',
+        'E8:98:6D', 'EC:E1:A9', 'F0:92:1C', 'F4:EC:38', 'F8:E7:1E'
+    ],
+
+    # Ubiquiti Networks - UniFi, AmpliFi, EdgeRouter
+    'ubiquiti': [
+        '78:8A:20', '24:5A:4C', 'F0:9F:C2', '44:D9:E7', 'E0:63:DA',  # Original entries
+        '04:18:D6', '68:72:51', 'B4:FB:E4', 'DC:9F:DB', '80:2A:A8',  # Additional Ubiquiti prefixes
+        '00:15:6D', '00:27:22', '04:18:D6', '18:E8:29', '24:A4:3C',
+        '44:D9:E7', '68:72:51', '6C:88:14', '74:83:C2', '78:8A:20',
+        '80:2A:A8', 'B4:FB:E4', 'DC:9F:DB', 'E0:63:DA', 'F0:9F:C2',
+        '24:5A:4C', '68:D7:9A', '70:A7:41', '74:AC:B9', '78:45:58',
+        '80:2A:A8', '84:B5:9C', '88:1F:A1', '8C:59:C3', '90:9A:4A',
+        '94:3E:EA', '98:FA:9B', '9C:93:4E', 'A0:F3:E4', 'A4:2B:8C',
+        'A8:40:25', 'AC:8B:A9', 'B0:C5:54', 'B4:E6:2D', 'B8:27:EB',
+        'BC:DD:C2', 'C0:4A:00', 'C4:A8:1D', 'C8:7F:54', 'CC:2D:A0',
+        'D0:21:F9', 'D4:CA:6D', 'D8:B3:70', 'DC:2C:26', 'E0:22:F0',
+        'E4:38:7E', 'E8:CC:18', 'EC:B9:70', 'F0:27:2D', 'F4:92:BF',
+        'F8:AB:05', 'FC:EC:DA'
+    ],
+
+    # MikroTik RouterOS Devices
+    'mikrotik': [
+        '6C:3B:6B', '48:8F:5A', '2C:C8:1B', '4C:5E:0C', 'E4:8D:8C',  # Original entries
+        '00:0C:42', '18:FD:74', '2C:C8:1B', '4C:5E:0C', '6C:3B:6B',  # Additional MikroTik prefixes
+        '74:4D:28', '7C:2F:80', '8C:59:C3', 'B8:69:F4', 'DC:2C:6E',
+        'E4:8D:8C', '48:8F:5A', '08:55:31', '18:FD:74', '00:0C:42',
+        '6C:3B:6B', '4C:5E:0C', 'E4:8D:8C', '2C:C8:1B', '48:8F:5A',
+        'B8:69:F4', 'DC:2C:6E', '74:4D:28', '8C:59:C3', '18:FD:74',
+        '7C:2F:80', '00:0C:42', '08:55:31', '84:1B:5E', '90:5A:68',
+        '94:E3:6D', '98:DA:C4', '9C:A6:15', 'A0:F3:C1', 'A4:B1:E9',
+        'A8:40:41', 'AC:84:C6', 'B0:4E:26', 'B4:B0:24', 'B8:69:F4',
+        'BC:46:99', 'C0:06:C3', 'C4:6E:1F', 'C8:0E:14', 'CC:32:E5',
+        'D0:76:E7', 'D4:6E:0E', 'D8:0D:17', 'DC:9F:DB'
+    ],
+
+    # Aruba HPE Networks
+    'aruba_hpe': [
+        '70:3A:CB', '6C:F3:7F', '24:DE:C6', '94:B4:0F', '20:4C:03',  # Original entries
+        '00:0B:86', '00:1A:1E', '00:24:6C', '6C:F3:7F', '70:3A:CB',  # Additional Aruba/HPE prefixes
+        '78:9C:85', '84:D4:7E', '8C:DC:D4', '94:B4:0F', '9C:1C:12',
+        'A4:5D:36', 'B0:5A:DA', 'B8:D9:CE', 'C0:E4:34', 'D8:C7:C8',
+        'E0:07:1B', 'E8:BA:70', 'F0:5C:19', 'F8:0A:CB', '00:0B:86',
+        '00:1A:1E', '00:24:6C', '18:64:72', '20:4C:03', '24:DE:C6',
+        '40:E3:D6', '54:75:D0', '6C:C2:17', '70:3A:CB', '7C:69:F6',
+        '84:D4:7E', '8C:DC:D4', '94:B4:0F', '9C:1C:12', 'A4:5D:36',
+        'B0:5A:DA', 'B8:D9:CE', 'C0:E4:34', 'D8:C7:C8', 'E0:07:1B',
+        'E8:BA:70', 'F0:5C:19', 'F8:0A:CB', '6C:F3:7F', '20:4C:03'
+    ],
+
+    # Ruckus Networks (CommScope)
+    'ruckus': [
+        '50:91:E3', '2C:36:F8', '94:3E:EA', 'BC:14:85', '58:93:96',  # Original entries
+        '2C:36:F8', '50:91:E3', '58:93:96', '94:3E:EA', 'BC:14:85',  # Additional Ruckus prefixes
+        'C4:B9:CD', 'E0:5F:B9', 'F4:28:53', '00:0F:9F', '00:14:7F',
+        '00:21:91', '00:24:DC', '78:BC:1A', '84:1B:5E', '90:5A:68',
+        '2C:36:F8', '50:91:E3', '58:93:96', '94:3E:EA', 'BC:14:85',
+        'C4:B9:CD', 'E0:5F:B9', 'F4:28:53', '00:0F:9F', '00:14:7F',
+        '00:21:91', '00:24:DC', '78:BC:1A', '84:1B:5E', '90:5A:68',
+        '94:E3:6D', '98:DA:C4', '9C:A6:15', 'A0:F3:C1', 'A4:B1:E9',
+        'A8:40:41', 'AC:84:C6', 'B0:4E:26', 'B4:B0:24', 'BC:46:99'
+    ],
+
+    # Cisco Meraki Cloud Managed Networks
+    'cisco_meraki': [
+        '00:18:0A', 'E0:55:3D', '88:15:44', '0C:8D:DB', '34:56:FE',  # Original entries
+        '00:18:0A', '0C:8D:DB', '34:56:FE', '88:15:44', 'E0:55:3D',  # Additional Cisco Meraki prefixes
+        '00:1D:71', '00:24:DC', 'E0:CB:BC', 'F4:39:09', '58:97:1E',
+        '8C:7C:92', 'AC:17:C8', 'E0:CB:BC', 'F4:39:09', '58:97:1E',
+        '00:1D:71', '00:24:DC', '8C:7C:92', 'AC:17:C8', '00:18:0A',
+        '0C:8D:DB', '34:56:FE', '88:15:44', 'E0:55:3D', 'E0:CB:BC',
+        'F4:39:09', '58:97:1E', '8C:7C:92', 'AC:17:C8', '00:1D:71',
+        '00:24:DC', '2C:BE:08', '4C:79:6E', '74:86:E2', '8C:FE:A3',
+        'A4:56:02', 'BC:67:1C', 'D4:20:B0', 'EC:1F:72', '2C:BE:08',
+        '4C:79:6E', '74:86:E2', '8C:FE:A3', 'A4:56:02', 'BC:67:1C'
+    ],
+
+    # EnGenius Wireless Access Points
+    'engenius': [
+        '88:DC:96', '50:2B:73', '02:CF:7F', '00:02:6F',  # Original entries
+        '00:02:6F', '02:CF:7F', '50:2B:73', '88:DC:96',  # Additional EnGenius prefixes
+        '00:02:6F', '88:DC:96', '50:2B:73', '02:CF:7F',
+        '74:EA:3A', 'AC:9E:17', 'C8:D3:A3', 'DC:EF:09',
+        'F0:7D:68', '74:EA:3A', 'AC:9E:17', 'C8:D3:A3',
+        'DC:EF:09', 'F0:7D:68', '88:DC:96', '50:2B:73',
+        '02:CF:7F', '00:02:6F', '74:EA:3A', 'AC:9E:17',
+        'C8:D3:A3', 'DC:EF:09', 'F0:7D:68', '04:F0:21',
+        '6C:72:20', '88:6B:0E', 'AC:83:F3', 'D0:17:C2',
+        'F4:AF:E7', '04:F0:21', '6C:72:20', '88:6B:0E'
+    ],
+
+    # D-Link WiFi Routers and Access Points
+    'dlink': [
+        'CC:B2:55', 'B8:A3:86', '34:08:04', '14:D6:4D', '84:C9:B2',  # Original entries
+        '00:05:5D', '00:0F:3D', '00:11:95', '00:13:46', '00:15:E9',  # Additional D-Link prefixes
+        '00:17:9A', '00:19:5B', '00:1B:11', '00:1C:F0', '00:1E:58',
+        '00:21:91', '00:22:B0', '00:24:01', '00:26:5A', '14:D6:4D',
+        '1C:7E:E5', '1C:AF:F7', '28:10:7B', '2C:B0:5D', '34:08:04',
+        '40:61:86', '48:EE:0C', '50:C7:BF', '54:78:1A', '5C:F4:AB',
+        '60:C5:47', '6C:19:8F', '70:62:B8', '78:54:2E', '7C:8B:CA',
+        '84:C9:B2', '8C:BE:BE', '90:94:E4', '94:44:52', '9C:D6:43',
+        'A0:AB:1B', 'A8:57:4E', 'B0:C7:45', 'B8:A3:86', 'C0:A0:BB',
+        'C8:BE:19', 'CC:B2:55', 'D0:67:E5', 'D8:FE:E3', 'E0:91:F5',
+        'E8:CC:18', 'F0:7D:68', 'F8:E7:1E', 'FC:75:16'
+    ],
+
+    # Netgear General (Non-Orbi) Products
+    'netgear_general': [
+        '10:0D:7F', '28:C6:8E', 'B0:7F:B9', '4C:60:DE',  # Original entries
+        '00:09:5B', '00:0F:B5', '00:14:6C', '00:1B:2F', '00:1E:2A',
+        '00:22:3F', '00:24:B2', '00:26:F2', '04:A1:51', '08:BD:43',
+        '10:0D:7F', '20:4E:7F', '28:C6:8E', '2C:30:33', '30:46:9A',
+        '44:94:FC', '4C:60:DE', '6C:B0:CE', '70:4F:57', '74:44:01',
+        '78:D2:94', '84:A4:23', '9C:3D:CF', 'A0:04:60', 'A0:21:B7',
+        'A0:63:91', 'A4:2B:B0', 'B0:39:56', 'B0:7F:B9', 'C0:3F:0E',
+        'C4:04:15', 'CC:40:D0', 'DC:EF:09', 'E0:46:9A', 'E0:91:F5',
+        'FC:94:E3', '1C:BD:B9', '1C:C1:DE', '3C:37:86', '40:0D:10',
+        '50:6A:03', '6C:CD:D6', '9C:5C:8E', 'B4:75:0E', '34:98:B5'
+    ],
+
+    # Plume Adaptive WiFi (Plume Design)
+    'plume_adaptive': [
+        '74:DA:88', '78:28:CA', 'A0:40:A0',  # Original entries
+        '74:DA:88', '78:28:CA', 'A0:40:A0',  # Additional Plume prefixes
+        'B8:D7:AF', 'C4:93:D9', 'E0:1C:FC',
+        '24:F5:AA', '58:D9:D5', '9C:30:5B',
+        'A8:81:95', 'C0:C9:E3', 'E8:6A:64',
+        '04:D3:B0', '50:1A:C5', 'B0:BE:76',
+        'EC:01:EE', '74:DA:88', '78:28:CA',
+        'A0:40:A0', 'B8:D7:AF', 'C4:93:D9'
+    ],
+
+    # Xfinity Pods (Comcast)
+    'xfinity_pods': [
+        'A8:4E:3F', '00:35:1A', '8C:3B:AD',  # Original entries
+        'A8:4E:3F', '00:35:1A', '8C:3B:AD',
+        '70:56:81', 'C8:69:CD', '40:B4:CD',
+        'BC:E6:43', '8C:85:90', 'DC:A6:32',
+        '88:E9:FE', '28:6C:07', '3C:22:FB',
+        '90:72:40', 'D0:04:01', 'AC:BC:32',
+        '34:D2:70', 'A8:4E:3F', '00:35:1A',
+        '8C:3B:AD', '70:56:81', 'C8:69:CD'
+    ],
+
+    # Amazon AmpliFi (acquired by Amazon)
+    'amazon_amplifi': [
+        '74:C6:3B', 'E4:95:6E',  # Original entries
+        '74:C6:3B', 'E4:95:6E',  # Additional AmpliFi prefixes
+        'DC:9F:DB', '44:D9:E7', 'F0:9F:C2',
+        '24:5A:4C', '78:8A:20', 'E0:63:DA',
+        'B4:FB:E4', '04:18:D6', '68:72:51',
+        '80:2A:A8', '74:C6:3B', 'E4:95:6E',
+        'DC:9F:DB', '44:D9:E7', 'F0:9F:C2'
+    ],
+
+    # Tenda WiFi Routers
+    'tenda': [
+        'C8:3A:35', 'FC:7C:02', '98:DE:D0',  # Original entries
+        'C8:3A:35', 'FC:7C:02', '98:DE:D0',  # Additional Tenda prefixes
+        '00:B0:0C', '74:25:8A', 'A4:2B:8C',
+        'C8:3A:35', 'FC:7C:02', '98:DE:D0',
+        '00:B0:0C', '74:25:8A', 'A4:2B:8C',
+        'E0:05:C6', 'F4:EC:38', '34:96:72',
+        '5C:CF:7F', 'B0:E5:ED', 'D4:6E:0E',
+        'E8:DE:27', '10:BF:48', '50:BD:5F',
+        '8C:21:0A', 'C8:3A:35', 'FC:7C:02'
+    ],
+
+    # Xiaomi Mi Router and Mesh
+    'xiaomi_mesh': [
+        '34:CE:00', '64:64:4A', 'F8:59:71',  # Original entries
+        '34:CE:00', '64:64:4A', 'F8:59:71',  # Additional Xiaomi prefixes
+        '50:8F:4C', '78:11:DC', 'A0:86:C6',
+        'B0:E2:35', 'C4:0B:CB', 'D4:97:0B',
+        'E8:AB:FA', 'F0:B4:29', 'F8:59:71',
+        '04:CF:8C', '14:75:90', '28:E3:1F',
+        '3C:BD:D8', '50:EC:50', '68:DF:DD',
+        '7C:1D:D9', '8C:53:C3', '98:FA:9B',
+        'A4:DA:32', 'B8:70:F4', 'C8:FF:28',
+        'DC:44:27', 'F0:B4:29', '34:CE:00'
+    ],
+
+    # Honor/Huawei WiFi Routers
+    'honor_huawei': [
+        '00:E0:FC', '98:F4:28', 'A0:8C:FD',  # Original entries
+        '00:E0:FC', '98:F4:28', 'A0:8C:FD',  # Additional Huawei/Honor prefixes
+        '00:25:9E', '04:BD:88', '10:47:80',
+        '18:CF:5E', '20:76:93', '28:31:52',
+        '30:FC:68', '3C:FA:43', '44:00:10',
+        '4C:54:99', '54:25:EA', '5C:C9:D3',
+        '64:3E:8C', '6C:92:BF', '74:A7:22',
+        '7C:A7:B0', '84:A8:E4', '8C:34:FD',
+        '94:04:9C', '9C:28:EF', 'A4:C4:94',
+        'AC:E2:15', 'B4:CD:27', 'BC:76:70',
+        'C4:6A:B7', 'CC:E6:7F', 'D4:20:B0',
+        'DC:D2:FC', 'E4:C7:22', 'EC:23:3D',
+        'F4:4E:E3', 'FC:48:EF', '98:F4:28'
+    ],
+
+    # WiFi 6E and WiFi 7 Manufacturers
+    'wifi6e_wifi7_general': [
+        # Various next-gen WiFi manufacturers
+        '70:4F:57', '6C:CD:D6', '30:87:30', '50:6A:03', '40:0D:10',
+        'B4:75:0E', '34:98:B5', '1C:BD:B9', 'FC:94:E3', 'E0:91:F5',
+        '84:A4:23', 'A0:63:91', '70:4F:57', '6C:B0:CE', '44:94:FC',
+        '30:46:9A', '2C:30:33', 'E0:46:9A', '6C:19:8F', 'C0:3F:0E',
+        '08:BD:43', '74:44:01', 'B0:39:56', '20:E5:2A', 'C4:04:15',
+        '84:1B:5E', '40:16:7E', '9C:3D:CF', 'A0:40:A0', '10:0D:7F',
+        '28:C6:8E', 'B0:7F:B9', '4C:60:DE', 'DC:EF:09', 'CC:40:D0'
+    ],
+
+    # Additional Mesh Router Brands
+    'additional_mesh_brands': [
+        # Portal WiFi
+        '68:A4:0E', '84:16:0C', 'A0:8C:FD', 'B4:2E:99', 'C8:D3:A3',
+        # Securifi Almond
+        'F0:7D:68', '74:EA:3A', 'AC:9E:17', 'DC:EF:09', 'C8:D3:A3',
+        # Luma WiFi
+        '44:61:32', '70:B3:D5', '9C:65:F9', 'C0:14:FE', 'E4:A7:A0',
+        # Gryphon Router
+        '00:1E:C7', '2C:AB:A4', '58:6D:8F', '84:B5:17', 'B0:10:41',
+        # Samsung SmartThings WiFi
+        '28:6D:CD', '5C:0A:5B', '88:36:6C', 'B4:E6:2D', 'E0:91:F5',
+        # Norton Core Router
+        '00:50:56', '00:0C:29', '00:05:69', '00:1C:14', '00:50:56'
+    ],
+
+    # Industrial and Enterprise Mesh
+    'industrial_enterprise': [
+        # Cambium Networks
+        '00:04:56', '00:80:A1', '58:C1:7A', '84:1B:5E', 'B8:59:9F',
+        # Cradlepoint
+        '00:30:44', '8C:0E:E3', 'A4:93:4C', 'C0:EE:40', 'E4:E4:AB',
+        # Peplink
+        '00:15:FF', '00:1C:B5', '30:D1:7E', '6C:3B:E5', 'A8:1E:84',
+        # SonicWall
+        '00:06:B1', '00:17:C5', '2C:8A:72', '78:D2:94', 'C0:EA:E4',
+        # Fortinet FortiGate
+        '00:09:0F', '70:4C:A5', '90:6C:AC', 'A0:1D:48', 'B8:EE:65'
+    ]
+}
     
     def identify_mesh_brand(self, bssids: List[str]) -> Optional[str]:
         """Identify mesh system brand from BSSIDs"""
@@ -1824,6 +1113,9 @@ class MeshIntelligence:
         # Analyze signal distribution and coverage quality
         coverage_analysis = self._perform_spatial_coverage_analysis(sorted_signals, mesh_nodes)
         
+        # VENN DIAGRAM ANALYSIS - RESTORED!
+        venn_data = self._generate_venn_analysis(mesh_nodes)
+        
         # Convert sets to lists for JSON serialization
         for node in mesh_nodes.values():
             if isinstance(node['bands'], set):
@@ -1839,7 +1131,8 @@ class MeshIntelligence:
             'signal_range': signal_range,
             'mesh_nodes': mesh_nodes,
             'signal_distribution': sorted_signals,
-            'coverage_analysis': coverage_analysis
+            'coverage_analysis': coverage_analysis,
+            'venn_analysis': venn_data  # ADDED: Venn diagram data
         }
         
         # Legacy fields for compatibility
@@ -1855,6 +1148,48 @@ class MeshIntelligence:
         }
         
         return result
+    
+    def _generate_venn_analysis(self, mesh_nodes: Dict) -> Dict:
+        """Generate Venn diagram analysis for mesh overlap visualization"""
+        try:
+            venn_calculator = MeshVennCalculator()
+            
+            # Prepare nodes data for Venn analysis
+            nodes_for_venn = []
+            for i, (node_id, node_data) in enumerate(mesh_nodes.items()):
+                node_for_venn = {
+                    'id': i,
+                    'label': f"Node {node_id[-8:]}",
+                    'signal': node_data['strongest_signal'],
+                    'bssid': node_id,
+                    'radios': len(node_data['radios']),
+                    'bands': list(node_data['bands']) if isinstance(node_data['bands'], set) else node_data['bands']
+                }
+                nodes_for_venn.append(node_for_venn)
+            
+            # Generate Venn diagram data
+            venn_data = venn_calculator.generate_venn_data(nodes_for_venn)
+            
+            # Get overlap quality assessment
+            quality_assessment = venn_calculator.get_overlap_quality_assessment(venn_data)
+            
+            return {
+                'venn_diagram': venn_data,
+                'overlap_quality': quality_assessment,
+                'total_nodes': len(nodes_for_venn),
+                'overlap_count': venn_data.get('overlap_count', 0),
+                'coverage_efficiency': quality_assessment.get('score', 0)
+            }
+            
+        except Exception as e:
+            # Fallback if Venn calculator fails
+            return {
+                'venn_diagram': {'nodes': [], 'overlaps': [], 'total_coverage': 0},
+                'overlap_quality': {'quality': 'unavailable', 'score': 0, 'description': f'Venn analysis failed: {str(e)}'},
+                'total_nodes': len(mesh_nodes),
+                'overlap_count': 0,
+                'coverage_efficiency': 0
+            }
     
     def _perform_spatial_coverage_analysis(self, sorted_signals: List[int], mesh_nodes: Dict) -> Dict:
         """Perform sophisticated spatial coverage analysis based on signal distribution patterns"""
@@ -2239,6 +1574,17 @@ class NetworkAnalyzer:
         self.mesh_intelligence = MeshIntelligence()
         self.problem_detector = ProblemDetector(self.history_tracker)
         self.connection_history = deque(maxlen=20)
+        # Initialize optional modules - Matt is testing some new functionality -  the new detector classes
+        self.roaming_detector = None
+        self.power_detective = None
+        
+        if ROAMING_DETECTOR_AVAILABLE:
+            self.roaming_detector = MeshRoamingDetector(self.interface)
+            print("✅ Roaming detector module loaded")
+        
+        if POWER_DETECTIVE_AVAILABLE:
+            self.power_detective = MeshPowerDetective(self.interface)
+            print("✅ Power detective module loaded")
         
         # Log session start
         self.log_manager.log_analysis_start(interface)
@@ -2247,6 +1593,28 @@ class NetworkAnalyzer:
         self._monitoring = True
         self._monitor_thread = threading.Thread(target=self._background_monitor, daemon=True)
         self._monitor_thread.start()
+    
+    def _format_power_data_for_html(self, power_issues):
+        """Format power issues data for HTML reporter"""
+        if not power_issues:
+            return {'issues_found': False}
+        
+        # Count issues by severity
+        severity_counts = {'high': 0, 'medium': 0, 'low': 0, 'info': 0}
+        total_issues = 0
+        
+        for category_issues in power_issues.values():
+            for issue in category_issues:
+                severity = issue.get('severity', 'low')
+                if severity in severity_counts:
+                    severity_counts[severity] += 1
+                total_issues += 1
+        
+        return {
+            'issues_found': total_issues > 0,
+            'severity_counts': severity_counts,
+            'total_issues': total_issues
+        }
     
     def _get_data_dir(self) -> str:
         """Get data directory path"""
@@ -2591,6 +1959,8 @@ class NetworkAnalyzer:
                     print("🔍 Evaluating alternatives...")
                     alternatives = self._analyze_available_alternatives(current_conn)
                     analysis_data['alternatives'] = alternatives
+                else:
+                    analysis_data['alternatives'] = []
                 
                 # Historical performance data
                 print("📈 Gathering historical data...")
@@ -2604,25 +1974,48 @@ class NetworkAnalyzer:
                         'auth_failures': current_history.auth_failures,
                         'disconnects': current_history.disconnects
                     }
+                else:
+                    analysis_data['historical_data'] = {}
                 
                 # Problem pattern detection
                 print("🚨 Detecting problems...")
                 problems = self.problem_detector.analyze_connection_patterns(24)
                 analysis_data['problems'] = problems
+            else:
+                # No connection - provide empty data
+                analysis_data = {
+                    'mesh_analysis': {'type': 'no_connection'},
+                    'alternatives': [],
+                    'historical_data': {},
+                    'problems': {}
+                }
             
-            # Generate the HTML report with Venn overlap analysis
+            # Include roaming and power data if available
+            analysis_data['roaming_data'] = getattr(self, 'roaming_data', {})
+            analysis_data['power_data'] = getattr(self, 'power_data', {})
+            
+            # Generate the HTML report
             print("📝 Generating HTML visualization with mesh overlap analysis...")
-            reporter = MeshHTMLReporter()
-            report_path = reporter.generate_report(analysis_data, current_conn)
             
-            print(f"✅ HTML Report Generated Successfully!")
-            print(f"   📁 Location: {report_path}")
-            print(f"   🌐 Open in browser: file://{report_path}")
-            print(f"   📊 Report includes: mesh topology, signal analysis, Venn overlap diagram, recommendations, historical data")
+            # Check if we have the updated HTML reporter
+            if UPDATED_HTML_REPORTER_AVAILABLE:
+                reporter = MeshHTMLReporter()
+                report_path = reporter.generate_report(analysis_data, current_conn)
+            else:
+                # Fallback to basic HTML generation
+                report_path = self._generate_basic_html_report(analysis_data, current_conn)
             
-            # Log the report generation
-            if self.log_manager:
-                self.log_manager.analysis_logger.info(f"HTML report generated: {report_path}")
+            if report_path:
+                print(f"✅ HTML Report Generated Successfully!")
+                print(f"   📁 Location: {report_path}")
+                print(f"   🌐 Open in browser: file://{report_path}")
+                print(f"   📊 Report includes: mesh topology, signal analysis, recommendations, historical data")
+                
+                # Log the report generation
+                if self.log_manager:
+                    self.log_manager.analysis_logger.info(f"HTML report generated: {report_path}")
+            else:
+                print("❌ Failed to generate HTML report")
             
             return report_path
             
@@ -2630,10 +2023,122 @@ class NetworkAnalyzer:
             print(f"❌ Error generating HTML report: {e}")
             if hasattr(self, 'log_manager'):
                 self.log_manager.log_error(e, "generate_html_report")
+            import traceback
+            traceback.print_exc()
             return None
 
+    def _generate_basic_html_report(self, analysis_data, current_conn):
+        """Fallback basic HTML report generator"""
+        try:
+            from datetime import datetime
+            from pathlib import Path
+            
+            # Create reports directory - FIXED: Use same logic as data_dir for consistency
+            data_dir = Path(self._get_data_dir())
+            reports_dir = data_dir / "reports" 
+            reports_dir.mkdir(parents=True, exist_ok=True)
+            
+            # Fix permissions if running as sudo
+            if os.geteuid() == 0 and 'SUDO_USER' in os.environ:
+                sudo_user = os.environ['SUDO_USER']
+                import pwd
+                user_info = pwd.getpwnam(sudo_user)
+                os.chown(reports_dir, user_info.pw_uid, user_info.pw_gid)
+            
+            # Generate filename
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"mesh_analysis_{timestamp}.html"
+            report_path = reports_dir / filename
+            
+            # Basic HTML content
+            html_content = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi Mesh Analysis Report</title>
+    <style>
+        body {{ font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }}
+        .container {{ max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }}
+        .header {{ background: #2c3e50; color: white; padding: 20px; border-radius: 5px; text-align: center; margin-bottom: 20px; }}
+        .section {{ margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }}
+        .good {{ background: #d4edda; border-color: #c3e6cb; }}
+        .warning {{ background: #fff3cd; border-color: #ffeaa7; }}
+        .error {{ background: #f8d7da; border-color: #f5c6cb; }}
+        pre {{ background: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto; }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>WiFi Mesh Network Analysis</h1>
+            <p>Generated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}</p>
+        </div>
+        
+        <div class="section">
+            <h2>Current Connection</h2>
+            {self._format_connection_html(current_conn)}
+        </div>
+        
+        <div class="section">
+            <h2>Network Analysis</h2>
+            {self._format_mesh_analysis_html(analysis_data.get('mesh_analysis', {}))}
+        </div>
+        
+        <div class="section">
+            <h2>Analysis Data</h2>
+            <pre>{json.dumps(analysis_data, indent=2, default=str)}</pre>
+        </div>
+    </div>
+</body>
+</html>"""
+            
+            # Write file
+            with open(report_path, 'w', encoding='utf-8') as f:
+                f.write(html_content)
+            
+            return str(report_path)
+            
+        except Exception as e:
+            print(f"❌ Error in basic HTML generation: {e}")
+            return None
+
+    def _format_connection_html(self, current_conn):
+        """Format current connection for basic HTML"""
+        if not current_conn:
+            return "<p>Not connected to any network</p>"
+        
+        return f"""
+        <p><strong>SSID:</strong> {current_conn.get('ssid', 'Unknown')}</p>
+        <p><strong>BSSID:</strong> {current_conn.get('bssid', 'Unknown')}</p>
+        <p><strong>Signal:</strong> {current_conn.get('signal', -100)} dBm</p>
+        <p><strong>Frequency:</strong> {current_conn.get('freq', 0)} MHz</p>
+        """
+
+    def _format_mesh_analysis_html(self, mesh_analysis):
+        """Format mesh analysis for basic HTML"""
+        if not mesh_analysis:
+            return "<p>No mesh analysis data available</p>"
+        
+        network_type = mesh_analysis.get('type', 'unknown')
+        
+        if network_type == 'mesh':
+            return f"""
+            <p><strong>Network Type:</strong> Mesh ({mesh_analysis.get('total_nodes', 0)} nodes)</p>
+            <p><strong>Brand:</strong> {mesh_analysis.get('brand', 'Unknown')}</p>
+            <p><strong>Mesh Type:</strong> {mesh_analysis.get('mesh_type', 'Unknown')}</p>
+            <p><strong>Total Radios:</strong> {mesh_analysis.get('total_radios', 0)}</p>
+            <p><strong>Bands:</strong> {', '.join(mesh_analysis.get('bands', []))}</p>
+            <p><strong>Topology Health:</strong> {mesh_analysis.get('topology_health', 'Unknown')}</p>
+            """
+        else:
+            return f"""
+            <p><strong>Network Type:</strong> {network_type.replace('_', ' ').title()}</p>
+            <p><strong>Signal Quality:</strong> {mesh_analysis.get('signal_quality', 'Unknown')}</p>
+            """
+
     def run_analysis(self):
-        """Run complete network analysis"""
+        """Run complete network analysis WITHOUT auto-generating HTML"""
         try:
             print("🧠 WiFi Mesh Network Analyzer")
             print("=" * 60)
@@ -2707,9 +2212,6 @@ class NetworkAnalyzer:
                     self.log_manager.log_recommendations(recommendations)
                 
                 self._display_recommendations(alternatives, current_conn)
-            
-            # Generate HTML report automatically after analysis
-            self.generate_html_report()
         
         except Exception as e:
             print(f"❌ Analysis error: {e}")
@@ -2869,6 +2371,36 @@ class NetworkAnalyzer:
                 print(f"      📊 Note: Unable to match current BSSID to detected mesh nodes")
         
         print(f"📡 Bands: {', '.join(mesh_analysis['bands'])}")
+        
+        # VENN DIAGRAM ANALYSIS - RESTORED!
+        venn_analysis = mesh_analysis.get('venn_analysis', {})
+        if venn_analysis and venn_analysis.get('venn_diagram'):
+            print(f"\n🔄 VENN OVERLAP ANALYSIS:")
+            overlap_quality = venn_analysis.get('overlap_quality', {})
+            quality = overlap_quality.get('quality', 'unknown')
+            score = overlap_quality.get('score', 0)
+            
+            if quality == 'excellent':
+                quality_emoji = "🟢"
+            elif quality == 'good':
+                quality_emoji = "🟡"
+            elif quality == 'fair':
+                quality_emoji = "🟠"
+            else:
+                quality_emoji = "🔴"
+            
+            print(f"   {quality_emoji} Coverage Overlap Quality: {quality.title()} (Score: {score}/100)")
+            print(f"   📊 {overlap_quality.get('description', 'No description available')}")
+            
+            venn_data = venn_analysis['venn_diagram']
+            overlap_count = venn_data.get('overlap_count', 0)
+            if overlap_count > 0:
+                print(f"   🔗 Detected {overlap_count} node overlaps")
+                overlaps = venn_data.get('overlaps', [])
+                for overlap in overlaps[:3]:  # Show top 3 overlaps
+                    print(f"      • {overlap.get('node1_label', 'Node')} ↔ {overlap.get('node2_label', 'Node')}: {overlap.get('overlap_percentage', 0):.1f}% overlap")
+            else:
+                print(f"   ⚠️  No significant node overlaps detected - potential coverage gaps")
 
     def _display_historical_analysis(self, current_conn: Optional[Dict]):
         """Display detailed historical performance analysis with context"""
@@ -2991,7 +2523,17 @@ def main():
                        help="Create archive without running new analysis")
     parser.add_argument("--html-report", action="store_true",
                        help="Generate interactive HTML report after analysis")
-    
+    # Here we go, folks, Matt adding more cool functionality to test in this bad boy - 5 new command-line options.
+    parser.add_argument("--detect-dropouts", action="store_true",
+                       help="Detect micro-dropouts and connection interruptions")
+    parser.add_argument("--roaming-test", action="store_true", 
+                       help="Run roaming quality test (walk around during test)")
+    parser.add_argument("--monitor-roaming", action="store_true",
+                       help="Continuously monitor roaming events")
+    parser.add_argument("--check-power", action="store_true",
+                       help="Check for WiFi power management issues")
+    parser.add_argument("--fix-power", action="store_true",
+                       help="Generate script to fix power issues (use with --check-power)")
     args = parser.parse_args()
     
     # Find Wi-Fi interface
@@ -3016,7 +2558,7 @@ def main():
             else:
                 print("❌ Failed to create archive")
                 
-        elif args.storage_info:
+        if args.storage_info:
             # Show storage information
             storage_info = {
                 'storage_path': str(analyzer.history_tracker.data_dir),
@@ -3036,7 +2578,7 @@ def main():
             print(f"📄 History File: {'✅' if storage_info['history_file_exists'] else '❌'}")
             print(f"📄 Events File: {'✅' if storage_info['events_file_exists'] else '❌'}")
             
-        elif args.reset_history:
+        if args.reset_history:
             # Reset corrupted history files
             print("🔄 Resetting Mesh Analyzer History")
             print("=" * 40)
@@ -3049,15 +2591,69 @@ def main():
                 print("📂 No existing history files found")
                 print("💡 History tracking will start automatically on next run")
                 
-        elif args.monitor:
+        if args.monitor:
             # Continuous monitoring mode
             print("🔄 Continuous monitoring mode (Ctrl+C to stop)")
             while True:
                 analyzer.run_analysis()
                 print(f"\n⏰ Next scan in {args.scan_interval} seconds...\n")
                 time.sleep(args.scan_interval)
-        else:
-            # Default: Single analysis run
+        
+        # Matt adding yet more oddly commented features - roaming issue detection, redux.
+        if args.detect_dropouts:
+            if analyzer.roaming_detector:
+                print("\n🔍 MICRO-DROPOUT DETECTION")
+                print("=" * 60)
+                analyzer.roaming_detector.detect_microdropouts(duration=30)
+            else:
+                print("❌ Roaming detector module not available")
+                print("💡 Make sure mesh_roaming_detector.py is in the same directory")
+                
+        if args.roaming_test:
+            if analyzer.roaming_detector:
+                print("\n🚶 ROAMING QUALITY TEST")
+                print("=" * 60)
+                roaming_data = analyzer.roaming_detector.measure_roaming_performance(walk_test=True)
+                analyzer.roaming_data = roaming_data
+            else:
+                print("❌ Roaming detector module not available")
+                print("💡 Make sure mesh_roaming_detector.py is in the same directory")
+
+        if args.monitor_roaming:
+            if analyzer.roaming_detector:
+                print("\n📊 CONTINUOUS ROAMING MONITOR")
+                print("=" * 60)
+                analyzer.roaming_detector.continuous_quality_monitor()
+            else:
+                print("❌ Roaming detector module not available")
+                print("💡 Make sure mesh_roaming_detector.py is in the same directory")
+
+        # Matt adding yet more poorly commented features - scan of all WiFi power management settings. 
+        if args.check_power:
+            if analyzer.power_detective:
+                print("\n🔋 WIFI POWER MANAGEMENT CHECK")
+                print("=" * 60)
+                # Capture the power issues data
+                power_issues = analyzer.power_detective.check_all_power_issues()
+                
+                # Format and store for HTML reporter
+                analyzer.power_data = analyzer._format_power_data_for_html(power_issues)
+                
+                if args.fix_power:
+                    print("\n💡 Fix script has been generated if issues were found")
+            else:
+                print("❌ Power detective module not available")
+                print("💡 Make sure mesh_power_detective.py is in the same directory")
+        
+        if args.html_report:
+            # Generate HTML report after analysis - FIXED: No duplicate generation
+            analyzer.run_analysis()
+            print("\n" + "="*60)
+            analyzer.generate_html_report()
+            
+        elif not any([args.archive_only, args.storage_info, args.reset_history, args.monitor, 
+                     args.detect_dropouts, args.roaming_test, args.monitor_roaming, args.check_power]):
+            # Default: Single analysis run only if no other options specified
             analyzer.run_analysis()
             
             # Create archive if requested
