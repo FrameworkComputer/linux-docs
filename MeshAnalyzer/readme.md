@@ -2,6 +2,26 @@
 
 ### 🧪 BETA SOFTWARE - SEEKING TESTERS
 
+#### Why does the WiFi Mesh Network Analyzer exist?
+
+Modern mesh Wi-Fi networks promise better coverage, seamless roaming, and smarter performance—but when something goes wrong, most users are left guessing. The WiFi Mesh Network Analyzer exists to fill that gap. It gives Linux users real insight into how their mesh network is actually behaving: how nodes are connected, where overlap happens, which connections are weak, and how your device is steering between access points.
+
+Mesh networks aren’t always transparent. Commercial mesh systems often hide diagnostics behind limited apps or cloud dashboards, making it hard to understand why performance drops or devices fail to roam correctly. This tool was created to surface that data directly from the network and make it human-readable—without needing vendor lock-in or proprietary software.
+
+It’s especially helpful for troubleshooting issues like:
+
+- Devices sticking to weak access points
+
+- Random roaming between nodes
+
+- Coverage dead zones or overlap
+
+- Signal strength instability
+
+Whether you're a developer, power user, or just someone trying to improve home or office Wi-Fi, the WiFi Mesh Network Analyzer provides a practical, no-nonsense way to visualize and understand your wireless environment using tools that respect Linux-first workflows.
+
+In short: it exists because mesh Wi-Fi is powerful—but only if you can actually see what’s going on.
+
 #### Table contents
 
 - [INSTALLATION](#installation)
