@@ -124,7 +124,7 @@ Download the files and save these 3 files in the **same directory**:
 
 ### BASIC USAGE
 
-#### Single Analysis (Most Common)
+#### Single Analysis
 ```
 sudo python3 mesh_analyzer.py
 ```
@@ -138,7 +138,7 @@ sudo python3 mesh_analyzer.py
 • Runs continuous analysis every 60 seconds
 • Press Ctrl+C to stop
 
-Custom Scan Interval
+#### Custom Scan Interval
 ```
 sudo python3 mesh_analyzer.py --monitor --scan-interval 120
 ```
