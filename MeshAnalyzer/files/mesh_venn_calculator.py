@@ -23,6 +23,62 @@ class MeshVennCalculator:
         radius = self.min_radius + (normalized_signal * self.coverage_multiplier)
         return min(self.max_radius, max(self.min_radius, int(radius)))
     
+    def create_smart_label(self, node_data: Dict, index: int, total_nodes: int, brand: str) -> str:
+        """Create contextually smart labels based on signal strength and position"""
+        signal = node_data['signal']
+        
+        # Primary naming based on signal strength and logical position
+        if signal > -45:
+            base_name = "Main"
+        elif signal > -60:
+            base_name = "Near" if index == 1 else "Strong"
+        elif signal > -75:
+            base_name = "Mid" if total_nodes > 3 else "Extended" 
+        else:
+            base_name = "Far"
+        
+        # Add distinguisher for multiple nodes in same category
+        if total_nodes > 4:
+            base_name += f"-{chr(65 + index)}"  # A, B, C, etc.
+        elif total_nodes > 2 and signal <= -60:
+            # For 3-4 nodes, distinguish weaker ones
+            if base_name in ["Mid", "Extended", "Far"]:
+                base_name += f"-{index}"
+        
+        # Add brand context if available and not generic
+        if brand and brand not in ['unknown', 'generic']:
+            brand_short = brand.replace('_', ' ').replace('general', '').title()
+            # Clean up brand names
+            brand_map = {
+                'Eero': 'eero',
+                'Orbi Netgear': 'Orbi',
+                'Google Nest': 'Nest',
+                'Tp Link Deco': 'Deco',
+                'Linksys Velop': 'Velop',
+                'Asus': 'ASUS'
+            }
+            brand_clean = brand_map.get(brand_short, brand_short[:5])
+            return f"{brand_clean} {base_name}"
+        
+        return base_name
+    
+    def generate_smart_labels(self, nodes_data: List[Dict], brand: str = 'unknown') -> List[str]:
+        """Generate meaningful labels for all nodes based on context"""
+        if not nodes_data:
+            return []
+        
+        # Sort nodes by signal strength to assign logical roles
+        sorted_nodes = sorted(enumerate(nodes_data), key=lambda x: x[1]['signal'], reverse=True)
+        labels = [''] * len(nodes_data)
+        total_nodes = len(nodes_data)
+        
+        # Assign smart labels based on signal strength hierarchy
+        for rank, (orig_idx, node) in enumerate(sorted_nodes):
+            smart_label = self.create_smart_label(node, rank, total_nodes, brand)
+            labels[orig_idx] = smart_label
+        
+        return labels
+    
     def calculate_optimal_positions(self, nodes_data: List[Dict]) -> List[Dict]:
         """Calculate optimal positions for nodes to show realistic overlaps"""
         node_count = len(nodes_data)
@@ -146,29 +202,44 @@ class MeshVennCalculator:
         
         # Partial overlap calculation
         # Using intersection area formula for two circles
-        a = r1**2 * math.acos((distance**2 + r1**2 - r2**2) / (2 * distance * r1))
-        b = r2**2 * math.acos((distance**2 + r2**2 - r1**2) / (2 * distance * r2))
-        c = 0.5 * math.sqrt((-distance + r1 + r2) * (distance + r1 - r2) * (distance - r1 + r2) * (distance + r1 + r2))
-        
-        intersection_area = a + b - c
-        total_area = math.pi * r1**2 + math.pi * r2**2 - intersection_area
-        
-        return (intersection_area / total_area) * 100 if total_area > 0 else 0.0
+        try:
+            a = r1**2 * math.acos((distance**2 + r1**2 - r2**2) / (2 * distance * r1))
+            b = r2**2 * math.acos((distance**2 + r2**2 - r1**2) / (2 * distance * r2))
+            c = 0.5 * math.sqrt((-distance + r1 + r2) * (distance + r1 - r2) * (distance - r1 + r2) * (distance + r1 + r2))
+            
+            intersection_area = a + b - c
+            total_area = math.pi * r1**2 + math.pi * r2**2 - intersection_area
+            
+            return (intersection_area / total_area) * 100 if total_area > 0 else 0.0
+        except (ValueError, ZeroDivisionError):
+            # Fallback for edge cases
+            return 0.0
     
     def generate_venn_data(self, nodes_data: List[Dict]) -> Dict:
-        """Generate complete Venn diagram data with positions, radii, and overlaps"""
+        """Generate complete Venn diagram data with smart labels, positions, radii, and overlaps"""
         if not nodes_data:
             return {'nodes': [], 'overlaps': [], 'total_coverage': 0}
+        
+        # Extract brand information if available
+        brand = 'unknown'
+        if nodes_data and 'brand' in nodes_data[0]:
+            brand = nodes_data[0]['brand']
+        elif nodes_data and hasattr(nodes_data[0], 'brand'):
+            brand = nodes_data[0].brand
+        
+        # Generate smart labels for all nodes
+        smart_labels = self.generate_smart_labels(nodes_data, brand)
         
         # Calculate optimal positions
         positions = self.calculate_optimal_positions(nodes_data)
         
-        # Update nodes with positions and radii
+        # Update nodes with smart labels, positions and radii
         venn_nodes = []
         for i, node in enumerate(nodes_data):
             radius = self.calculate_coverage_radius(node['signal'])
             venn_node = {
                 **node,
+                'label': smart_labels[i],  # Use smart context-aware label
                 'position': positions[i],
                 'radius': radius,
                 'coverage_area': math.pi * radius**2
@@ -250,19 +321,19 @@ class MeshVennCalculator:
         elif avg_overlap > 5:
             score += 10
         
-        # Determine quality level
+        # Determine quality level with smart descriptions
         if score >= 80:
             quality = 'excellent'
-            description = f'Excellent mesh overlap - {actual_overlaps}/{total_possible_overlaps} node pairs overlapping'
+            description = f'Excellent mesh overlap with optimal node placement - {actual_overlaps}/{total_possible_overlaps} connections provide seamless coverage'
         elif score >= 60:
             quality = 'good'
-            description = f'Good mesh overlap - {actual_overlaps}/{total_possible_overlaps} node pairs with coverage overlap'
+            description = f'Good mesh overlap - {actual_overlaps}/{total_possible_overlaps} node pairs ensure reliable coverage'
         elif score >= 40:
             quality = 'fair'
-            description = f'Fair mesh overlap - some coverage gaps possible'
+            description = f'Fair mesh overlap - some coverage gaps may exist between nodes'
         else:
             quality = 'poor'
-            description = f'Poor mesh overlap - significant coverage gaps likely'
+            description = f'Poor mesh overlap - significant coverage gaps likely, consider repositioning nodes'
         
         return {
             'quality': quality,
