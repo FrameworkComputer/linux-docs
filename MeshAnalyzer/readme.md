@@ -21,7 +21,6 @@ In short: it exists because mesh Wi-Fi is powerful—but only if you can actuall
 
 #### Table of Contents
 
-- [NEW FEATURES](#new-features)
 - [INSTALLATION](#installation)
  - [Install system dependencies](#install-system-dependencies)
  - [Download required files](#download-required-files)
