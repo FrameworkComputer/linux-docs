@@ -124,7 +124,7 @@ Download the files and save these 3 files in the **same directory**:
 
 ### BASIC USAGE
 
-Single Analysis (Most Common)
+#### Single Analysis (Most Common)
 ```
 sudo python3 mesh_analyzer.py
 ```
@@ -133,7 +133,7 @@ sudo python3 mesh_analyzer.py
 • Generates HTML report with visualizations
 • Provides terminal output with recommendations
 
-Continuous Monitoring
+#### Continuous Monitoring
 • sudo python3 mesh_analyzer.py --monitor
 • Runs continuous analysis every 60 seconds
 • Press Ctrl+C to stop
