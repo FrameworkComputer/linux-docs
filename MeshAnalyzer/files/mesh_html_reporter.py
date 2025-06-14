@@ -944,7 +944,7 @@ class MeshHTMLReporter:
             </div>
             
             <div class="power-note">
-                <p>💡 Use --check-power --fix-power to generate a fix script</p>
+                <p>💡 These issues require manual configuration changes</p>
             </div>
         </section>
         """
