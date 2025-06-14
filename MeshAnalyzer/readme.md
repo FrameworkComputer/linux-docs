@@ -152,7 +152,7 @@ Download the files and save these 5 files in the **same directory**:
 `sudo python3 mesh_analyzer.py`
 
 #### Run all the features at once
-`sudo python3 mesh_analyzer.py --check-power --fix-power --detect-dropouts --roaming-test --html-report --create-archive`
+`sudo python3 mesh_analyzer.py --check-power --detect-dropouts --roaming-test --html-report --create-archive`
 
 
 - Automatically detects WiFi interface
@@ -196,7 +196,7 @@ sudo python3 mesh_analyzer.py --monitor --scan-interval 120
 #### Power Management Analysis (NEW)
 `sudo python3 mesh_analyzer.py --check-power`             # Check for WiFi power management issues
 
-`sudo python3 mesh_analyzer.py --check-power --fix-power` # Generate script to fix power issues
+`sudo python3 mesh_analyzer.py --check-power              # Generate script to fix power issues
 
 #### OUTPUT FILES
 
@@ -441,7 +441,7 @@ Run with: sudo /tmp/fix_wifi_power.sh
 
 - **Roaming analysis**: Use --roaming-test while walking around your space for comprehensive results
 
-- **Power management**: Run --check-power --fix-power if experiencing frequent disconnects or connection drops
+- **Test Power management**: Run --check-power if experiencing frequent disconnects or connection drops
 
 - **HTML reports**: Best viewed in modern browsers with JavaScript enabled for full interactivity
 
