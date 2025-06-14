@@ -2532,8 +2532,6 @@ def main():
                        help="Continuously monitor roaming events")
     parser.add_argument("--check-power", action="store_true",
                        help="Check for WiFi power management issues")
-    parser.add_argument("--fix-power", action="store_true",
-                       help="Generate script to fix power issues (use with --check-power)")
     args = parser.parse_args()
     
     # Find Wi-Fi interface
@@ -2639,8 +2637,6 @@ def main():
                 # Format and store for HTML reporter
                 analyzer.power_data = analyzer._format_power_data_for_html(power_issues)
                 
-                if args.fix_power:
-                    print("\n💡 Fix script has been generated if issues were found")
             else:
                 print("❌ Power detective module not available")
                 print("💡 Make sure mesh_power_detective.py is in the same directory")
