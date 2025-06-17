@@ -22,16 +22,9 @@ In short: it exists because mesh Wi-Fi is powerful—but only if you can actuall
 #### Table of Contents
 
 - [INSTALLATION](#installation)
- - [Install system dependencies](#install-system-dependencies)
- - [Download required files](#download-required-files)
- - [Make the files executable](#make-the-files-executable)
- - [Required tools](#required-tools)
 - [SYSTEM COMPATIBILITY](#system-compatibility)
 - [SETUP](#setup)
 - [BASIC USAGE](#basic-usage)
- - [Single Analysis](#single-analysis)
- - [Continuous Monitoring](#continuous-monitoring)
- - [Custom Scan Interval](#custom-scan-interval)
 - [ADVANCED OPTIONS](#advanced-options)
 - [ROAMING & POWER ANALYSIS](#roaming--power-analysis)
 - [OUTPUT FILES](#output-files)
