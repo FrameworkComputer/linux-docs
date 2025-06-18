@@ -20,6 +20,7 @@ Real insight into how your mesh network actually behaves. See node connections, 
 - [🔍 Troubleshooting](#-troubleshooting)
 - [📱 Example Output](#-example-output)
 - [💡 Pro Tips](#-pro-tips)
+- [🔗 Related Tools](#-related-tools)
 
 ## 🚀 Key Features
 
