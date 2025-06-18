@@ -1,114 +1,88 @@
-# WiFi Mesh Network Analyzer
+# 📡 WiFi Mesh Network Analyzer
 
-### Why does the WiFi Mesh Network Analyzer exist?
+> **Linux-first mesh network diagnostics with roaming analysis, power management detection, and visual reporting**
 
-Modern mesh Wi-Fi networks promise better coverage, seamless roaming, and smarter performance—but when something goes wrong, most users are left guessing. The WiFi Mesh Network Analyzer exists to fill that gap. It gives Linux users real insight into how their mesh network is actually behaving: how nodes are connected, where overlap happens, which connections are weak, and how your device is steering between access points.
+[![Python](https://img.shields.io/badge/Python-3.6+-blue.svg)](https://python.org)
+[![NetworkManager](https://img.shields.io/badge/NetworkManager-Required-green.svg)]()
+[![Zero Dependencies](https://img.shields.io/badge/Dependencies-Zero-brightgreen.svg)]()
 
-Mesh networks aren't always transparent. Commercial mesh systems often hide diagnostics behind limited apps or cloud dashboards, making it hard to understand why performance drops or devices fail to roam correctly. This tool was created to surface that data directly from the network and make it human-readable—without needing vendor lock-in or proprietary software.
+Real insight into how your mesh network actually behaves. See node connections, identify weak spots, track roaming performance, and diagnose power management issues - all without vendor lock-in or proprietary software.
 
-It's especially helpful for troubleshooting issues like:
+## 📚 Table of Contents
 
-- Devices sticking to weak access points
-- Random roaming between nodes
-- Coverage dead zones or overlap
-- Signal strength instability
-- Micro-dropouts and connection interruptions
-- WiFi power management problems causing false disconnects
+- [🚀 Key Features](#-key-features)
+- [🎯 Why This Tool?](#-why-this-tool)
+- [📋 Quick Start](#-quick-start)
+- [🎛️ Main Features](#️-main-features)
+- [📊 What You Get](#-what-you-get)
+- [🔧 Advanced Usage](#-advanced-usage)
+- [🛡️ Compatibility](#️-compatibility)
+- [🔍 Troubleshooting](#-troubleshooting)
+- [📱 Example Output](#-example-output)
+- [💡 Pro Tips](#-pro-tips)
 
-Whether you're a developer, power user, or just someone trying to improve home or office Wi-Fi, the WiFi Mesh Network Analyzer provides a practical, no-nonsense way to visualize and understand your wireless environment using tools that respect Linux-first workflows.
+## 🚀 Key Features
 
-In short: it exists because mesh Wi-Fi is powerful—but only if you can actually see what's going on.
+### 🔍 **Mesh Intelligence**
+- **Topology Mapping** - Visual mesh node detection and relationship analysis
+- **Brand Recognition** - 500+ OUI database covering Eero, Orbi, Google Nest, Ubiquiti, enterprise systems
+- **Coverage Analysis** - Spatial zone mapping with signal strength distribution
+- **Overlap Detection** - Venn diagram analysis of node coverage areas
 
-#### Table of Contents
+### 🔄 **Roaming Analysis**
+- **Micro-dropout Detection** - Catch 50ms connection drops your system misses
+- **Handoff Quality Testing** - Measure real roaming performance while walking around
+- **Transition Monitoring** - Real-time tracking of problematic node switches
+- **Pattern Recognition** - Identify roaming loops and sticky client issues
 
-- [INSTALLATION](#installation)
-- [SYSTEM COMPATIBILITY](#system-compatibility)
-- [SETUP](#setup)
-- [BASIC USAGE](#basic-usage)
-- [ADVANCED OPTIONS](#advanced-options)
-- [ROAMING & POWER ANALYSIS](#roaming--power-analysis)
-- [OUTPUT FILES](#output-files)
-- [WHAT YOU GET](#what-you-get)
-- [TROUBLESHOOTING](#troubleshooting)
-- [CLI OUTPUT EXAMPLE](#cli-output-example)
-- [HTML REPORT](#html-report)
-- [PRO TIPS](#pro-tips)
+### 🔋 **Power Management**
+- **WiFi Power Saving Detection** - Find power management causing disconnects
+- **Driver-Specific Analysis** - Intel, MediaTek, Qualcomm, Atheros optimization
+- **USB Autosuspend Checking** - Detect USB WiFi adapter suspension problems
+- **Automated Fix Generation** - Create executable scripts to resolve power issues
 
-## FEATURES
+### 📊 **Professional Reporting**
+- **Interactive HTML Reports** - Modern dark theme with glassmorphism design
+- **Real-time Visualizations** - Hover effects, click-to-copy BSSIDs, smooth animations
+- **Mobile-Responsive** - Optimized for all devices with responsive layout
+- **Historical Tracking** - Performance trends and stability scoring over time
 
-### 🔍 Roaming Analysis
-- **Micro-dropout detection**: Catch brief connection drops (50ms polling) your system might miss
-- **Roaming performance testing**: Measure actual handoff quality as you move around your space
-- **Continuous roaming monitoring**: Real-time tracking of mesh transitions with detailed logging
-- **Problem transition analysis**: Identify problematic node-to-node handoffs and roaming loops
+## 🎯 Why This Tool?
 
-### 🔋 Power Management Detection
-- **WiFi power saving analysis**: Detect power management issues causing periodic disconnects
-- **USB autosuspend checking**: Find USB WiFi adapter suspension problems
-- **PCIe ASPM detection**: Identify PCIe power management conflicts
-- **Driver-specific power issues**: Check Intel, Realtek, MediaTek, Qualcomm, Atheros settings
-- **NetworkManager power settings**: Detect problematic WiFi power saving configurations
-- **Automated fix generation**: Create executable scripts to resolve detected power issues
+### **Mesh Networks Are Opaque**
+Commercial mesh systems hide diagnostics behind limited apps or cloud dashboards. When performance drops or devices won't roam correctly, you're left guessing. This tool surfaces that data directly from the network.
 
-### 📊 Enhanced HTML Reports
-- **Professional dark theme**: Modern glassmorphism design with responsive layout
-- **Interactive visualizations**: Hover effects, click-to-copy BSSIDs, smooth animations
-- **Advanced Venn diagrams**: Visual mesh overlap analysis with SVG generation
-- **Comprehensive coverage analysis**: Detailed spatial distribution insights with zone mapping
-- **Mobile-friendly interface**: Responsive design optimized for all devices
-- **Real-time data integration**: Roaming and power analysis results included
+### **Common Problems It Solves**
+- Devices sticking to weak access points instead of roaming
+- Random disconnections and connection drops  
+- Coverage dead zones or excessive overlap
+- Power management issues causing false disconnects
+- Micro-dropouts during streaming or gaming
+- Poor handoff performance between nodes
 
-### 🏠 Expanded Hardware Support
-- **500+ OUI entries**: Comprehensive mesh system detection database (10x larger than before)
-- **Enterprise hardware**: Support for Ubiquiti, Ruckus, Aruba, Cisco Meraki, EnGenius
-- **Consumer mesh brands**: Enhanced eero, Orbi, Google Nest, ASUS, TP-Link, Linksys detection
-- **WiFi 6E/7 systems**: Latest generation mesh hardware recognition
-- **Industrial mesh**: Cambium Networks, Cradlepoint, Peplink support
+### **Linux-First Approach**
+No vendor lock-in, no cloud dependencies, no proprietary software. Uses standard Linux WiFi tools with intelligent analysis on top.
 
-This is production-ready software actively seeking feedback and testing!
+## 📋 Quick Start
 
-#### We need your help testing with different:
+### Prerequisites
+```bash
+# Ubuntu/Debian
+sudo apt update && sudo apt install iw
 
-- Mesh systems (eero, Orbi, Google Nest, Ubiquiti, ASUS, TP-Link, Linksys, etc.)
-- Linux distributions (Ubuntu, Fedora, Arch, Debian, etc.)
-- Network environments (home, office, enterprise)
-- WiFi hardware configurations (Intel, Realtek, MediaTek, Qualcomm, Atheros)
-- Power management scenarios (laptops, desktops, USB adapters)
+# Fedora/RHEL  
+sudo dnf install iw
 
-#### Please report issues, bugs, or suggestions:
-
-- What worked well for you
-- What didn't work or was confusing
-- Your mesh system brand/model
-- Your Linux distribution and version
-- Any error messages or unexpected behavior
-- Roaming and power analysis results
-
-### PREREQUISITES
-
-Linux system (Ubuntu, Debian, Fedora, Arch, etc.)
-Python 3.6+ (pre-installed on most Linux systems)
-WiFi interface (built-in or USB adapter)
-Root/sudo access (required for WiFi scanning)
-
-### INSTALLATION
-
-**Install system dependencies**
-
-Ubuntu/Debian:
-`sudo apt update && sudo apt install iw`
-
-Fedora/RHEL:
-`sudo dnf install iw`
-
-Arch Linux:
-`sudo pacman -S iw`
-
-**Download required files:**
-
-`mkdir mesh_analyzer && cd mesh_analyzer`
-
+# Arch Linux (NetworkManager required - not iwd compatible)
+sudo pacman -S iw
 ```
+
+### Installation
+```bash
+mkdir mesh_analyzer && cd mesh_analyzer
+```
+
+```bash
 wget https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/MeshAnalyzer/files/mesh_analyzer.py && \
 wget https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/MeshAnalyzer/files/mesh_html_reporter.py && \
 wget https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/MeshAnalyzer/files/mesh_venn_calculator.py && \
@@ -116,334 +90,243 @@ wget https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/MeshAna
 wget https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/MeshAnalyzer/files/mesh_power_detective.py
 ```
 
-**Make the files executable:**
+```bash
+chmod +x *.py
+```
 
-`chmod +x *.py`
+### Basic Analysis
+```bash
+sudo python3 mesh_analyzer.py
+```
 
-**Required tools:**
-- iw: WiFi scanning and management
-- nmcli: NetworkManager command line (pre-installed on most systems)
-✅ Zero Python dependencies – uses only standard library!
+### Complete Analysis (Recommended)
+```bash
+sudo python3 mesh_analyzer.py --check-power --detect-dropouts --roaming-test --html-report --create-archive
+```
 
-### SYSTEM COMPATIBILITY
+## 🎛️ Main Features
 
-✅ NetworkManager - Fully supported
-❌ iwd (Intel WiFi Daemon) - Not compatible at this time
+| Feature | Command | Description |
+|---------|---------|-------------|
+| **Basic Analysis** | `sudo python3 mesh_analyzer.py` | Topology mapping and signal analysis |
+| **HTML Report** | `--html-report` | Interactive visual report with charts |
+| **Roaming Test** | `--roaming-test` | Walk-around handoff quality testing |
+| **Micro-dropouts** | `--detect-dropouts` | 30-second connection stability test |
+| **Power Check** | `--check-power` | WiFi power management issue detection |
+| **Continuous Monitor** | `--monitor` | Real-time monitoring every 60 seconds |
+| **Archive Creation** | `--create-archive` | Compressed analysis logs |
 
-#### SETUP
+## 📊 What You Get
 
-Download the files and save these 5 files in the **same directory**:
-- mesh_analyzer.py (main analyzer)
-- mesh_html_reporter.py (HTML report generation)
-- mesh_venn_calculator.py (overlap analysis)
-- mesh_roaming_detector.py (roaming analysis - NEW)
-- mesh_power_detective.py (power management analysis - NEW)
-
-### BASIC USAGE
-
-#### Single Analysis
-`sudo python3 mesh_analyzer.py`
-
-#### Run all the features at once
-`sudo python3 mesh_analyzer.py --check-power --detect-dropouts --roaming-test --html-report --create-archive`
-
-
-- Automatically detects WiFi interface
-- Scans network and analyzes mesh topology
-- Generates comprehensive HTML report with advanced visualizations
-- Provides terminal output with detailed recommendations
-- Includes roaming and power analysis if modules are available
-
-#### Continuous Monitoring
-`sudo python3 mesh_analyzer.py` --monitor
-
-- Runs continuous analysis every 60 seconds
-- Press Ctrl+C to stop
-
-#### Custom Scan Interval
-sudo python3 mesh_analyzer.py --monitor --scan-interval 120
-
-- Monitor mode with 2-minute intervals
-
-### ADVANCED OPTIONS
-
-`sudo python3 mesh_analyzer.py --html-report`             # Generate HTML report after analysis
-
-`sudo python3 mesh_analyzer.py --create-archive`          # Create compressed log archive
-
-`sudo python3 mesh_analyzer.py --storage-info`            # Show data storage information
-
-`sudo python3 mesh_analyzer.py --reset-history`           # Reset corrupted history files
-
-`sudo python3 mesh_analyzer.py --archive-only`            # Create archive without new analysis
-
-### ROAMING & POWER ANALYSIS
-
-#### Roaming Analysis (NEW)
-`sudo python3 mesh_analyzer.py --detect-dropouts`         # Detect micro-dropouts (30 seconds)
-
-`sudo python3 mesh_analyzer.py --roaming-test`            # Test roaming quality (walk test)
-
-`sudo python3 mesh_analyzer.py --monitor-roaming`         # Continuously monitor roaming events
-
-#### Power Management Analysis (NEW)
-`sudo python3 mesh_analyzer.py --check-power`             # Check for WiFi power management issues
-
-`sudo python3 mesh_analyzer.py --check-power              # Generate script to fix power issues
-
-#### OUTPUT FILES
-
-Automatic file creation in ~/.mesh_analyzer/:
-
-reports/
-- Interactive HTML reports with advanced visualizations
-- Dark theme with glassmorphism design and responsive layout
-- Roaming and power analysis integration
-
-logs/
-- Detailed analysis logs and debugging info
-- Roaming event monitoring logs
-- Power management issue detection logs
-
-bssid_history.pkl and connection_events.pkl
-- Historical BSSID performance tracking
-- Connection event history
-- Roaming pattern analysis
-
-### WHAT YOU GET
-
-Terminal Output:
-
-- Comprehensive mesh topology analysis with spatial intelligence
-- Advanced signal strength zone mapping and coverage analysis
+### **Terminal Output**
+- Comprehensive mesh topology with node relationships
+- Signal strength zone mapping (Primary/Secondary/Tertiary/Fringe)
 - Historical performance tracking with stability scores
-- Intelligent optimization recommendations
-- Roaming quality assessment and micro-dropout detection
-- Power management issue identification and automated fixes
 - Venn overlap analysis with quality scoring
+- Roaming quality assessment and micro-dropout detection
+- Power management issue identification with automated fixes
+- Intelligent optimization recommendations
 
-HTML Report:
-
-- Professional dark theme with glassmorphism design
+### **HTML Report**
+- Professional dark theme with modern glassmorphism design
 - Interactive mesh topology visualization with hover effects
 - Advanced signal strength distribution charts
 - Visual Venn overlap diagrams with SVG rendering
-- Comprehensive coverage issue analysis with spatial zones
+- Comprehensive coverage analysis with spatial zones
 - Performance trends and historical data tracking
-- Roaming analysis results and transition quality
-- Power management issue reporting with fix recommendations
 - Click-to-copy BSSID functionality
 - Mobile-responsive design optimized for all devices
 
-### TROUBLESHOOTING
-
-"No WiFi interface found"
-
-`nmcli device status`                          # Check available interfaces
-`ip link show`                                 # List all network interfaces
-
-**0 access points found:**
-
-- You may be on a restricted enterprise network
-- Ensure you have proper WiFi scanning permissions; sudo
-- Try moving closer to mesh nodes or access points
-
-**Permission errors:**
-
-- Must run with sudo for WiFi scanning
-- Files are automatically created with correct user permissions
-- Roaming and power analysis require elevated privileges
-
-**Module import errors:**
-
-- Ensure all 5 Python files are in the same directory
-- Check file permissions and execute bits
-- Optional modules (roaming_detector, power_detective) will gracefully degrade if missing
-
-**Roaming analysis issues:**
-
-- Requires active mesh network connection
-- Best results when moving between different coverage areas
-- May need multiple test runs for comprehensive data
-
-**Power management detection:**
-
-- Some issues require specific hardware configurations
-- Results vary by WiFi chipset and driver version
-- Generated fix scripts should be reviewed before execution
-
-#### Why some nodes or frequencies might not appear
-
-Not all mesh nodes or Wi-Fi frequencies will always show up in scans. This is expected behavior due to how mesh networks operate and how wireless scanning works on Linux. Some reasons include:
-
-- Background steering and band steering: Mesh systems often hide certain nodes or bands (like 5GHz backhaul links) from active scans to manage traffic automatically.
-
-- Scan timing limitations: Some nodes may only broadcast intermittently or reduce beaconing when idle, so they can be missed in a single scan.
-
-- Driver and chipset behavior: Certain Wi-Fi chipsets or drivers (especially on Linux) may not report all frequencies or channels reliably during passive or active scans.
-
-- DFS channels (Dynamic Frequency Selection): Some 5GHz channels are restricted and may not be immediately visible due to regulatory delays or scanning restrictions.
-
-- Power management: Nodes may be in power-saving modes that reduce visibility.
-
-If you're troubleshooting, try running multiple scans over time, use the new roaming analysis features, or reposition your device to improve visibility. This tool captures what the system can see—but some things are designed to stay just out of sight.
-
-### CLI Output example
-
+### **Example Analysis Results**
 ```
-📝 Logging enabled: /home/matt/.mesh_analyzer/logs
-📊 Loaded history for 1 BSSIDs
-📈 Loaded 6 recent connection events
-📁 History storage: /home/matt/.mesh_analyzer
-✅ Roaming detector module loaded
-✅ Power detective module loaded
+🏷️  Brand: Eero
+🔧 Type: Tri-Band Mesh  
+🏠 Topology: 4 nodes, 8 radios
+📶 Mesh Quality: Good Topology (Score: 70/100)
+🔄 Coverage Overlap: Excellent (Score: 100/100)
+🔋 Power Issues: 1 found (PCIe ASPM)
+📈 Current BSSID Stability: 100/100 (Excellent)
+```
 
-🔍 MICRO-DROPOUT DETECTION
-============================================================
-🔍 Monitoring for micro-dropouts for 30 seconds...
-These are drops your system might not normally notice
-💡 Keep using your WiFi normally - browse, stream, etc.
+## 🔧 Advanced Usage
 
-✅ No micro-dropouts detected in 30 seconds
-Your mesh is handling connections smoothly!
+### **Roaming Analysis**
+```bash
+# Detect micro-dropouts (30 seconds)
+sudo python3 mesh_analyzer.py --detect-dropouts
 
-🚶 ROAMING QUALITY TEST
-============================================================
-📊 Measuring roaming performance...
-🚶 Walk around your space now. Press Ctrl+C when done.
-💡 Try to move between different rooms/areas
-Press Enter when you're done walking around... 
+# Test roaming quality while walking
+sudo python3 mesh_analyzer.py --roaming-test
 
-📊 Roaming Analysis:
-   • Seamless roams: 0
-   • Disconnection events: 0
+# Continuous roaming monitoring  
+sudo python3 mesh_analyzer.py --monitor-roaming
+```
 
-🔋 WIFI POWER MANAGEMENT CHECK
-============================================================
-🔋 WiFi Power Management Detective
-============================================================
-Scanning for power-related WiFi issues...
+### **Power Management**
+```bash
+# Check for power issues
+sudo python3 mesh_analyzer.py --check-power
 
-📋 POWER MANAGEMENT REPORT
-============================================================
-Total issues found: 1
-Critical issues: 0
+# Generate fix script for detected issues
+sudo python3 mesh_analyzer.py --check-power --fix-script
+```
 
-🚨 Issues Found:
+### **Monitoring & Logging**
+```bash
+# Continuous monitoring (60s intervals)
+sudo python3 mesh_analyzer.py --monitor
 
-Pcie Aspm:
+# Custom scan interval (2 minutes)
+sudo python3 mesh_analyzer.py --monitor --scan-interval 120
 
-  🟡 PCIe ASPM set to: [default] performance powersave powersupersave
-     Impact: Can cause latency and brief disconnects
-     Fix: Add pcie_aspm=off to kernel boot parameters
+# Show storage information
+sudo python3 mesh_analyzer.py --storage-info
+```
 
-📝 Generated fix script: /tmp/fix_wifi_power.sh
-Run with: sudo /tmp/fix_wifi_power.sh
+### **Data Management**
+```bash
+# Reset corrupted history files
+sudo python3 mesh_analyzer.py --reset-history
 
-💡 Fix script has been generated if issues were found
+# Create archive without new analysis
+sudo python3 mesh_analyzer.py --archive-only
+```
+
+## 🛡️ Compatibility
+
+### **Supported Systems**
+- **Linux Distributions**: Ubuntu, Debian, Fedora, Arch, openSUSE, Pop!_OS, Mint
+- **Network Managers**: NetworkManager (iwd support not yet implemented)
+- **WiFi Hardware**: Intel, MediaTek, Qualcomm, Broadcom, Atheros, Realtek
+- **Mesh Systems**: Eero, Orbi, Google Nest, ASUS, TP-Link, Linksys, Ubiquiti, enterprise systems
+
+### **Requirements**
+- Python 3.6+ (standard on most Linux systems)
+- NetworkManager (not compatible with iwd)
+- Root/sudo access for WiFi scanning
+- Active mesh network connection for best results
+
+### **Zero Dependencies**
+Uses only Python standard library - no pip installs required!
+
+## 🔍 Troubleshooting
+
+### **Common Issues**
+
+**"No WiFi interface found"**
+```bash
+nmcli device status    # Check available interfaces
+ip link show          # List all network interfaces
+```
+
+**"0 access points found"**
+- Ensure you have sudo privileges for WiFi scanning
+- Try moving closer to mesh nodes
+- Some enterprise networks restrict scanning
+
+**"Permission denied"**
+- Must run with `sudo` for WiFi scanning capabilities
+- Files are automatically created with correct user permissions
+
+**Module import errors**
+- Ensure all 5 Python files are in the same directory
+- Check file permissions with `ls -la *.py`
+- Optional modules will gracefully degrade if missing
+
+### **Why Some Nodes Don't Appear**
+
+Not all mesh nodes will always show up in scans. This is normal due to:
+
+- **Band Steering** - Mesh systems hide certain bands or backhaul links
+- **Scan Timing** - Nodes may broadcast intermittently or reduce beaconing when idle  
+- **Power Management** - Nodes in power-saving modes reduce visibility
+- **Driver Limitations** - Some WiFi chipsets don't report all frequencies reliably
+- **DFS Channels** - Regulatory restrictions on 5GHz channels
+- **Distance/Interference** - Remote nodes may be too weak to detect
+
+**Solutions**: Run multiple scans, use roaming analysis features, or reposition your device.
+
+## 📱 Example Output
+
+### **Terminal Analysis**
+```
 🧠 WiFi Mesh Network Analyzer
-============================================================
-🔍 Analysis: Signal Intelligence • Mesh Topology • Historical Tracking • Pattern Recognition • Venn Overlap
 ============================================================
 📡 Interface: wlp5s0
 🔗 Connected: Slower | D8:8E:D4:7D:2E:C8 | 7015 MHz | -53 dBm
 
-📊 NETWORK SCANNING
-────────────────────────────────────────────────────────────
-🔍 Scanning networks with historical analysis...
-📡 Found 14 access points
-
-📊 MESH INTELLIGENCE
-────────────────────────────────────────────────────────────
 🏷️  Brand: Eero
 🔧 Type: Tri-Band Mesh
 🏠 Topology: 4 nodes, 8 radios
-   ℹ️  Note: Only shows nodes visible from your current location
-   📊 Why some nodes may be missing:
-      • Distant nodes (basement, far rooms) may be too weak to detect
-      • Nodes powered off or disconnected from mesh
-      • Interference blocking weak signals from remote areas
-      • Your device's WiFi antenna limitations
 📶 Mesh Topology: 🟢 Good Topology (Quality Score: 70/100)
-   📊 Analysis: 4 nodes detected - excellent for comprehensive coverage with minor coverage irregularities
 
 🗺️  SPATIAL COVERAGE ANALYSIS:
-   📍 Coverage Zones & Your Connection:
-      🟢 Primary Zone: 2 nodes (-44 to -33dBm)
-         └─ Excellent coverage area (same room/very close)
-      🟠 Tertiary Zone: 1 nodes (-70 to -70dBm)
-         └─ Extended coverage area (distant rooms)
-      🔴 Fringe Zone: 1 nodes (-89 to -89dBm)
-         └─ Maximum range coverage (basement/garage/far areas)
-📡 Bands: 2.4GHz, 5GHz, 6GHz
+   🟢 Primary Zone: 2 nodes (-44 to -33dBm)
+   🟠 Tertiary Zone: 1 nodes (-70 to -70dBm)  
+   🔴 Fringe Zone: 1 nodes (-89 to -89dBm)
 
 🔄 VENN OVERLAP ANALYSIS:
    🟢 Coverage Overlap Quality: Excellent (Score: 100/100)
    📊 Excellent mesh overlap - 6/6 node pairs overlapping
-   🔗 Detected 6 node overlaps
-      • Node D4:7D:2E ↔ Node EB:B8:40: 40.0% overlap
-      • Node D4:7D:2E ↔ Node EB:B8:D2: 41.2% overlap
-      • Node D4:7D:2E ↔ Node EB:A5:10: 12.3% overlap
 
-📊 HISTORICAL PERFORMANCE
-────────────────────────────────────────────────────────────
-📈 Current BSSID Performance Analysis (D8:8E:D4:7D:2E:C8):
+📈 Current BSSID Performance Analysis:
    🟢 Stability Score: 100.0/100 (Excellent)
-   🔄 Connection History: 7 total attempts
    ✅ Success Rate: 100.0%
 
-📊 PROBLEM DETECTION
-────────────────────────────────────────────────────────────
-✅ No problematic patterns detected
-
-📊 RECOMMENDATIONS
-────────────────────────────────────────────────────────────
-💡 PERFORMANCE OPTIMIZATION OPPORTUNITY:
-   🎯 Recommended BSSID: D8:8E:D4:7D:2E:C6
-   📈 Expected improvement: +20dB signal strength
-   🏆 Quality rating: EXCELLENT
-
-============================================================
-
-🌐 GENERATING HTML REPORT
-────────────────────────────────────────────────────────────
-📊 Analyzing mesh topology...
-🔍 Evaluating alternatives...
-📈 Gathering historical data...
-🚨 Detecting problems...
-📝 Generating HTML visualization with mesh overlap analysis...
-✅ HTML Report Generated Successfully!
-   📁 Location: /home/matt/.mesh_analyzer/reports/mesh_analysis_20250612_044019.html
-   🌐 Open in browser: file:///home/matt/.mesh_analyzer/reports/mesh_analysis_20250612_044019.html
-   📊 Report includes: mesh topology, signal analysis, recommendations, historical data
+✅ No micro-dropouts detected in 30 seconds
+🔋 Power Issues: 1 found - PCIe ASPM configuration
 ```
 
-### HTML report
+### **HTML Report Preview**
+![Mesh Analysis Report](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/MeshAnalyzer/images/mesh_screenshot-new.png)
 
-![Example Report](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/MeshAnalyzer/images/mesh_screenshot-new.png)
+## 💡 Pro Tips
 
-### PRO TIPS
+### **For Best Results**
+- Connect to the mesh network you want to analyze before running
+- Run multiple analyses over time for better historical data
+- Use `--roaming-test` while walking around different areas
+- Check `--detect-dropouts` if experiencing connection issues
 
-- **Best results**: Connect to the mesh network you want to analyze
+### **Performance Optimization**
+- Large mesh networks may take 15-30 seconds to scan completely
+- Use `--monitor` for long-term network health tracking
+- HTML reports work best in modern browsers with JavaScript enabled
+- All analysis data is saved locally for privacy
 
-- **Large mesh networks**: May take longer to scan (15-30 seconds)
+### **Troubleshooting Workflow**
+1. Start with basic analysis to identify topology
+2. Use `--check-power` if experiencing frequent disconnects
+3. Run `--detect-dropouts` to catch micro-interruptions
+4. Use `--roaming-test` while moving between coverage areas
+5. Generate `--html-report` for comprehensive visual analysis
 
-- **Enterprise networks**: Some corporate networks block WiFi scanning
+### **Safety Notes**
+- Always review generated power management fix scripts before execution
+- Enterprise networks may block some WiFi scanning capabilities
+- Tool respects Linux-first workflows and privacy (no cloud dependencies)
 
-- **Multiple runs**: Historical data improves recommendations over time
+## 🔗 Related Tools
 
-- **Roaming analysis**: Use --roaming-test while walking around your space for comprehensive results
+### **General WiFi Diagnostics**
+- **[Enhanced WiFi Analyzer](https://github.com/FrameworkComputer/linux-docs/tree/main/Enhanced-WiFi-Analyzer#-enhanced-wifi-analyzer)** - Comprehensive WiFi diagnostics with DFS monitoring, VPN integration, and modern chipset support
 
-- **Test Power management**: Run --check-power if experiencing frequent disconnects or connection drops
+### **When to Use Which Tool**
+| Scenario | WiFi Mesh Analyzer | Enhanced WiFi Analyzer |
+|----------|-------------------|------------------------|
+| **Mesh network optimization** | ✅ Specialized analysis | ⚪ Basic detection |
+| **Node topology mapping** | ✅ Visual mesh analysis | ⚪ Not covered |
+| **Roaming performance** | ✅ Detailed testing | ⚪ Limited coverage |
+| **General WiFi issues** | ⚪ Basic coverage | ✅ Comprehensive |
+| **DFS disconnections** | ⚪ Not specialized | ✅ Expert analysis |
+| **VPN conflicts** | ⚪ Not covered | ✅ Modern VPN support |
+| **Chipset optimization** | ⚪ Limited | ✅ Advanced detection |
 
-- **HTML reports**: Best viewed in modern browsers with JavaScript enabled for full interactivity
+### **Complementary Workflow**
+1. **WiFi issues first** - Use Enhanced WiFi Analyzer for connectivity problems, DFS issues, VPN conflicts
+2. **Mesh optimization** - Use WiFi Mesh Analyzer for topology analysis and roaming performance
+3. **Best coverage** - Both tools together provide complete WiFi environment understanding
 
-- **Mobile viewing**: HTML reports are fully responsive and optimized for mobile devices
+---
 
-- **Data persistence**: All analysis data is saved locally for privacy and historical tracking
-
-- **Background monitoring**: Use --monitor for long-term network health tracking and pattern analysis
-
-- **Micro-dropout detection**: Use --detect-dropouts to catch brief connection issues that might not appear in system logs
-
-- **Fix script safety**: Always review generated power management fix scripts before execution
+**🔧 Production-ready software actively seeking feedback! Please test with different mesh systems, Linux distributions, and network environments.**
