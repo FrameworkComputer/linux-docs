@@ -330,5 +330,3 @@ Contributions welcome! Areas of particular interest:
 - Performance optimization techniques
 
 ---
-
-**⚡ Transform your Linux WiFi experience with modern diagnostics and optimization techniques.**
