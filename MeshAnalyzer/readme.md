@@ -167,9 +167,6 @@ sudo python3 mesh_analyzer.py --monitor-roaming
 ```bash
 # Check for power issues
 sudo python3 mesh_analyzer.py --check-power
-
-# Generate fix script for detected issues
-sudo python3 mesh_analyzer.py --check-power --fix-script
 ```
 
 ### **Monitoring & Logging**
