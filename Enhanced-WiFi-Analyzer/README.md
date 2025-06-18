@@ -61,9 +61,6 @@ Commercial mesh systems hide diagnostics behind limited apps or cloud dashboards
 - Micro-dropouts during streaming or gaming
 - Poor handoff performance between nodes
 
-### **Linux-First Approach**
-No vendor lock-in, no cloud dependencies, no proprietary software. Uses standard Linux WiFi tools with intelligent analysis on top.
-
 ## 📋 Quick Start
 
 ### Prerequisites
