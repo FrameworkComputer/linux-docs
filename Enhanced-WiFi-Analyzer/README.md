@@ -94,7 +94,7 @@ sudo pacman -S iw wireless_tools curl    # Arch (NetworkManager required - not i
 
 ### Installation
 ```bash
-curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/Enhanced-WiFi-Analyzer/wifi_diagnostic.sh -o wifi_diagnostic.sh && clear && sudo bash wifi_diagnostic.sh
+curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/Enhanced-WiFi-Analyzer/scripts/wifi_diagnostic.sh -o wifi_diagnostic.sh && clear && sudo bash wifi_diagnostic.sh
 ```
 
 If already downloaded, just run:
@@ -105,7 +105,7 @@ sudo bash wifi_diagnostic.sh
 ### Quick Analysis
 Download and run (first time):
 ```bash
-curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/Enhanced-WiFi-Analyzer/wifi_diagnostic.sh -o wifi_diagnostic.sh && clear && sudo bash wifi_diagnostic.sh
+curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/Enhanced-WiFi-Analyzer/scripts/wifi_diagnostic.sh -o wifi_diagnostic.sh && clear && sudo bash wifi_diagnostic.sh
 ```
 
 If already downloaded:
@@ -135,7 +135,7 @@ Then choose your option:
 Symptoms: WiFi drops for 30+ seconds randomly
 
 ```bash
-curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/Enhanced-WiFi-Analyzer/wifi_diagnostic.sh -o wifi_diagnostic.sh && clear && sudo bash wifi_diagnostic.sh
+curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/Enhanced-WiFi-Analyzer/scripts/wifi_diagnostic.sh -o wifi_diagnostic.sh && clear && sudo bash wifi_diagnostic.sh
 ```
 
 → Choose Option 4 (DFS Monitor)
@@ -145,7 +145,7 @@ Tool identifies DFS radar interference and provides non-DFS channel solutions
 Symptoms: New WiFi 7 card performing poorly
 
 ```bash
-curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/Enhanced-WiFi-Analyzer/wifi_diagnostic.sh -o wifi_diagnostic.sh && clear && sudo bash wifi_diagnostic.sh
+curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/Enhanced-WiFi-Analyzer/scripts/wifi_diagnostic.sh -o wifi_diagnostic.sh && clear && sudo bash wifi_diagnostic.sh
 ```
 
 → Choose Option 1 (Complete Analysis)
@@ -155,7 +155,7 @@ Tool detects 6GHz capability and recommends router upgrade/configuration
 Symptoms: WiFi unstable when Tailscale/ZeroTier active
 
 ```bash
-curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/Enhanced-WiFi-Analyzer/wifi_diagnostic.sh -o wifi_diagnostic.sh && clear && sudo bash wifi_diagnostic.sh
+curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/Enhanced-WiFi-Analyzer/scripts/wifi_diagnostic.sh -o wifi_diagnostic.sh && clear && sudo bash wifi_diagnostic.sh
 ```
 
 → Choose Option 3 → Option 4 (VPN conflicts)
@@ -165,7 +165,7 @@ Tool provides MTU optimization and split tunneling configuration
 Symptoms: High temperatures, fan noise during WiFi use
 
 ```bash
-curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/Enhanced-WiFi-Analyzer/wifi_diagnostic.sh -o wifi_diagnostic.sh && clear && sudo bash wifi_diagnostic.sh
+curl -s https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/Enhanced-WiFi-Analyzer/scripts/wifi_diagnostic.sh -o wifi_diagnostic.sh && clear && sudo bash wifi_diagnostic.sh
 ```
 
 → Choose Option 3 → Option 5 (thermal issues)
@@ -233,7 +233,7 @@ Tool provides ASPM fixes and power management optimization
 ### **For System Administrators**
 - Use Option 1 for baseline health assessment of fleet WiFi systems
 - Option 4 provides regulatory compliance checking for enterprise environments
-- Log outputs to files for trend analysis: `./wifi_diagnostic.sh | tee wifi_analysis.log`
+- Log outputs to files for trend analysis: `sudo bash wifi_diagnostic.sh | tee wifi_analysis.log`
 
 ### **For Developers/Power Users**
 - Option 6 provides direct CLI commands for automation and scripting
