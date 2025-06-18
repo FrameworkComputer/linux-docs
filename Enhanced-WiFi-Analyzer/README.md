@@ -300,26 +300,6 @@ Tool provides ASPM fixes and power management optimization
 2. **Framework + Mesh users** - Follow up with Framework's Mesh Analyzer for specialized optimization
 3. **Best results** - Use both tools for complete coverage of modern WiFi challenges
 
-## 🔗 Related Tools
-
-### **Specialized WiFi Analysis**
-- **[Framework WiFi Mesh Network Analyzer](https://github.com/FrameworkComputer/linux-docs/tree/main/MeshAnalyzer#wifi-mesh-network-analyzer)** - Framework's dedicated tool for mesh network performance analysis and optimization
-
-### **When to Use Which Tool**
-| Scenario | Enhanced WiFi Analyzer | Framework Mesh Analyzer |
-|----------|----------------------|------------------------|
-| **General WiFi issues** | ✅ Primary tool | ⚪ Not needed |
-| **DFS disconnections** | ✅ Specialized detection | ⚪ Limited coverage |
-| **VPN conflicts** | ✅ Modern VPN support | ⚪ Not covered |
-| **Framework + Mesh** | ✅ General analysis | ✅ Mesh optimization |
-| **Thermal/power issues** | ✅ Comprehensive | ⚪ Not covered |
-| **Mesh performance tuning** | ⚪ Basic detection | ✅ Specialized analysis |
-
-### **Complementary Workflow**
-1. **Start here** - Run Enhanced WiFi Analyzer for comprehensive system health
-2. **Framework + Mesh users** - Follow up with Framework's Mesh Analyzer for specialized optimization
-3. **Best results** - Use both tools for complete coverage of modern WiFi challenges
-
 ## 🤝 Contributing
 
 Contributions welcome! Areas of particular interest:
