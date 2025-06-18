@@ -8,6 +8,37 @@
 
 Real insight into how your mesh network actually behaves. See node connections, identify weak spots, track roaming performance, and diagnose power management issues - all without vendor lock-in or proprietary software.
 
+## ⚠️ Framework Support Disclaimer
+
+**Before implementing any power management changes recommended by this tool, please verify with Framework Support first.**
+
+While the WiFi Mesh Network Analyzer provides valuable diagnostic information and generates safe configuration scripts, power management settings should only be modified when addressing specific connectivity issues. The tool may recommend disabling PCIe ASPM (Active State Power Management) or NetworkManager power saving features, but these changes should only be applied if:
+
+- You are experiencing actual WiFi connectivity problems (disconnections, micro-dropouts, poor roaming)
+
+- The analysis clearly identifies power management as the root cause
+
+- Framework Support has reviewed your specific situation and confirmed the recommendation
+
+### Why This Matters
+Power management features exist for good reasons - they extend battery life and reduce heat generation. Disabling them unnecessarily can impact your system's efficiency without providing any benefits. The diagnostic tools help identify potential power management conflicts, but not every detection requires action.
+
+### Recommended Workflow
+
+- Run the analysis to identify potential issues: Run the script per the instructions.
+  
+- Document your specific symptoms (connection drops, poor performance, etc.)
+
+- Contact Framework Support with both your symptoms and the tool's findings
+- Apply recommended changes only after confirmation from Support
+- Test thoroughly and revert changes if they don't resolve your specific issues
+
+### Contact Framework Support
+
+[Contact](https://framework.kustomer.help/contact/support-request-ryon9uAuq) - Ask to send your findings to the Linux Support Team
+
+Remember: _These diagnostic tools are designed to help identify issues, not automatically fix them. Always verify recommendations with Framework Support before making system changes._
+
 ## 📚 Table of Contents
 
 - [🚀 Key Features](#-key-features)
@@ -67,7 +98,7 @@ No vendor lock-in, no cloud dependencies, no proprietary software. Uses standard
 ## 📋 Quick Start
 
 ### Prerequisites
-```bash
+```
 # Ubuntu/Debian
 sudo apt update && sudo apt install iw
 
@@ -79,11 +110,11 @@ sudo pacman -S iw
 ```
 
 ### Installation
-```bash
+```
 mkdir mesh_analyzer && cd mesh_analyzer
 ```
 
-```bash
+```
 wget https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/MeshAnalyzer/files/mesh_analyzer.py && \
 wget https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/MeshAnalyzer/files/mesh_html_reporter.py && \
 wget https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/MeshAnalyzer/files/mesh_venn_calculator.py && \
@@ -91,17 +122,17 @@ wget https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/MeshAna
 wget https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/MeshAnalyzer/files/mesh_power_detective.py
 ```
 
-```bash
+```
 chmod +x *.py
 ```
 
 ### Basic Analysis
-```bash
+```
 sudo python3 mesh_analyzer.py
 ```
 
 ### Complete Analysis (Recommended)
-```bash
+```
 sudo python3 mesh_analyzer.py --check-power --detect-dropouts --roaming-test --html-report --create-archive
 ```
 
@@ -152,40 +183,45 @@ sudo python3 mesh_analyzer.py --check-power --detect-dropouts --roaming-test --h
 ## 🔧 Advanced Usage
 
 ### **Roaming Analysis**
-```bash
-# Detect micro-dropouts (30 seconds)
-sudo python3 mesh_analyzer.py --detect-dropouts
-
-# Test roaming quality while walking
-sudo python3 mesh_analyzer.py --roaming-test
-
-# Continuous roaming monitoring  
-sudo python3 mesh_analyzer.py --monitor-roaming
+```
+# Detect micro-dropouts (30 seconds) with visual report
+sudo python3 mesh_analyzer.py --html-report --detect-dropouts
+```
+```
+# Test roaming quality while walking with comprehensive reporting
+sudo python3 mesh_analyzer.py --html-report --roaming-test
+```
+```
+# Continuous roaming monitoring with real-time HTML updates
+sudo python3 mesh_analyzer.py --html-report --monitor-roaming
 ```
 
 ### **Power Management**
-```bash
+```
 # Check for power issues
-sudo python3 mesh_analyzer.py --check-power
+sudo python3 mesh_analyzer.py --html-report --check-power
 ```
 
 ### **Monitoring & Logging**
-```bash
+```
 # Continuous monitoring (60s intervals)
 sudo python3 mesh_analyzer.py --monitor
-
+```
+```
 # Custom scan interval (2 minutes)
 sudo python3 mesh_analyzer.py --monitor --scan-interval 120
-
+```
+```
 # Show storage information
 sudo python3 mesh_analyzer.py --storage-info
 ```
 
 ### **Data Management**
-```bash
+```
 # Reset corrupted history files
 sudo python3 mesh_analyzer.py --reset-history
-
+```
+```
 # Create archive without new analysis
 sudo python3 mesh_analyzer.py --archive-only
 ```
@@ -212,7 +248,7 @@ Uses only Python standard library - no pip installs required!
 ### **Common Issues**
 
 **"No WiFi interface found"**
-```bash
+```
 nmcli device status    # Check available interfaces
 ip link show          # List all network interfaces
 ```
