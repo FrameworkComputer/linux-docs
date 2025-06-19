@@ -131,9 +131,13 @@ chmod +x *.py
 sudo python3 mesh_analyzer.py
 ```
 
-### Complete Analysis (Recommended)
+### Complete Analysis (Recommended) (run both lines below to include an archive for support)
 ```
-sudo python3 mesh_analyzer.py --check-power --detect-dropouts --roaming-test --html-report --create-archive
+sudo python3 mesh_analyzer.py --check-power --detect-dropouts --roaming-test --html-report
+```
+then
+```
+sudo python3 mesh_analyzer.py --create-archive
 ```
 
 ## 🎛️ Main Features
