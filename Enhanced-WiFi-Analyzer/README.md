@@ -8,6 +8,34 @@
 
 A comprehensive WiFi analysis and troubleshooting tool that diagnoses connectivity issues, optimizes performance, and provides distribution-specific fixes for modern Linux systems. Features DFS radar interference detection, WiFi 7/6E support, and modern VPN integration.
 
+## ⚠️ Framework Support Disclaimer
+
+**Before implementing any power management changes recommended by this tool, please verify with Framework Support first.**
+
+While the Enhanced WiFi Analyzer provides valuable diagnostic information and generates safe configuration scripts, power management settings should only be modified when addressing specific connectivity issues. The tool may recommend disabling PCIe ASPM (Active State Power Management) or NetworkManager power saving features, but these changes should only be applied if:
+
+1. **You are experiencing actual WiFi connectivity problems** (disconnections, micro-dropouts, poor roaming)
+2. **The analysis clearly identifies power management as the root cause**
+3. **Framework Support has reviewed your specific situation and confirmed the recommendation**
+
+### Why This Matters
+
+Power management features exist for good reasons - they extend battery life and reduce heat generation. Disabling them unnecessarily can impact your system's efficiency without providing any benefits. The diagnostic tools help identify *potential* power management conflicts, but not every detection requires action.
+
+### Recommended Workflow
+
+1. **Run the analysis** to identify potential issues: Run the script per the instructions.
+2. **Document your specific symptoms** (connection drops, poor performance, etc.)
+3. **Contact Framework Support** with both your symptoms and the tool's findings
+4. **Apply recommended changes only** after confirmation from Support
+5. **Test thoroughly** and revert changes if they don't resolve your specific issues
+
+### Contact Framework Support
+
+[Contact](https://framework.kustomer.help/contact/support-request-ryon9uAuq) - Ask to send your findings to the Linux Support Team
+
+Remember: These diagnostic tools are designed to help identify issues, not automatically fix them. Always verify recommendations with Framework Support before making system changes.
+
 ## 📚 Table of Contents
 
 - [🚀 Key Features](#-key-features)
@@ -279,26 +307,6 @@ Tool provides ASPM fixes and power management optimization
 - [ ] Automated performance benchmarking
 - [ ] Web interface for remote diagnostics
 - [ ] Integration with network monitoring systems
-
-## 🔗 Related Tools
-
-### **Specialized WiFi Analysis**
-- **[Framework WiFi Mesh Network Analyzer](https://github.com/FrameworkComputer/linux-docs/tree/main/MeshAnalyzer#wifi-mesh-network-analyzer)** - Framework's dedicated tool for mesh network performance analysis and optimization
-
-### **When to Use Which Tool**
-| Scenario | Enhanced WiFi Analyzer | Framework Mesh Analyzer |
-|----------|----------------------|------------------------|
-| **General WiFi issues** | ✅ Primary tool | ⚪ Not needed |
-| **DFS disconnections** | ✅ Specialized detection | ⚪ Limited coverage |
-| **VPN conflicts** | ✅ Modern VPN support | ⚪ Not covered |
-| **Framework + Mesh** | ✅ General analysis | ✅ Mesh optimization |
-| **Thermal/power issues** | ✅ Comprehensive | ⚪ Not covered |
-| **Mesh performance tuning** | ⚪ Basic detection | ✅ Specialized analysis |
-
-### **Complementary Workflow**
-1. **Start here** - Run Enhanced WiFi Analyzer for comprehensive system health
-2. **Framework + Mesh users** - Follow up with Framework's Mesh Analyzer for specialized optimization
-3. **Best results** - Use both tools for complete coverage of modern WiFi challenges
 
 ## 🔗 Related Tools
 
