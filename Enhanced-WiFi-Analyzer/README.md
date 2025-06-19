@@ -115,9 +115,9 @@ Remember: These diagnostic tools are designed to help identify issues, not autom
 ### Prerequisites
 ```bash
 # Required tools (install via package manager)
-sudo apt install iw wireless-tools curl  # Ubuntu/Debian
-sudo dnf install iw wireless-tools curl  # Fedora
-sudo pacman -S iw wireless_tools curl    # Arch (NetworkManager required - not iwd compatible)
+sudo apt install iw curl  # Ubuntu/Debian
+sudo dnf install iw curl  # Fedora
+sudo pacman -S iw curl    # Arch (NetworkManager required - not iwd compatible)
 ```
 
 ### Installation
