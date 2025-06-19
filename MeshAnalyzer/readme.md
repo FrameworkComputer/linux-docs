@@ -122,6 +122,7 @@ wget https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/MeshAna
 wget https://raw.githubusercontent.com/FrameworkComputer/linux-docs/main/MeshAnalyzer/files/mesh_power_detective.py
 ```
 
+(Only needed if you would rather run with sudo ./ instead of sudo python3)
 ```
 chmod +x *.py
 ```
