@@ -2,6 +2,7 @@
 
 # Advanced WiFi Disconnect Intelligence Analyzer
 # Enhanced with VPN detection, RF/frequency analysis, WiFi 7 support, distribution detection, and DFS monitoring
+# Corrected version
 
 # Colors for output
 RED='\033[0;31m'
