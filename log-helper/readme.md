@@ -177,7 +177,7 @@ The diagnostic tool creates `combined_log.txt` with several sections:
 - Model-specific cooling guidance
 
 **Hardware Detection:**
-- MediaTek WiFi cards (MT7921/MT7925)
+- MediaTek WiFi cards (MT7922/MT7925)
 - Intel WiFi cards (iwlwifi)
 - AMD GPUs (RDNA 2/3)
 - Intel integrated graphics
