@@ -1360,17 +1360,17 @@ generate_recommendations() {
         # Pattern analysis for multiple event types with plain English explanations
         pattern_analysis_added=false
         
-        # WiFi drops
-        wifi_drops=$(grep -c "WIFI_DROP" "$state_changes_file" 2>/dev/null | head -1)
-        wifi_drops=${wifi_drops:-0}
-        if [ "$wifi_drops" -gt 3 ]; then
-            if [ "$pattern_analysis_added" = false ]; then
-                echo "🟡 IMPORTANT Actions Required (Pattern Analysis):" >> "$file"
-                echo "" >> "$file"
-                pattern_analysis_added=true
-            fi
-            echo "• [WIFI_INSTABILITY] Your WiFi has disconnected $wifi_drops times → This means your WiFi connection is unstable. Run the Enhanced WiFi Analyzer tool to diagnose: https://github.com/FrameworkComputer/linux-docs/tree/main/Enhanced-WiFi-Analyzer" >> "$file"
-        fi
+        # WiFi drops - transparent reporting
+wifi_drops=$(grep -c "WIFI_DROP" "$state_changes_file" 2>/dev/null | head -1)
+wifi_drops=${wifi_drops:-0}
+if [ "$wifi_drops" -gt 3 ]; then
+    if [ "$pattern_analysis_added" = false ]; then
+        echo "🟡 IMPORTANT Actions Required (Pattern Analysis):" >> "$file"
+        echo "" >> "$file"
+        pattern_analysis_added=true
+    fi
+    echo "• [WIFI_ACTIVITY] Detected $wifi_drops WiFi disconnection events → This could be normal power management or actual WiFi problems. Run the Enhanced WiFi Analyzer tool to determine if there are real issues: https://github.com/FrameworkComputer/linux-docs/tree/main/Enhanced-WiFi-Analyzer" >> "$file"
+fi
         
         # USB reconnection patterns
         usb_reconnects=$(grep -c "USB_RECONNECT" "$state_changes_file" 2>/dev/null | head -1)
