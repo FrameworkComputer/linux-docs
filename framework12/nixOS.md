@@ -29,4 +29,17 @@ To enable autorotation you need to install the `screen-rotate` gnome extension:
 environment.systemPackages = [ pkgs.gnomeExtensions.screen-rotate ];
 ```
 
-You can also in the Screen Rotate extension settings enable on-screen keyboard only in certain orientations.
+## Screen Rotate extension configuration
+
+After installing, enable and configure the extension for optimal tablet use:
+
+1. Open Extensions app: `gnome-extensions-app`
+2. Find **Screen Rotate** and **enable** it
+3. Click **Settings** ⚙️ to configure
+4. Configure on-screen keyboard settings:
+   - **"Show OSK in landscape orientation"** → **DISABLE** ❌
+   - **"Show OSK in portrait (right) orientation"** → **ENABLE** ✅
+   - **"Show OSK in landscape (flipped) orientation"** → **DISABLE** ❌
+   - **"Show OSK in portrait (left) orientation"** → **ENABLE** ✅
+
+This will show the on-screen keyboard only when holding the Framework 12 in portrait orientations, providing the optimal tablet experience.
