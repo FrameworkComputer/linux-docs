@@ -3,6 +3,16 @@
 Framework 12 has a couple of features not present on our other systems.
 They might not work on some installations, these instructions here help you find the root cause and how to fix it.
 
+## Touchpad
+
+No special configuration or recent kernel version needed.
+Kernel 6.x with libinput can work.
+
+## Touchscreen
+
+No special configuration or recent kernel version needed.
+Kernel 6.x with libinput can work.
+
 ## Tablet Mode
 
 Kernel drivers required:
