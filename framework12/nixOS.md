@@ -2,7 +2,7 @@
 
 [nixos-hardware](https://github.com/NixOS/nixos-hardware/tree/master/framework/12-inch/13th-gen-intel) repository provides some tweaks for Framework 12. 
 
-It can be enabled by adding the `nixos-hardware/framework/12-inch/13th-gen-intel` module to your nixOS modules.
+It can be enabled by adding the `<nixos-hardware/framework/12-inch/13th-gen-intel>` module to your NixOS modules.
 
 ## Enabling the accelerometer
 
