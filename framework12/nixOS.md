@@ -4,11 +4,36 @@
 
 It can be enabled by adding the `<nixos-hardware/framework/12-inch/13th-gen-intel>` module to your NixOS modules.
 
+## Enabling tablet mode
+
+Tablet mode signals the desktop environment that the keyboard is folded back.
+libinput disables the keyboard and touchpad - firmware also does that.
+And GNOME/KDE enable screen rotation based on the accelerometer, see below.
+
+This depends on two modules `pinctrl_tigerlake` and `soc_button_array`.
+NixOS does not build `pinctrl_tigerlake` into the kernel, so we have to make
+sure it's loaded first by loading it from the initrd.
+
+You can either use the nixos-hardware configuration mentioned above, or
+configure it manually:
+
+```
+boot.initrd.kernelModules = [ "pinctrl_tigerlake" ];
+```
+
 ## Enabling the accelerometer
 
-The default configuration is suffering from the same issue as [ubuntu](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Ubuntu-25-04-accel-ubuntu25.04.md)
+iio-sensor-proxy reads the accelerometer data from the kernel and passes it to the desktop environment via dbus.
 
-This is the same fix applied on nixos until upstream is fixed:
+Version 3.7 has a bug, making it incompatible with Framework 12.
+NixOS 25.05 and NixOS 25.11 (unstable) are patched:
+
+- https://github.com/NixOS/nixpkgs/pull/427476
+- https://github.com/NixOS/nixpkgs/pull/427853
+
+
+If you haven't got the patched version yet, you can apply the following workaround:
+
 ```nix
 nixpkgs.overlays = [
   (final: prev: {
@@ -20,26 +45,3 @@ nixpkgs.overlays = [
   })
 ];
 ```
-
-## Gnome autorotate
-
-To enable autorotation you need to install the `screen-rotate` gnome extension:
-
-```nix
-environment.systemPackages = [ pkgs.gnomeExtensions.screen-rotate ];
-```
-
-## Screen Rotate extension configuration
-
-After installing, enable and configure the extension for optimal tablet use:
-
-1. Open Extensions app: `gnome-extensions-app`
-2. Find **Screen Rotate** and **enable** it
-3. Click **Settings** ⚙️ to configure
-4. Configure on-screen keyboard settings:
-   - **"Show OSK in landscape orientation"** → **DISABLE** ❌
-   - **"Show OSK in portrait (right) orientation"** → **ENABLE** ✅
-   - **"Show OSK in landscape (flipped) orientation"** → **DISABLE** ❌
-   - **"Show OSK in portrait (left) orientation"** → **ENABLE** ✅
-
-This will show the on-screen keyboard only when holding the Framework 12 in portrait orientations, providing the optimal tablet experience.
