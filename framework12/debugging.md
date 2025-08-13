@@ -122,10 +122,11 @@ If no, make sure the package is installed and the service is enabled and running
 	Accelerometer orientation changed: normal
 ```
 
-If not, you are likely running iio-sensor-proxy 3.7.
-A fix has been [merged upstream](https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/-/merge_requests/400).
-Until the next release has reached distributions, you can either downgrade to
-3.7 or remove a line in the udev config:
+If not, you are likely running iio-sensor-proxy 3.7, which has a
+[known regression](https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/-/merge_requests/400)
+that is fixed in iio-sensor-proxy 3.8.
+If your distribution has not updated to 3.8, you can either downgrade to
+3.6 or remove a line in the udev config:
 
 ```
 sed 's/.*iio-buffer-accel/#&/' /usr/lib/udev/rules.d/80-iio-sensor-proxy.rules | sudo tee /etc/udev/rules.d/80-iio-sensor-proxy.rules
