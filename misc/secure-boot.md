@@ -1,5 +1,8 @@
 # Secure Boot explained
 
+## Skip all of this, go to [Two options are available](#two-options-are-available) for what to do next.
+
+
 ### Secure Boot is a feature of modern UEFI firmware that ensures only trusted software, signed by a recognized authority, can execute during the boot process. This is particularly useful for preventing certain types of attacks, such as bootkits and rootkits, which can compromise a system at the firmware or bootloader level.
 
 > If you are unsure, leave it enabled as it is defaulted to in the BIOS. It's a method of securing the boot process that can be left as is unless you have the need to disable it.
@@ -91,7 +94,7 @@ MOK is part of the Secure Boot mechanism that ensures only trusted code can run 
 
 If you have secure boot enabled, you will see something asking you to enroll MOK. 
 
-Two options are available:
+## Two options are available:
 
 - Continue Boot (**Most people choose this option**)
 
