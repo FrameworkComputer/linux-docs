@@ -98,6 +98,8 @@ If you have secure boot enabled, you will see something asking you to enroll MOK
 
 - Continue Boot (**Most people choose this option**)
 
+![Enroll MOK](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/misc/images/MOK.jpeg)
+
 - Enroll MOK (You are looking at something involving proprietary modules, VirtualBox built with DKMS for example)
 
   -   [Enrolling MOK with Fedora](https://docs.fedoraproject.org/en-US/quick-docs/mok-enrollment/)
