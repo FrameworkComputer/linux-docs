@@ -39,7 +39,7 @@ So for hibernation, Ubuntu will likely work with hibernation whereas Fedora will
 > Remember. We advice leaving this enabled - disabling may lead to issues with our various upgrade processes. This also means it will interfere with EFI firmware updates if secure boot is disabled. So before you disable it, make sure you acknowledge this. No EFI updaters if secure boot is disabled.
 
 ### How to disable it if you choose to.
-(Remember, thisi a choice - if you are going to be dual-booting Windows, do not disable secure boot - just go to this link instead to get your distro setup: [Two options are available](#two-options-are-available) for what to do next instead of disabling unless support has suggested you do so for testing.)
+(Remember, this is a choice - if you are going to be dual-booting Windows, do not disable secure boot - just go to this link instead to get your distro setup: [Two options are available](#two-options-are-available) for what to do next instead of disabling unless support has suggested you do so for testing.)
 
 **On AMD Ryzen 7040 Series / Intel Core Ultra:**
 
