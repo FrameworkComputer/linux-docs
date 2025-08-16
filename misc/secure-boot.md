@@ -100,7 +100,7 @@ If you have secure boot enabled, you will see something asking you to enroll MOK
 
 ## Two options are available:
 
-- Continue Boot (**Most people choose this option**)
+- If this is a new install and you can choose Continue Boot - that's it!
 
 ![Enroll MOK](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/misc/images/MOK.jpeg)
 
