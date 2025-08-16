@@ -1,6 +1,6 @@
 # Secure Boot explained
 
-## Skip all of this, go to [Two options are available](#two-options-are-available) for what to do next.
+## New install, unless directed otherwise: go to [Two options are available](#two-options-are-available) for what to do next.
 
 
 ### Secure Boot is a feature of modern UEFI firmware that ensures only trusted software, signed by a recognized authority, can execute during the boot process. This is particularly useful for preventing certain types of attacks, such as bootkits and rootkits, which can compromise a system at the firmware or bootloader level.
