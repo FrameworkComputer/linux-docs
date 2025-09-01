@@ -135,3 +135,18 @@ sudo systemctl restart iio-sensor-proxy
 ```
 
 Please see our distribution specific documentation for further details.
+
+Below is the current version in different distributions - only 3.7 is bad.
+
+- Fedora
+  - [![Fedora 42 package](https://repology.org/badge/version-for-repo/fedora_42/iio-sensor-proxy.svg)](https://repology.org/project/iio-sensor-proxy/versions)
+- NixOS
+  - [![nixpkgs stable 25.05 package](https://repology.org/badge/version-for-repo/nix_stable_25_05/iio-sensor-proxy.svg)](https://repology.org/project/iio-sensor-proxy/versions)
+  - [![nixpkgs unstable package](https://repology.org/badge/version-for-repo/nix_unstable/iio-sensor-proxy.svg)](https://repology.org/project/iio-sensor-proxy/versions)
+- Ubuntu
+  - [![Ubuntu 25.04 package](https://repology.org/badge/version-for-repo/ubuntu_25_04/iio-sensor-proxy.svg)](https://repology.org/project/iio-sensor-proxy/versions)
+  - [![Ubuntu 25.10 package](https://repology.org/badge/version-for-repo/ubuntu_25_10/iio-sensor-proxy.svg)](https://repology.org/project/iio-sensor-proxy/versions)
+- [![Arch Linux package](https://repology.org/badge/version-for-repo/arch/iio-sensor-proxy.svg)](https://repology.org/project/iio-sensor-proxy/versions)
+- Debian
+  - [![Debian 12 package](https://repology.org/badge/version-for-repo/debian_12/iio-sensor-proxy.svg)](https://repology.org/project/iio-sensor-proxy/versions)
+  - [![Debian 13 package](https://repology.org/badge/version-for-repo/debian_13/iio-sensor-proxy.svg)](https://repology.org/project/iio-sensor-proxy/versions)
