@@ -91,7 +91,7 @@ If no, likely your kernel is older than 6.12.
 ### Check that the kernel exposes accelerometer data
 
 ```
-> cat /sys/bus/iio/devices/iio:device0{name,label,in_accel_{x,y,z}_raw}
+> cat /sys/bus/iio/devices/iio:device0/{name,label,in_accel_{x,y,z}_raw}
 cros-ec-accel
 accel-display
 -192
