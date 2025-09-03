@@ -1,6 +1,6 @@
 # Discrete graphics usage detection
 
-(Updated) Now recommending using nvtop for both AMD and NVIDIA dGPUs)
+(Updated) Now recommending using nvtop for both AMD and [NVIDIA dGPUs](https://github.com/FrameworkComputer/linux-docs/blob/main/framework16/AI-300/nvidia-driver-install-Fedora.md#nvidia-dgpu-driver-installation-for-fedora))
 
 # Installing nvtop on Ubuntu and Fedora
 
