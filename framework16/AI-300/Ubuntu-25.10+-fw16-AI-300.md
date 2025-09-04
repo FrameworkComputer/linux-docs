@@ -14,7 +14,7 @@
 
 ### Important: During Ubuntu Installation
 
-When installing Ubuntu, if you followed our guide, you remembered to enable **"Install third-party software for graphics and Wi-Fi hardware"** as this will automatically handled the NVIDIA driver installation for you.
+When installing Ubuntu, if you followed our guide, you remembered to enable **"Install third-party software for graphics and Wi-Fi hardware"** as this will automatically handle the NVIDIA driver installation for you.
 
 &nbsp;
 &nbsp;
