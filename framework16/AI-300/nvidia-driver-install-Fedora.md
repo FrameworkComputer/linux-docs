@@ -1,6 +1,6 @@
 # NVIDIA dGPU Driver Installation for Fedora
 
-Your Framework Laptop 16 with Ryzen AI 300 series CPU includes an option for an optioonal discrete NVIDIA GPU module. On a fresh Fedora installation, the open-source nouveau driver is automatically detected and ready for basic display functionality. However, for gaming performance, hardware video encoding/decoding (NVENC/NVDEC), CUDA compute workloads, and optimal dGPU utilization, you'll need the proprietary NVIDIA driver from RPM Fusion.
+Your Framework Laptop 16 with Ryzen AI 300 series CPU includes an option for an optioonal discrete NVIDIA GPU module. On a fresh Fedora installation, the open-source nouveau driver is automatically detected and ready for basic display functionality. However, for gaming performance, hardware video encoding/decoding (NVENC), CUDA compute workloads, and optimal dGPU utilization, you'll need the proprietary NVIDIA driver from RPM Fusion.
 
 ## Installing NVIDIA Drivers for Gaming and Intensive Tasks
 
