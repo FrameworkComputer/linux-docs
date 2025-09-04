@@ -144,8 +144,6 @@ Some controllers require Steam to be restarted after connection.
 ### Game Won't Start or Black Screen
 - **Check Proton compatibility:** Try different Proton versions in Steam → Settings → Compatibility.
 
-- **Clear shader cache:** Steam → Settings → Shader Pre-Caching → Clear Cache
-
 - **Check Wayland compatibility:** Some games work better on X11. Log out and select "GNOME on Xorg" at login.
 
 
