@@ -193,7 +193,7 @@ systemctl --user restart pipewire pipewire-pulse
 
 ### Need More Help?
 1. Check the [Steam Flatpak FAQ](https://github.com/flathub/com.valvesoftware.Steam/wiki/)
-2. Generate system info: Steam → Help → System Information
+2. Generate system info: Steam → Help → Steam Runtime Diagnostics (provide to Framework support)
 3. Check game-specific issues on [ProtonDB](https://www.protondb.com/)
 4. Updated your drivers recently? Make sure flatpak is also up to date _flatpak update org.freedesktop.Platform.GL.nvidia_
 5. Visit Framework Community forums with your system info and specific error messages
