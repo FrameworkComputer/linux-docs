@@ -1,4 +1,4 @@
-## Gaming on Steam
+## Gaming on Steam on Fedora
 
 **Prerequisites:** You must first install the NVIDIA driver following the [NVIDIA dGPU Driver Installation guide](https://github.com/FrameworkComputer/linux-docs/blob/main/framework16/AI-300/nvidia-driver-install-Fedora.md#nvidia-dgpu-driver-installation-for-fedora).
 
