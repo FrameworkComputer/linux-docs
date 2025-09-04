@@ -25,7 +25,10 @@ If using only the main system drive, no additional configuration is needed. Stea
 ### Second NVMe Drive Configuration
 
 **Script-Based Configuration (Recommended)**  
-If you used the [Steam Drive Mounter script](https://github.com/FrameworkComputer/steam-drive-mounter/blob/main/README.md#steam-drive-mounter) for automated setup, the drive mounts with your username in the path. Replace `YourUserName` with your actual Fedora login name:
+If you used the [Steam Drive Mounter script](https://github.com/FrameworkComputer/steam-drive-mounter/blob/main/README.md#steam-drive-mounter) for automated setup, the drive mounts with your username in the path. 
+
+Next, replace `YourUserName` with your actual Fedora login name:
+
 ```
 flatpak override --user --filesystem=/media/YourUserName/steamgames com.valvesoftware.Steam
 ```
