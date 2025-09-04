@@ -60,11 +60,13 @@ Look for the UUID in the output: `UUID="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"`
 
 8. Save with Ctrl+X, then Y, and reboot.
 
-9. After reboot, add the drive in Steam:
-  - Open Steam → Settings → Downloads
-  - Click "Steam Library Folders"
-  - Click the "+" button and navigate to /media/steamgames
-  - Create a new folder and select it
+### Mounter script or manual method completion
+
+After reboot, add the drive in Steam:
+  - Open Steam → Settings → Storage
+  - Click "Local Drive" pulldown menu
+  - Click "Add Drive" and navigate to /media/steamgames or /media/YourUser/steamgames
+  - Make your selection.
 
 -----------
 
