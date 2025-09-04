@@ -1,4 +1,4 @@
-# Framework Laptop 16 (AMD Ryzen™ AI 300 Series) NVIDIA dGPU Driver Installation
+# Framework Laptop 16 (AMD Ryzen™ AI 300 Series) ONLY
 
 ## This will:
 
