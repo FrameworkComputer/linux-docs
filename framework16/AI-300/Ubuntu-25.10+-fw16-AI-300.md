@@ -108,7 +108,11 @@ Continue with [Gaming on Steam](https://github.com/FrameworkComputer/linux-docs/
 
 ## NVIDIA driver Troubleshooting
 
-> **Q: dGPU is not doing anything or does not seem to be working?**  
+> **Q: What if the driver failed to install?**
+>
+> A: If you didn't install drivers during OS install or if that failed for some reason, [check this upstream documentation](https://documentation.ubuntu.com/server/how-to/graphics/install-nvidia-drivers/) for next steps to correct this.
+>
+>**Q: dGPU is not doing anything or does not seem to be working?**  
 > A: Did you run nvidia-smi to verify you're detecting the nvidia driver? You understand that not all applications use the dGPU, even when pressed into service to do so. Browsers and other applications will not use the dGPU as there is no reason to do so.
 >
 > **Q: The dGPU worked previously, ran updates, now it is not working anymore, what happened?**  
