@@ -18,7 +18,7 @@ Open up a terminal window, paste in the follow line below followed by the enter 
 
 This will tell you your installed NVIDIA driver version.
 
-You're NVIDIA driver is installed and ready for dGPU enabled Steam gaming, compute tasks, NVENC GPU rendering for video editors, etc.
+**Your NVIDIA driver is installed and ready for dGPU enabled Steam gaming, compute tasks, NVENC GPU rendering for video editors, etc.**
 
 ### How to determine if your dGPU is active
 
