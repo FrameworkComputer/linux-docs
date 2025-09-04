@@ -31,22 +31,26 @@ You're NVIDIA driver is installed and ready for dGPU enabled Steam gaming, compu
 - When seeking support from the support team at Framework, we will be verifying you followed these directions. This is the driver handling method the support team has vetted as working and reliable.
 
 ## Next Steps - Steam Gaming with NVIDIA
+
 Continue with [Gaming on Steam](https://github.com/FrameworkComputer/linux-docs/blob/main/framework16/AI-300/Gaming-on-Steam-dGPU-Fedora.md#gaming-on-steam)
 
+-----------------
+-----------------
 
-### Troubleshooting
+## Troubleshooting
 
-Q: dGPU is not doing anything or does not seem to be working? 
-A: Did you run the modinfo command above to verify your detecting the nvidia driver? You understand that not all applciations use the dGPU, even when pressed into service to do so. Browsers and other applications will not use the dGPU as there is no reason to do so.
-
-Q: The dGPU worked previously, ran updates, now it is not working anymore, what happened?
-A: Assuming you used to the NVIDIA driver command provided above, did not try enabling rawhide or building it yourself with other means outside of the instructions provided, we would want you to open a support ticket in case a regression has been introduced in akmod-nvidia.
-
-Q: The NVIDIA module is installed as outlined from the dGPU installation guide, but there is question as to whether it's actually being detected at all?
-A: From a temrinal, run the modinfo command listed above under "verify installation with" - also, you can make sure the dGPU is physicaly seen as present with this terminal command:
-
-```sudo dnf install lshw -y && sudo lshw -C display```
-(The NVIDIA dGPU should appear as "product: GeForce RTX 5070 Series.")
-
-Q: Still having issues and need help?
-A: Please open [a support ticket](https://framework.kustomer.help/contact/support-request-ryon9uAuq). 
+> **Q: dGPU is not doing anything or does not seem to be working?**  
+> A: Did you run the modinfo command above to verify you're detecting the nvidia driver? You understand that not all applications use the dGPU, even when pressed into service to do so. Browsers and other applications will not use the dGPU as there is no reason to do so.
+>
+> **Q: The dGPU worked previously, ran updates, now it is not working anymore, what happened?**  
+> A: Assuming you used the NVIDIA driver command provided above, did not try enabling rawhide or building it yourself with other means outside of the instructions provided, we would want you to open a support ticket in case a regression has been introduced in akmod-nvidia.
+>
+> **Q: The NVIDIA module is installed as outlined from the dGPU installation guide, but there is question as to whether it's actually being detected at all?**  
+> A: From a terminal, run the modinfo command listed above under "verify installation with" - also, you can make sure the dGPU is physically seen as present with this terminal command:
+> ```
+> sudo dnf install lshw -y && sudo lshw -C display
+> ```
+> (The NVIDIA dGPU should appear as "product: GeForce RTX 5070 Series.")
+>
+> **Q: Still having issues and need help?**  
+> A: Please open [a support ticket](https://framework.kustomer.help/contact/support-request-ryon9uAuq).
