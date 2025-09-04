@@ -58,4 +58,6 @@ Continue with [Gaming on Steam](https://github.com/FrameworkComputer/linux-docs/
 > **Q: But I need a simple, reliable, tested method for pushing other applications to the dGPU? Like video track editing for example.**
 >
 > A: It's ready, migrating from a hidden repo soon. Works flawlessly. Coming soon! RPM installed _compatible_ software, _compatible_ Flatpaks and even wrapper handling for _compatible_ AppImages.
-> ![COMING SOON - NVIDIA GPU Manager application interface showing GPU acceleration controls](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework16/AI-300/images/NVIDIA-GPU-Manager.png)
+
+**Coming soon!**
+![COMING SOON - NVIDIA GPU Manager application interface showing GPU acceleration controls](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework16/AI-300/images/NVIDIA-GPU-Manager.png)
