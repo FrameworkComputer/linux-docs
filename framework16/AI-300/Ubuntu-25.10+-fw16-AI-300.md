@@ -100,7 +100,6 @@ Run nvtop from the terminal. Your dGPU will be clearly labled at the top of the 
 Continue with [Gaming on Steam](https://github.com/FrameworkComputer/linux-docs/blob/main/framework16/AI-300/Gaming-on-Steam-dGPU-Ubuntu.md#gaming-on-steam-on-ubuntu)
 
 -----------------
------------------
 &nbsp;
 &nbsp;
 
@@ -124,6 +123,51 @@ Continue with [Gaming on Steam](https://github.com/FrameworkComputer/linux-docs/
 > `sudo lshw -C display`
 > 
 > (The NVIDIA dGPU should appear as "product: GeForce RTX 5070 Series.")
+>
+> **Q: I'm using Secure Boot and the driver installation failed or isn't working properly. What should I do?**
+>
+> A: Ubuntu should automatically detect Secure Boot and use pre-signed kernel modules during installation. However, if this fails, follow these fallback steps:
+>
+> **Step 1: Completely remove all existing NVIDIA packages**
+> ```
+> # First, identify installed NVIDIA packages and their driver branch numbers
+> apt-mark showmanual | grep nvidia
+> 
+> # Remove all NVIDIA packages (replace XXX with your driver branch number, e.g., 550)
+> sudo apt --purge remove '*nvidia*XXX*'
+> 
+> # Clean up any remaining dependencies
+> sudo apt autoremove
+> ```
+>
+> **Step 2: Manually install the driver with Secure Boot support**
+>
+> For systems with Secure Boot enabled, use the pre-compiled signed kernel modules:
+> ```
+> # First, check available drivers
+> sudo ubuntu-drivers list
+> 
+> # Install pre-compiled signed modules for your kernel
+> # Replace XXX with your driver branch (e.g., 550)
+> # Replace 'generic' with your kernel flavour if different
+> sudo apt install linux-modules-nvidia-XXX-generic
+> 
+> # Verify modules were installed for your current kernel
+> sudo apt-cache policy linux-modules-nvidia-XXX-$(uname -r)
+> 
+> # If not installed for current kernel, install specifically
+> sudo apt install linux-modules-nvidia-XXX-$(uname -r)
+> 
+> # Finally, install the driver metapackage
+> sudo apt install nvidia-driver-XXX
+> 
+> # Reboot your system
+> sudo reboot
+> ```
+>
+> After reboot, verify the installation with `nvidia-smi` and `modinfo -F version nvidia`.
+>
+> **Note:** The ubuntu-drivers tool is recommended for Secure Boot systems as it automatically handles signed drivers. Only use the manual method if the automatic installation fails.
 >
 > **Q: Still having issues and need help?**  
 > A: Please open [a support ticket](https://framework.kustomer.help/contact/support-request-ryon9uAuq).
