@@ -10,7 +10,7 @@ Open up a terminal window, paste in the follow line below followed by the enter 
 
 ```sudo dnf update -y && sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda-libs nvtop```
 
->**Note:** While CUDA (xorg-x11-drv-nvidia-cuda-libs) is optional, if you are entertaining using local LLMs (AI tools), use the default command which includes xorg-x11-drv-nvidia-cuda-libs.
+>**Note:** While CUDA (xorg-x11-drv-nvidia-cuda-libs) is optional, if you are entertaining using local LLMs (AI tools), use the default command which includes xorg-x11-drv-nvidia-cuda-libs. This allows LLMs to work correctly on Fedora.
 
 
 *Once it's completed, reboot the laptop*
