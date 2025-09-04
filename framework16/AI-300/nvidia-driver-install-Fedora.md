@@ -30,6 +30,9 @@ You're NVIDIA driver is installed and ready for dGPU enabled Steam gaming, compu
 - We recommend using the dnf installation method step listed above under "Installing NVIDIA Drivers for Gaming and Intensive Tasks". Building the driver yourself or deviating from this at all whill yield varied results that are not something we tested agaist for this guide.
 - When seeking support from the support team at Framework, we will be verifying you followed these directions. This is the driver handling method the support team has vetted as working and reliable.
 
+## Next Steps - Steam Gaming with NVIDIA
+Continue with [Gaming on Steam](https://github.com/FrameworkComputer/linux-docs/blob/main/framework16/AI-300/Gaming-on-Steam-dGPU-Fedora.md#gaming-on-steam)
+
 
 ### Troubleshooting
 
