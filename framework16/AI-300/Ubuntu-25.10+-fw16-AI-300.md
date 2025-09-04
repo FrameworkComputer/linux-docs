@@ -5,7 +5,7 @@
 ## This will:
 
 - Get your laptop fully updated
-- Install NVIDIA CUDA toolkit for machine learning, LLMs, and AI workloads
+- Install NVIDIA driver
 - Install GPU monitoring tools
 
 &nbsp;
@@ -27,10 +27,10 @@ When installing Ubuntu, if you followed our guide, you remembered to enable **"I
 - Then press the enter key, enter your user password, press enter key, **reboot**
 
 ```
-sudo apt update && sudo apt upgrade -y && sudo apt install nvidia-cuda-toolkit nvtop
+sudo apt update && sudo apt upgrade -y && sudo apt install nvtop
 ```
 
->**Note:** While CUDA (nvidia-cuda-toolkit) is optional, if you are entertaining using local LLMs (AI tools), use the default command which includes nvidia-cuda-toolkit.
+>**Note:** ollama, text-generation-webui, vllm, oobabooga images that already bundle CUDA), so nothing needed here once your driver is installed.
 
 **Reboot your system after this completes**
 
