@@ -8,7 +8,9 @@ Your Framework Laptop 16 with Ryzen AI 300 series CPU includes an option for an 
 
 Open up a terminal window, paste in the follow line below followed by the enter key and your Fedora login password when asked.
 
-```sudo dnf update -y && sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda-libs nvtop```
+```
+sudo dnf update -y && sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda-libs nvtop
+```
 
 >**Note:** While CUDA (xorg-x11-drv-nvidia-cuda-libs) is optional, if you are entertaining using local LLMs (AI tools), use the default command which includes xorg-x11-drv-nvidia-cuda-libs. This allows LLMs to work correctly on Fedora.
 
@@ -21,22 +23,53 @@ During the akmod-nvidia installation:
 - You'll be prompted to create a password - **REMEMBER THIS PASSWORD**
 - The signing key is staged for enrollment on next boot
 
+![Enable graphics](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework16/AI-300/images/enable-graphics.png)
+![Enable graphics step 2](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework16/AI-300/images/enable-graphics2.png)
+![Enable graphics step 3](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework16/AI-300/images/enable-graphics3.png)
+![Enable graphics step 4](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework16/AI-300/images/enable-graphics4.png)
+
+
 **After installation completes, reboot the laptop**
 
-### Blue MOK Management Screen (Appears ONCE)
+### Enrolling Self-signing Key after Reboot
 
 **This screen appears only ONCE before normal boot - DO NOT SKIP IT:**
 
-1. Press any key when you see "Press any key to perform MOK management"
+1. Press any key to continue when you see "Press any key to perform MOK management"
+
+![Press any key to continue](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework16/AI-300/images/any-key.png)
+
+
 2. Select **Enroll MOK**
-3. Select **Continue**
-4. Select **Yes** to enroll the keys
-5. Enter the password you created during installation
-6. Select **Reboot**
+   
+![Enroll MOK](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework16/AI-300/images/enroll.png)
+
+
+4. Select **Continue** to proceed to the enrollment
+
+![Continue to enrollment](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework16/AI-300/images/continue.png)
+
+
+5. Select **Yes** to enroll the key
+
+![Yes to enroll](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework16/AI-300/images/yes-enroll.png)
+
+
+6. Type the password you created during installation
+
+![Enter password](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework16/AI-300/images/password-enter.png)
+
+
+7. Select **Reboot** to reboot into the OS with the NVIDIA drivers enabled
+
+![Reboot now](https://raw.githubusercontent.com/FrameworkComputer/linux-docs/refs/heads/main/framework16/AI-300/images/reboot-now.png)
+
 
 **Once booted back into your laptop, verify installation with:**
 
-`modinfo -F version nvidia`
+```
+modinfo -F version nvidia
+```
 
 This will tell you your installed NVIDIA driver version.
 
@@ -45,8 +78,6 @@ This will tell you your installed NVIDIA driver version.
 ### How to determine if your dGPU is active
 
 [Install and run nvtop](https://github.com/FrameworkComputer/linux-docs/blob/main/framework16/AI-300/graphics-usage-detection.md#discrete-graphics-usage-detection). Your dGPU will be clearly labled at the top of the terminal output. You will only see activitity from nvtop for the dDPU when Steam gaming or when a workload is calling upon the dGPU to run.
-
-
 
 ### Important
 - We recommend using the dnf installation method step listed above under "Installing NVIDIA Drivers for Gaming and Intensive Tasks". Building the driver yourself or deviating from this at all whill yield varied results that are not something we tested agaist for this guide.
@@ -94,18 +125,32 @@ Continue with [Gaming on Steam](https://github.com/FrameworkComputer/linux-docs/
 > ```
 > 5. The blue MOK screen will appear again - **DON'T MISS IT THIS TIME**
 > 6. Follow the enrollment steps with your NEW password:
->    - Press any key when prompted
+>    - Press any key to continue
 >    - Select **Enroll MOK**
->    - Select **Continue**
->    - Select **Yes**
->    - Enter your NEW password
->    - Select **Reboot**
+>    - Select **Continue** to proceed to the enrollment
+>    - Select **Yes** to enroll the key
+>    - Type the password you created
+>    - Select **Reboot** to reboot into the OS
 >
 > **After successful enrollment:**
 > - System boots with NVIDIA driver working
 > - Full GPU acceleration enabled
 > - Future driver updates automatically signed with enrolled key
 > - No more MOK prompts needed
+>
+> **Q: The NVIDIA driver still isn't working after MOK enrollment (Nouveau fallback on reboot)?**
+>
+> A: If the system falls back to Nouveau even after successful MOK enrollment, try these steps:
+> ```
+> sudo dnf install kernel-devel-$(uname -r) kernel-headers-$(uname -r)
+> sudo akmods --kernels $(uname -r) --rebuild
+> sudo depmod -a
+> sudo dracut --force --kver $(uname -r)
+> echo 'nvidia-drm.modeset=1' | sudo tee -a /etc/kernel/cmdline
+> sudo grubby --update-kernel=ALL --args="nvidia-drm.modeset=1"
+> sudo systemctl enable nvidia-fallback.service
+> sudo reboot
+> ```
 >
 > **Q: Still having issues and need help?**  
 > A: Please open [a support ticket](https://framework.kustomer.help/contact/support-request-ryon9uAuq).
