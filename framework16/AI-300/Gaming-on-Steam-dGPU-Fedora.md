@@ -112,7 +112,8 @@ glxinfo | grep "OpenGL renderer"
 Should show NVIDIA GPU information.
 
 ### Steam Can't See Second NVMe Drive
-**Verify mount is working:**
+**Verify mount is working:** 
+Remember, path will be determined if you did the [secondary NVME setup maunally or not](#second-nvme-drive-configuration).
 ```
 df -h | grep steamgames
 ls -la /media/steamgames
