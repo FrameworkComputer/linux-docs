@@ -74,10 +74,16 @@ UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx   /media/steamgames  ext4  rw,users,ex
 
 8. Save with Ctrl+X, then Y, and reboot.
 
-9. Configure Flatpak permissions:
+### Configure Flatpak permissions and Mounter script or manual method completion
 ```
 flatpak override --user --filesystem=/media/steamgames com.valvesoftware.Steam
 ```
+
+Add the drive in Steam:
+  - Open Steam → Settings → Storage
+  - Click "Local Drive" pulldown menu
+  - Click "Add Drive" and navigate to /media/steamgames or /media/YourUser/steamgames
+  - Make your selection.
 
 ### NVIDIA Driver Maintenance
 
