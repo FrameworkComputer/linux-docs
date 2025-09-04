@@ -159,9 +159,8 @@ Some controllers require Steam to be restarted after connection.
 `systemctl --user restart pipewire pipewire-pulse`
 
 ### Need More Help?
-1. Check Steam system info: Steam → Help → System Information
-2. Check game-specific issues on [ProtonDB](https://www.protondb.com/)
-3. Install missing Vulkan drivers: sudo apt install mesa-vulkan-drivers mesa-vulkan-drivers:i386
-4. Visit Framework Community forums with your system info and specific error messages
-5. Check for Steam updates: Steam menu → Check for steam client updates.
+1. Generate system info: Steam → Help → Steam Runtime Diagnostics (provide to Framework support)
+3. Check game-specific issues on [ProtonDB](https://www.protondb.com/)
+5. Visit Framework Community forums with your system info and specific error messages
+6. Check for Steam updates: Steam menu → Check for steam client updates.
 
