@@ -12,8 +12,27 @@ Open up a terminal window, paste in the follow line below followed by the enter 
 
 >**Note:** While CUDA (xorg-x11-drv-nvidia-cuda-libs) is optional, if you are entertaining using local LLMs (AI tools), use the default command which includes xorg-x11-drv-nvidia-cuda-libs. This allows LLMs to work correctly on Fedora.
 
+### IMPORTANT: Secure Boot MOK Enrollment Process
 
-*Once it's completed, reboot the laptop*
+**If your system has Secure Boot enabled (most modern systems do), you MUST complete the following steps:**
+
+During the akmod-nvidia installation:
+- Modules are compiled and signed automatically
+- You'll be prompted to create a password - **REMEMBER THIS PASSWORD**
+- The signing key is staged for enrollment on next boot
+
+**After installation completes, reboot the laptop**
+
+### Blue MOK Management Screen (Appears ONCE)
+
+**This screen appears only ONCE before normal boot - DO NOT SKIP IT:**
+
+1. Press any key when you see "Press any key to perform MOK management"
+2. Select **Enroll MOK**
+3. Select **Continue**
+4. Select **Yes** to enroll the keys
+5. Enter the password you created during installation
+6. Select **Reboot**
 
 **Once booted back into your laptop, verify installation with:**
 
@@ -54,6 +73,39 @@ Continue with [Gaming on Steam](https://github.com/FrameworkComputer/linux-docs/
 > sudo dnf install lshw -y && sudo lshw -C display
 > ```
 > (The NVIDIA dGPU should appear as "product: GeForce RTX 5070 Series.")
+>
+> **Q: I missed/skipped the blue MOK enrollment screen and my NVIDIA driver isn't working. What happened and how do I fix it?**
+>
+> A: If you missed the MOK screen:
+> - Your system booted normally using the Nouveau driver (fallback open-source driver)
+> - You have a working desktop with basic graphics functionality
+> - The NVIDIA driver is installed but WON'T load due to Secure Boot blocking unsigned modules
+>
+> **To fix a missed MOK enrollment:**
+> 1. Open a terminal in your working session (currently using Nouveau)
+> 2. Re-stage the signing key for enrollment:
+> ```
+> sudo mokutil --import /etc/pki/akmods/certs/public_key.der
+> ```
+> 3. Create a NEW password when prompted (remember this new password!)
+> 4. Reboot your system:
+> ```
+> sudo reboot
+> ```
+> 5. The blue MOK screen will appear again - **DON'T MISS IT THIS TIME**
+> 6. Follow the enrollment steps with your NEW password:
+>    - Press any key when prompted
+>    - Select **Enroll MOK**
+>    - Select **Continue**
+>    - Select **Yes**
+>    - Enter your NEW password
+>    - Select **Reboot**
+>
+> **After successful enrollment:**
+> - System boots with NVIDIA driver working
+> - Full GPU acceleration enabled
+> - Future driver updates automatically signed with enrolled key
+> - No more MOK prompts needed
 >
 > **Q: Still having issues and need help?**  
 > A: Please open [a support ticket](https://framework.kustomer.help/contact/support-request-ryon9uAuq).
