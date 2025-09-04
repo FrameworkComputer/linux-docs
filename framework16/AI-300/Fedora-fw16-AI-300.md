@@ -1,4 +1,5 @@
 # Framework Laptop 16 (AMD Ryzen™ AI 300 Series) ONLY
+### For Fedora Workstation
 
 ## This will:
 
