@@ -2,7 +2,7 @@
 
 **Prerequisites:** You must first install the NVIDIA driver following the [NVIDIA dGPU Driver Installation guide](https://github.com/FrameworkComputer/linux-docs/blob/main/framework16/AI-300/nvidia-driver-install-Fedora.md#nvidia-dgpu-driver-installation-for-fedora).
 
-Once the NVIDIA driver is installed, your Framework Laptop 16's hybrid graphics system automatically manages GPU usage. The integrated AMD graphics handle desktop tasks and light workloads for optimal battery life, while the discrete NVIDIA GPU automatically activates for demanding applications like games, 3D rendering, and compute tasks. This seamless switching ensures maximum performance when gaming while preserving battery life during regular use.
+Once the NVIDIA driver is installed, your Framework Laptop 16's NVIDIA dGPU graphics automatically manages GPU usage. The integrated AMD graphics handle desktop tasks and light workloads for optimal battery life, while the discrete NVIDIA GPU automatically activates for demanding applications like games, 3D rendering, and compute tasks. This seamless switching ensures maximum performance when gaming while preserving battery life during regular use.
 
 Flatpak is the tested and recommended installation method for Steam. If you encounter issues using alternative installation methods, the support team will direct you back to this Flatpak approach shown below for troubleshooting.
 
