@@ -32,6 +32,8 @@ Next, replace `YourUserName` with your actual Fedora login name:
 ```
 flatpak override --user --filesystem=/media/YourUserName/steamgames com.valvesoftware.Steam
 ```
+>If using mounter script linked above for secondary drive, skip Advanced Manual Configuration.
+
 
 **Advanced Manual Configuration**  
 For manual setup of your second NVMe drive:
