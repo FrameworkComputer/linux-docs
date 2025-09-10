@@ -2,7 +2,7 @@
 
 ## This will:
 
-- Getting  your laptop fully updated.
+- Get your laptop fully updated.
 - Enable improved fractional scaling support Fedora's GNOME environment using Wayland.
 - Enabling tap to click on the touchpad.
 
@@ -15,7 +15,7 @@
 - Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
 - Copy the code below in the gray box, right click/paste it into the terminal window.
-- Then press the enter key, user password, enter key, **reboot.**
+- Then press the <kbd>⏎ Enter</kbd> key, user password, <kbd>⏎ Enter</kbd> key, **reboot.**
 
 
 ```
@@ -54,14 +54,14 @@ sudo dnf upgrade
 
 We received feedback that for users coming from OS X, installing GNOME Tweaks, browsing to Fonts, and reducing the font size from 1.00 to 0.80 may be preferred. 
 
-- Goto Displays, set scaling to 200%. This will look too large, so let's fix the fonts.
+- Go to Displays, set scaling to 200%. This will look too large, so let's fix the fonts.
 - Install with:
   
 ```
 sudo dnf install gnome-tweaks -y
 ```
 
-- Open Tweaks by using the "Super" or Windows key, search tweaks, and enter.
+- Open Tweaks by using the <kbd>Super</kbd> or <kbd>&#8862; Win</kbd> key, search tweaks, and <kbd>⏎ Enter</kbd>.
 
 - At the top, select fonts. Now in that panel, scroll all the way down. Look for Size. Change from 1.00 to 0.80. Close Tweaks.
 
@@ -78,7 +78,7 @@ sudo dnf install gnome-tweaks -y
 
 - Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
-- Then press the enter key, user password, enter key.
+- Then press the <kbd>⏎ Enter</kbd> key, user password, <kbd>⏎ Enter</kbd> key.
 
 ```
 sudo grubby --update-kernel=ALL --args="amdgpu.dcdebugmask=0x10"
@@ -93,8 +93,8 @@ sudo grubby --update-kernel=ALL --args="amdgpu.dcdebugmask=0x10"
 
 - Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
-- Copy/paste in the code below (use either the immediate temporary fix or persistent fix).
-- Then press the enter key, user password, enter key.
+- Copy and paste in the code below (use either the immediate temporary fix or persistent fix).
+- Then press the <kbd>⏎ Enter</kbd> key, user password, <kbd>⏎ Enter</kbd> key.
 
 ```
 # Immediate temporary fix to disable power save for running session (no reboot required)
@@ -120,8 +120,8 @@ sudo sed -i 's/timeout=10/timeout=0/g' /etc/tuned/profiles/balanced/tuned.conf
 
 - Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
-- Copy/paste in the following code below.
-- Press the enter key, user password, enter key.
+- Copy and paste in the following code below.
+- Press the <kbd>⏎ Enter</kbd> key, user password, <kbd>⏎ Enter</kbd> key.
 
 ```
 sudo tee /etc/modprobe.d/alsa.conf <<< "options snd-hda-intel index=1,0 model=auto,dell-headset-multi"
@@ -142,7 +142,7 @@ sudo tee /etc/modprobe.d/alsa.conf <<< "options snd-hda-intel index=1,0 model=au
 
 - ~~Browse to the horizontal line in the upper left corner, click to open it.~~
 - ~~Type out the word terminal, click to open it.~~
-- ~~Then press the enter key, user password, enter key.~~
+- ~~Then press the <kbd>⏎ Enter</kbd> key, user password, <kbd>⏎ Enter</kbd> key.~~
 
 ```
 sudo grubby --update-kernel=ALL --args="amdgpu.sg_display=0"
