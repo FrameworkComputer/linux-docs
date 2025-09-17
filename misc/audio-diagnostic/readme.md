@@ -20,6 +20,10 @@ A comprehensive, read-only diagnostic tool for troubleshooting Linux audio issue
 - Linux system with systemd
 - One of: PipeWire, PulseAudio, or ALSA
 
+#### Ubuntu users:
+  
+```sudo apt update && sudo apt install curl -y```
+
 ### Optional Tools (auto-detected)
 - `wpctl` - PipeWire control (for PipeWire systems)
 - `pactl` - PulseAudio control
