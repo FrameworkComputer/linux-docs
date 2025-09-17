@@ -21,6 +21,7 @@ A comprehensive, read-only diagnostic tool for troubleshooting Linux audio issue
 ### Core Requirements
 - Linux system with systemd
 - One of: PipeWire, PulseAudio, or ALSA
+- Curl needs to be installed; Ubuntu users must install this themselves
 
 #### Ubuntu users:
   
