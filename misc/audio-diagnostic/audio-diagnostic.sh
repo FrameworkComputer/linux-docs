@@ -246,7 +246,7 @@ else
   ok "Default Input: ${DEF_SRC_NAME}${DEF_SRC_ID:+ (ID: $DEF_SRC_ID)}"
 fi
 
-# Show additional routing info based on system
+# Enhanced technical detail function
 describe_device() {
   local name="$1"
   local type="$2"  # sink or source
@@ -255,19 +255,276 @@ describe_device() {
     return 0
   fi
   
-  # Try to determine device type from name
-  local NAME_UPPER="$(echo "$name" | tr '[:lower:]' '[:upper:]')"
-  
-  if [[ "$NAME_UPPER" =~ (BLUEZ|A2DP|HSP|HFP|BLUETOOTH) ]]; then
-    info "Routed to Bluetooth device. If unintended, change in Settings → Sound"
-  elif [[ "$NAME_UPPER" =~ (HDMI|DISPLAYPORT|DP) ]]; then
-    warn "Routed to HDMI/DisplayPort. If you expected speakers/headphones, change in Settings → Sound"
-  elif [[ "$NAME_UPPER" =~ (USB) ]]; then
-    warn "Routed to USB device. If unintended, select built-in audio in Settings → Sound"
-  elif [[ "$NAME_UPPER" =~ (EASY.?EFFECTS|EASYEFFECTS|VIRTUAL) ]]; then
-    warn "Routed to virtual device (effects processor). Ensure the pipeline is active."
+  # Add clear section header
+  echo
+  if [[ "$type" == "sink" ]]; then
+    echo -e "${BOLD}Output Device Technical Details:${CLR}"
   else
-    dim "  Appears to be built-in/analog audio device"
+    echo -e "${BOLD}Input Device Technical Details:${CLR}"
+  fi
+  
+  if [[ "$type" == "sink" ]]; then
+    # OUTPUT device technical details
+    if command -v wpctl >/dev/null 2>&1 && [[ -n "${DEF_SINK_ID:-}" ]]; then
+      # Get inspection data
+      local inspect_data=$(wpctl inspect "$DEF_SINK_ID" 2>/dev/null || true)
+      
+      # Detect connection type
+      local connection_type=""
+      if echo "$inspect_data" | grep -qi "bluez\|bluetooth"; then
+        connection_type="Bluetooth"
+      elif echo "$inspect_data" | grep -qi "usb\|USB"; then
+        connection_type="USB"
+      elif echo "$inspect_data" | grep -qi "hdmi\|displayport"; then
+        connection_type="HDMI/DisplayPort"
+      elif echo "$inspect_data" | grep -qi "alsa.*pci\|pci.*alsa"; then
+        connection_type="Analog/Built-in"
+      fi
+      
+      [[ -n "$connection_type" ]] && info "  • Connection: $connection_type"
+      
+      # Extract codec for Bluetooth
+      if [[ "$connection_type" == "Bluetooth" ]]; then
+        local codec=$(echo "$inspect_data" | grep -i "codec" | grep -v "available\|supported" | head -n1 | sed 's/.*= *"\?\([^"]*\)"\?$/\1/' | xargs)
+        if [[ -n "$codec" ]]; then
+          case "${codec,,}" in
+            sbc) warn "  • Codec: SBC (Basic quality - consider AAC or aptX for better quality)" ;;
+            aac) ok "  • Codec: AAC (Good quality - balanced efficiency)" ;;
+            aptx*) ok "  • Codec: ${codec} (Enhanced quality)" ;;
+            ldac) ok "  • Codec: LDAC (Premium quality - Hi-Res audio)" ;;
+            *) info "  • Codec: $codec" ;;
+          esac
+        fi
+        
+        # Get battery level using bluetoothctl if available
+        if command -v bluetoothctl >/dev/null 2>&1; then
+          # Extract MAC address from bluez node name or properties
+          local bt_mac=""
+          if [[ -n "$name" ]] && [[ "$name" =~ bluez ]]; then
+            # Extract MAC from node name like bluez_output.2C_FD_B3_4A_1F_D0.1
+            bt_mac=$(echo "$name" | grep -oE '([0-9A-Fa-f]{2}_){5}[0-9A-Fa-f]{2}' | tr '_' ':')
+          fi
+          
+          if [[ -z "$bt_mac" ]]; then
+            # Try to get MAC from properties
+            bt_mac=$(echo "$inspect_data" | grep -i "bluez5.address\|bluetooth.address" | head -n1 | grep -oE '([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}')
+          fi
+          
+          if [[ -n "$bt_mac" ]]; then
+            # Query battery via bluetoothctl
+            local bt_info=$(bluetoothctl info "$bt_mac" 2>/dev/null || true)
+            if [[ -n "$bt_info" ]] && echo "$bt_info" | grep -q "Connected: yes"; then
+              local raw_batt=$(echo "$bt_info" | awk -F': ' '/Battery Percentage:/ {print $2}' | awk '{print $1}')
+              if [[ "$raw_batt" =~ ^0x[0-9a-fA-F]+ ]]; then
+                # Convert hex to decimal
+                local battery_percent=$((16#${raw_batt#0x}))
+                if [[ $battery_percent -le 20 ]]; then
+                  bad "  • Battery: ${battery_percent}% (Low - charge soon)"
+                elif [[ $battery_percent -le 50 ]]; then
+                  warn "  • Battery: ${battery_percent}% (Moderate)"
+                else
+                  ok "  • Battery: ${battery_percent}%"
+                fi
+              elif [[ -n "$raw_batt" ]] && [[ "$raw_batt" =~ ^[0-9]+$ ]]; then
+                # Already decimal
+                if [[ $raw_batt -le 20 ]]; then
+                  bad "  • Battery: ${raw_batt}% (Low - charge soon)"
+                elif [[ $raw_batt -le 50 ]]; then
+                  warn "  • Battery: ${raw_batt}% (Moderate)"
+                else
+                  ok "  • Battery: ${raw_batt}%"
+                fi
+              fi
+            fi
+          fi
+        fi
+      fi
+      
+      # Sample rate detection
+      local rate=$(echo "$inspect_data" | grep -i "rate" | grep -v "limit\|range" | head -n1 | grep -oE "[0-9]{4,6}" | head -n1)
+      local format=$(echo "$inspect_data" | grep -i "format" | grep -v "dsp" | head -n1 | sed 's/.*= *"\?\([^"]*\)"\?$/\1/' | xargs)
+      
+      # Fallback to pactl if no data
+      if [[ -z "$rate" ]] && command -v pactl >/dev/null 2>&1; then
+        local sink_info=$(pactl list sinks 2>/dev/null | awk "/Name:.*${DEF_SINK_NAME//./\\.}/{flag=1} flag && /^$/{flag=0} flag")
+        if [[ -n "$sink_info" ]]; then
+          local sample_spec=$(echo "$sink_info" | grep "Sample Specification:" | cut -d: -f2- | xargs)
+          rate=$(echo "$sample_spec" | grep -oE "[0-9]+Hz" | grep -oE "[0-9]+")
+          format=$(echo "$sample_spec" | grep -oE "s[0-9]+le|float[0-9]+le")
+        fi
+      fi
+      
+      if [[ -n "$rate" ]]; then
+        local display="${rate}Hz${format:+/$format}"
+        case "$rate" in
+          48000|44100) ok "  • Sample Rate: $display (Standard quality)" ;;
+          96000|192000) ok "  • Sample Rate: $display (High resolution)" ;;
+          *) info "  • Sample Rate: $display" ;;
+        esac
+      fi
+      
+      # Channels
+      local channels=$(echo "$inspect_data" | grep -i "channel" | head -n1 | grep -oE "[0-9]+" | head -n1)
+      if [[ -n "$channels" ]]; then
+        case "$channels" in
+          2) ok "  • Channels: Stereo" ;;
+          1) warn "  • Channels: Mono" ;;
+          6) info "  • Channels: 5.1 Surround" ;;
+          8) info "  • Channels: 7.1 Surround" ;;
+          *) info "  • Channels: $channels" ;;
+        esac
+      fi
+      
+      # Latency
+      local latency=$(echo "$inspect_data" | grep -i "latency\|quantum" | grep -v "limit" | head -n1 | grep -oE "[0-9]+" | head -n1)
+      if [[ -n "$latency" ]]; then
+        if [[ $latency -gt 1000 ]]; then
+          warn "  • Latency: ${latency} samples (High - may affect sync)"
+        else
+          info "  • Latency: ${latency} samples"
+        fi
+      fi
+      
+      # Volume
+      local volume_info=$(wpctl get-volume "$DEF_SINK_ID" 2>/dev/null || true)
+      if [[ -n "$volume_info" ]]; then
+        local vol_level=$(echo "$volume_info" | grep -oE "[0-9]+\.[0-9]+" | head -n1)
+        if [[ -n "$vol_level" ]]; then
+          local vol_percent=$(echo "$vol_level * 100" | bc 2>/dev/null | cut -d. -f1)
+          [[ -n "$vol_percent" ]] && info "  • Volume: ${vol_percent}%"
+        fi
+      fi
+      
+    elif command -v pactl >/dev/null 2>&1 && [[ -n "${DEF_SINK_NAME:-}" ]]; then
+      # PulseAudio fallback
+      local sink_info=$(pactl list sinks 2>/dev/null | sed -n "/Name: $DEF_SINK_NAME/,/^$/p")
+      local sample_spec=$(echo "$sink_info" | grep "Sample Specification:" | cut -d: -f2- | xargs)
+      [[ -n "$sample_spec" ]] && info "  • Format: $sample_spec"
+      local volume=$(echo "$sink_info" | grep "Volume:" | head -n1 | grep -oE '[0-9]+%' | head -n1)
+      [[ -n "$volume" ]] && info "  • Volume: $volume"
+    fi
+    
+  elif [[ "$type" == "source" ]]; then
+    # INPUT device technical details
+    if command -v wpctl >/dev/null 2>&1 && [[ -n "${DEF_SRC_ID:-}" ]]; then
+      local inspect_data=$(wpctl inspect "$DEF_SRC_ID" 2>/dev/null || true)
+      
+      # Detect connection type
+      local connection_type=""
+      if echo "$inspect_data" | grep -qi "bluez\|bluetooth"; then
+        connection_type="Bluetooth"
+      elif echo "$inspect_data" | grep -qi "usb\|USB"; then
+        connection_type="USB"
+      elif echo "$inspect_data" | grep -qi "webcam\|camera"; then
+        connection_type="Webcam"
+      elif echo "$inspect_data" | grep -qi "alsa.*pci\|pci.*alsa"; then
+        connection_type="Built-in"
+      fi
+      
+      [[ -n "$connection_type" ]] && info "  • Mic Type: $connection_type microphone"
+      
+      # Bluetooth profile
+      if [[ "$connection_type" == "Bluetooth" ]]; then
+        local profile=$(echo "$inspect_data" | grep -i "profile" | grep -v "device\|card" | head -n1 | sed 's/.*= *"\?\([^"]*\)"\?$/\1/' | xargs)
+        if [[ -n "$profile" ]]; then
+          case "${profile,,}" in
+            *a2dp*) warn "  • Profile: A2DP (No microphone in this mode)" ;;
+            *hsp*|*hfp*) info "  • Profile: HSP/HFP (Voice quality)" ;;
+            *) info "  • Profile: $profile" ;;
+          esac
+        fi
+        
+        # Get battery level using bluetoothctl if available
+        if command -v bluetoothctl >/dev/null 2>&1; then
+          # Extract MAC address from node name or properties
+          local bt_mac=""
+          if [[ -n "$name" ]] && [[ "$name" =~ bluez ]]; then
+            # Extract MAC from node name like bluez_input.2C_FD_B3_4A_1F_D0.0
+            bt_mac=$(echo "$name" | grep -oE '([0-9A-Fa-f]{2}_){5}[0-9A-Fa-f]{2}' | tr '_' ':')
+          fi
+          
+          if [[ -z "$bt_mac" ]]; then
+            # Try to get MAC from properties
+            bt_mac=$(echo "$inspect_data" | grep -i "bluez5.address\|bluetooth.address" | head -n1 | grep -oE '([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}')
+          fi
+          
+          if [[ -n "$bt_mac" ]]; then
+            # Query battery via bluetoothctl
+            local bt_info=$(bluetoothctl info "$bt_mac" 2>/dev/null || true)
+            if [[ -n "$bt_info" ]] && echo "$bt_info" | grep -q "Connected: yes"; then
+              local raw_batt=$(echo "$bt_info" | awk -F': ' '/Battery Percentage:/ {print $2}' | awk '{print $1}')
+              if [[ "$raw_batt" =~ ^0x[0-9a-fA-F]+ ]]; then
+                # Convert hex to decimal
+                local battery_percent=$((16#${raw_batt#0x}))
+                if [[ $battery_percent -le 20 ]]; then
+                  bad "  • Battery: ${battery_percent}% (Low - charge soon)"
+                elif [[ $battery_percent -le 50 ]]; then
+                  warn "  • Battery: ${battery_percent}% (Moderate)"
+                else
+                  ok "  • Battery: ${battery_percent}%"
+                fi
+              elif [[ -n "$raw_batt" ]] && [[ "$raw_batt" =~ ^[0-9]+$ ]]; then
+                # Already decimal
+                if [[ $raw_batt -le 20 ]]; then
+                  bad "  • Battery: ${raw_batt}% (Low - charge soon)"
+                elif [[ $raw_batt -le 50 ]]; then
+                  warn "  • Battery: ${raw_batt}% (Moderate)"
+                else
+                  ok "  • Battery: ${raw_batt}%"
+                fi
+              fi
+            fi
+          fi
+        fi
+      fi
+      
+      # Sample rate
+      local rate=$(echo "$inspect_data" | grep -i "rate" | grep -v "limit\|range" | head -n1 | grep -oE "[0-9]{4,6}" | head -n1)
+      if [[ -n "$rate" ]]; then
+        case "$rate" in
+          48000) ok "  • Sample Rate: 48kHz (Broadcast quality)" ;;
+          44100) info "  • Sample Rate: 44.1kHz (Standard quality)" ;;
+          16000) warn "  • Sample Rate: 16kHz (Voice quality)" ;;
+          *) info "  • Sample Rate: ${rate}Hz" ;;
+        esac
+      fi
+      
+      # Channels
+      local channels=$(echo "$inspect_data" | grep -i "channel" | head -n1 | grep -oE "[0-9]+" | head -n1)
+      if [[ -n "$channels" ]]; then
+        case "$channels" in
+          1) info "  • Channels: Mono" ;;
+          2) info "  • Channels: Stereo" ;;
+          *) info "  • Channels: $channels" ;;
+        esac
+      fi
+      
+      # DSP detection
+      if echo "$inspect_data" | grep -qi "echo.cancel\|aec"; then
+        ok "  • DSP: Echo cancellation active"
+      fi
+      if echo "$inspect_data" | grep -qi "noise.suppress"; then
+        ok "  • DSP: Noise suppression active"
+      fi
+      
+      # Input gain
+      local volume_info=$(wpctl get-volume "$DEF_SRC_ID" 2>/dev/null || true)
+      if [[ -n "$volume_info" ]]; then
+        local vol_level=$(echo "$volume_info" | grep -oE "[0-9]+\.[0-9]+" | head -n1)
+        if [[ -n "$vol_level" ]]; then
+          local vol_percent=$(echo "$vol_level * 100" | bc 2>/dev/null | cut -d. -f1)
+          [[ -n "$vol_percent" ]] && info "  • Input Gain: ${vol_percent}%"
+        fi
+      fi
+      
+    elif command -v pactl >/dev/null 2>&1 && [[ -n "${DEF_SRC_NAME:-}" ]]; then
+      # PulseAudio fallback
+      local source_info=$(pactl list sources 2>/dev/null | sed -n "/Name: $DEF_SRC_NAME/,/^$/p")
+      local sample_spec=$(echo "$source_info" | grep "Sample Specification:" | cut -d: -f2- | xargs)
+      [[ -n "$sample_spec" ]] && info "  • Format: $sample_spec"
+      local volume=$(echo "$source_info" | grep "Volume:" | head -n1 | grep -oE '[0-9]+%' | head -n1)
+      [[ -n "$volume" ]] && info "  • Input Level: $volume"
+    fi
   fi
 }
 
@@ -275,9 +532,13 @@ if [[ -n "${DEF_SINK_NAME:-}" ]]; then
   describe_device "$DEF_SINK_NAME" "sink"
 fi
 
+if [[ -n "${DEF_SRC_NAME:-}" ]]; then
+  describe_device "$DEF_SRC_NAME" "source"
+fi
+
 sep
 
-# 3) Available devices - FIXED VERSION
+# 3) Available devices
 echo -e "${BOLD}3) Available audio devices${CLR}"
 
 if [[ "$AUDIO_SYSTEM" == "pipewire-wireplumber" ]] && command -v wpctl >/dev/null 2>&1; then
@@ -285,21 +546,14 @@ if [[ "$AUDIO_SYSTEM" == "pipewire-wireplumber" ]] && command -v wpctl >/dev/nul
   WPCTL_STATUS="$(wpctl status 2>/dev/null || true)"
   
   echo "Output devices (Sinks):"
-  # Extract just the Sinks section
   echo "$WPCTL_STATUS" | sed -n '/├─ Sinks:/,/├─ Sources:/p' | grep '│' | grep '[0-9]' | while IFS= read -r line; do
-    # Clean up the line - remove tree characters and extra spaces
     clean_line=$(echo "$line" | sed 's/[│├└─]//g' | sed 's/^[[:space:]]*//')
-    
-    # Check if it's the default (has asterisk)
     if echo "$clean_line" | grep -q '\*'; then
-      # Remove the asterisk and clean up
       clean_line=$(echo "$clean_line" | sed 's/\*//g' | sed 's/^[[:space:]]*//')
       echo "  • $clean_line ← DEFAULT"
     else
       echo "  • $clean_line"
     fi
-    
-    # Check for dummy devices
     if echo "$clean_line" | grep -qi 'dummy\|auto_null'; then
       echo "    ⚠️  Dummy output device"
     fi
@@ -307,21 +561,14 @@ if [[ "$AUDIO_SYSTEM" == "pipewire-wireplumber" ]] && command -v wpctl >/dev/nul
   
   echo
   echo "Input devices (Sources):"
-  # Extract Sources section (between Sources and either Filters or Devices)
   echo "$WPCTL_STATUS" | sed -n '/├─ Sources:/,/├─ \(Filters:\|Devices:\)/p' | grep '│' | grep '[0-9]' | while IFS= read -r line; do
-    # Clean up the line - remove tree characters and extra spaces
     clean_line=$(echo "$line" | sed 's/[│├└─]//g' | sed 's/^[[:space:]]*//')
-    
-    # Check if it's the default (has asterisk)
     if echo "$clean_line" | grep -q '\*'; then
-      # Remove the asterisk and clean up
       clean_line=$(echo "$clean_line" | sed 's/\*//g' | sed 's/^[[:space:]]*//')
       echo "  • $clean_line ← DEFAULT"
     else
       echo "  • $clean_line"
     fi
-    
-    # Check for dummy devices
     if echo "$clean_line" | grep -qi 'dummy\|auto_null'; then
       echo "    ⚠️  Dummy input device"
     fi
@@ -347,14 +594,12 @@ if [[ "$AUDIO_SYSTEM" == "pipewire-wireplumber" ]] && command -v wpctl >/dev/nul
     }
   ' || echo "  Unable to list cards"
   
-  # Check for profile off
   PW_DEV="$(pw-cli ls Device 2>/dev/null || true)"
   if grep -qiE 'device.profile.name.*"off"' <<<"$PW_DEV"; then
     HAS_PROFILE_OFF=1
   fi
   
 elif command -v pactl >/dev/null 2>&1; then
-  # PulseAudio device listing - improved version
   echo "Output devices (Sinks):"
   pactl list sinks 2>/dev/null | awk '
     /^Sink #/ {id=$2; gsub("#","",id)}
@@ -403,14 +648,12 @@ elif command -v pactl >/dev/null 2>&1; then
     }
   ' || echo "  Unable to list cards"
   
-  # Check for cards with "off" profile
   CARDS="$(pactl list cards 2>/dev/null || true)"
   if [[ -n "$CARDS" ]] && grep -q "Active Profile: off" <<<"$CARDS"; then
     HAS_PROFILE_OFF=1
   fi
   
 else
-  # Fallback to ALSA if no PipeWire/PulseAudio
   echo "Using ALSA to list devices:"
   if command -v aplay >/dev/null 2>&1; then
     echo "Playback devices:"
@@ -431,10 +674,9 @@ fi
 
 sep
 
-# 3b) Check for common issues based on distro
+# 3b) System-specific checks
 echo -e "${BOLD}3b) System-specific checks${CLR}"
 
-# Check for suspended nodes (PipeWire)
 if [[ "$AUDIO_SYSTEM" == pipewire* ]] && command -v wpctl >/dev/null 2>&1; then
   SUSPENDED_COUNT=0
   ALL_NODES=$(wpctl status 2>/dev/null | grep -E '^\s*[0-9]+\.' | sed -n 's/.*\[\?\([0-9][0-9]*\)\].*/\1/p')
@@ -454,9 +696,7 @@ if [[ "$AUDIO_SYSTEM" == pipewire* ]] && command -v wpctl >/dev/null 2>&1; then
     dim "Fix: systemctl --user restart ${AUDIO_SYSTEM##*-}"
   fi
 else
-  # Check for common Ubuntu/PulseAudio issues
   if [[ "$DISTRO_FAMILY" == "debian" ]]; then
-    # Check if user is in audio group
     if ! groups | grep -q audio; then
       warn "User not in 'audio' group - may cause permission issues"
       dim "Fix: sudo usermod -a -G audio $USER (then logout/login)"
@@ -464,14 +704,12 @@ else
       ok "User is in audio group"
     fi
     
-    # Check for timidity blocking audio (common Ubuntu issue)
     if pgrep -x timidity >/dev/null 2>&1; then
       warn "TiMidity++ is running - may block audio devices"
       dim "Fix: sudo systemctl stop timidity && sudo systemctl disable timidity"
     fi
   fi
   
-  # Check ALSA state
   if command -v aplay >/dev/null 2>&1; then
     ALSA_CARDS="$(aplay -l 2>&1 || true)"
     if [[ "$ALSA_CARDS" =~ "no soundcards found" ]]; then
@@ -501,12 +739,10 @@ check_logs() {
   fi
   
   if [[ -n "$LOG" ]]; then
-    # Check for service lifecycle events
     LIFECYCLE_HITS=$(grep -Ei "$lifecycle_keywords" <<<"$LOG" | wc -l | tr -d ' ')
     if [[ "$LIFECYCLE_HITS" -gt 0 ]]; then
       echo "Service $service lifecycle events:"
       echo "$LOG" | grep -Ei "$lifecycle_keywords" | tail -n 5 | while IFS= read -r line; do
-        # Extract timestamp and event
         timestamp=$(echo "$line" | awk '{print $1, $2, $3}')
         event=$(echo "$line" | grep -oE "(Started|Stopped|Starting|Stopping|Reloading|Reloaded|Activating|Deactivating).*" | head -n1)
         if [[ -n "$event" ]]; then
@@ -520,12 +756,10 @@ check_logs() {
       echo
     fi
     
-    # Check for errors/warnings
     ERROR_HITS=$(grep -Ei "$error_keywords" <<<"$LOG" | wc -l | tr -d ' ')
     if [[ "$ERROR_HITS" -gt 0 ]]; then
       echo "Found $ERROR_HITS concerning entries in $service logs:"
       echo "$LOG" | grep -Ei "$error_keywords" | tail -n 5 | while IFS= read -r line; do
-        # Highlight critical keywords
         if echo "$line" | grep -qi "error\|fail\|timeout\|dummy\|auto_null"; then
           bad "  ${line:0:120}..."
         else
@@ -533,12 +767,10 @@ check_logs() {
         fi
       done
       
-      # Check for specific issues
       grep -qi 'bluetooth.*error\|bluez.*fail' <<<"$LOG" && HAS_BT_ERRORS=1
       grep -qi 'auto_null\|dummy' <<<"$LOG" && HAS_DUMMY_OUTPUT=1
     fi
     
-    # Show full logs in verbose mode
     if [[ $VERBOSE -eq 1 ]] && [[ "$LIFECYCLE_HITS" -gt 0 || "$ERROR_HITS" -gt 0 ]]; then
       echo
       echo -e "${DIM}Full recent log entries (verbose mode):${CLR}"
@@ -547,13 +779,11 @@ check_logs() {
       done
     fi
     
-    # Return success if we found anything interesting
     [[ "$LIFECYCLE_HITS" -gt 0 || "$ERROR_HITS" -gt 0 ]] && return 0
   fi
   return 1
 }
 
-# Track if we found any logs
 FOUND_LOGS=0
 
 case "$AUDIO_SYSTEM" in
@@ -572,7 +802,6 @@ case "$AUDIO_SYSTEM" in
     ;;
 esac
 
-# Also check for bluetooth service events if relevant
 if [[ "${DEF_SINK_NAME:-}" =~ (bluetooth|bluez) ]] || [[ "${DEF_SRC_NAME:-}" =~ (bluetooth|bluez) ]]; then
   check_logs bluetooth && FOUND_LOGS=1
 fi
@@ -588,7 +817,6 @@ sep
 if [[ $DO_TEST -eq 1 ]]; then
   echo -e "${BOLD}5) Audio test${CLR}"
   
-  # Find a test sound
   TEST_SOUND=""
   for sound in \
     /usr/share/sounds/freedesktop/stereo/complete.oga \
@@ -607,7 +835,6 @@ if [[ $DO_TEST -eq 1 ]]; then
   else
     echo "Playing test sound: $(basename "$TEST_SOUND")"
     
-    # Try different players based on what's available
     if command -v pw-play >/dev/null 2>&1; then
       pw-play "$TEST_SOUND" 2>/dev/null && ok "Test completed via PipeWire" || bad "Test failed"
     elif command -v paplay >/dev/null 2>&1; then
@@ -621,12 +848,11 @@ if [[ $DO_TEST -eq 1 ]]; then
   sep
 fi
 
-# 6) Conditional conclusions
+# 6) Conclusions
 echo -e "${BOLD}Conclusions / Next steps${CLR}"
 
 SHOWED_ISSUES=0
 
-# Critical service issues
 if [[ $ALL_OK -ne 1 ]]; then
   bad "Critical: Audio service(s) not running properly"
   
@@ -647,7 +873,6 @@ if [[ $ALL_OK -ne 1 ]]; then
   SHOWED_ISSUES=1
 fi
 
-# No audio output
 if [[ -z "${DEF_SINK_ID:-}${DEF_SINK_NAME:-}" ]]; then
   bad "No audio output configured"
   echo "  Fix 1: Open Settings → Sound → Output Device"
@@ -662,7 +887,6 @@ if [[ -z "${DEF_SINK_ID:-}${DEF_SINK_NAME:-}" ]]; then
   SHOWED_ISSUES=1
 fi
 
-# Dummy output
 if [[ $HAS_DUMMY_OUTPUT -eq 1 ]]; then
   bad "Audio has fallen back to dummy output"
   echo "  Fix 1: Restart audio service:"
@@ -677,7 +901,6 @@ if [[ $HAS_DUMMY_OUTPUT -eq 1 ]]; then
   SHOWED_ISSUES=1
 fi
 
-# Profile off
 if [[ $HAS_PROFILE_OFF -eq 1 ]]; then
   bad "One or more audio devices have profile OFF"
   echo "  Fix: Settings → Sound → Device Configuration"
@@ -690,7 +913,6 @@ if [[ $HAS_PROFILE_OFF -eq 1 ]]; then
   SHOWED_ISSUES=1
 fi
 
-# Bluetooth issues
 if [[ $HAS_BT_ERRORS -eq 1 ]]; then
   warn "Bluetooth audio errors detected"
   echo "  Fix 1: Toggle Bluetooth off/on in Settings"
@@ -703,7 +925,6 @@ if [[ $HAS_BT_ERRORS -eq 1 ]]; then
   SHOWED_ISSUES=1
 fi
 
-# Suspended nodes (PipeWire)
 if [[ ${SUSPENDED_COUNT:-0} -gt 0 ]]; then
   bad "Suspended audio nodes detected"
   echo "  Quick fix: systemctl --user restart wireplumber"
@@ -712,7 +933,6 @@ if [[ ${SUSPENDED_COUNT:-0} -gt 0 ]]; then
   SHOWED_ISSUES=1
 fi
 
-# Ubuntu-specific issues
 if [[ "$DISTRO_FAMILY" == "debian" ]] && [[ $SHOWED_ISSUES -eq 1 ]]; then
   echo "Ubuntu-specific fixes to try:"
   echo "  • Remove speech-dispatcher if not needed:"
@@ -724,19 +944,15 @@ if [[ "$DISTRO_FAMILY" == "debian" ]] && [[ $SHOWED_ISSUES -eq 1 ]]; then
   echo
 fi
 
-# No issues found
 if [[ $SHOWED_ISSUES -eq 0 ]]; then
   ok "No critical issues detected - audio system appears healthy"
   echo
   echo "Useful commands for managing audio:"
-  
-  # GUI Settings
   echo "• Open audio settings:"
   echo "  - GNOME: Settings → Sound"
   echo "  - KDE: System Settings → Audio"
   echo "  - Or run: pavucontrol (if installed)"
   
-  # Volume control tools
   if ! command -v pavucontrol >/dev/null 2>&1 && command -v alsamixer >/dev/null 2>&1; then
     echo
     echo "• For easier volume control, consider installing pavucontrol:"
@@ -750,7 +966,6 @@ if [[ $SHOWED_ISSUES -eq 0 ]]; then
     echo "  Currently available: alsamixer (terminal-based)"
   fi
   
-  # Command line controls based on active audio system
   echo
   echo "• Command-line volume control:"
   case "$AUDIO_SYSTEM" in
@@ -784,7 +999,6 @@ if [[ $SHOWED_ISSUES -eq 0 ]]; then
       ;;
   esac
   
-  # View logs based on actual audio system
   echo
   echo "• View recent audio logs:"
   case "$AUDIO_SYSTEM" in
@@ -805,7 +1019,6 @@ if [[ $SHOWED_ISSUES -eq 0 ]]; then
       ;;
   esac
   
-  # Test audio
   echo
   echo "• Test audio output:"
   if command -v speaker-test >/dev/null 2>&1; then
