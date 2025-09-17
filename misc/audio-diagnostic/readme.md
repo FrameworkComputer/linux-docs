@@ -2,6 +2,9 @@
 
 A comprehensive, read-only diagnostic tool for troubleshooting Linux audio issues across PipeWire, PulseAudio, and ALSA configurations.
 
+- [Fedora Audio Guide](https://knowledgebase.frame.work/en_us/fedora-audio-troubleshooting-guide-BJAe1Kr0o)
+- [Ubuntu Audio Guide](https://knowledgebase.frame.work/en_us/ubuntu-audio-issues-Bkw2Wlf2o)
+
 ## ✨ Features
 
 - **Universal compatibility**: Works with PipeWire (WirePlumber/Media Session), PulseAudio, and ALSA
