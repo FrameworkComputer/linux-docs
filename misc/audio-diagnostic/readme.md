@@ -13,6 +13,8 @@ A comprehensive, read-only diagnostic tool for troubleshooting Linux audio issue
 - **Comprehensive checks**: Services, devices, routing, profiles, and recent logs
 - **Smart detection**: Identifies common issues like dummy outputs, suspended nodes, and disabled profiles
 - **Test capability**: Optional audio playback test to verify output
++ **Technical detail reporting**: Shows Bluetooth codecs, sample rates, latency, and battery levels
++ **Enhanced Bluetooth support**: Real-time battery monitoring via bluetoothctl
 
 ## 📋 Requirements
 
@@ -29,6 +31,8 @@ A comprehensive, read-only diagnostic tool for troubleshooting Linux audio issue
 - `pactl` - PulseAudio control
 - `aplay` - ALSA utilities
 - `journalctl` - System log access
++ `bluetoothctl` - Bluetooth battery monitoring
++ `bc` - Volume percentage calculations
 
 ## 🚀 Quick Start
 
@@ -100,6 +104,12 @@ SINCE="1 hour ago" ./audio-diagnostic.sh
 - Current default input (source)
 - Device routing (HDMI, Bluetooth, USB, built-in)
 - Dummy device detection
++ Bluetooth codec quality (SBC, AAC, aptX, LDAC)
++ Sample rates and formats (48kHz/s16le)
++ Channel configurations (stereo, 5.1, 7.1)
++ Latency monitoring
++ Battery levels for wireless devices
++ DSP effects (echo cancellation, noise suppression)
 
 ### 3. Available Audio Devices
 - All audio sinks (outputs)
@@ -133,16 +143,15 @@ SINCE="1 hour ago" ./audio-diagnostic.sh
 - ℹ️ **Info icons**: Important routing information
 - 🔊 **Dim text**: Additional details and suggestions
 
-### Common Issues Detected
-
-| Issue | What It Means | Typical Fix |
-|-------|---------------|-------------|
-| **Dummy output** | No real audio device available | Restart audio service, check drivers |
-| **Profile OFF** | Sound card disabled | Set profile in Settings → Sound |
-| **Service inactive** | Audio daemon not running | `systemctl --user restart pipewire` |
-| **Suspended nodes** | Devices in power-save state | Restart WirePlumber |
-| **Bluetooth errors** | BT audio connection issues | Re-pair device, restart bluetooth |
-| **No default sink** | No output device selected | Select device in Settings → Sound |
++ ### Technical Details Shown
++ 
++ | Detail | What It Means | Good Values |
++ |--------|---------------|-------------|
++ | **Codec** | Bluetooth audio compression | AAC, aptX, LDAC (avoid SBC) |
++ | **Sample Rate** | Audio quality/resolution | 44.1kHz or 48kHz standard |
++ | **Latency** | Audio delay in samples | <1000 samples |
++ | **Battery** | Wireless device charge | >20% |
++ | **Channels** | Audio channel config | Stereo for most uses |
 
 ## 💡 Example Outputs
 
@@ -151,7 +160,16 @@ SINCE="1 hour ago" ./audio-diagnostic.sh
 ✅ PipeWire core: active (systemd)
 ✅ WirePlumber session: active (systemd)
 ✅ Default Output: alsa_output.pci-0000_00_1f.3.analog-stereo (ID: 47)
-✅ Default Input: alsa_input.pci-0000_00_1f.3.analog-stereo (ID: 48)
++
+
+Output Device Technical Details:
+ℹ️  • Connection: Bluetooth
+✅ • Codec: AAC (Good quality - balanced efficiency)
+✅ • Battery: 85%
+✅ • Sample Rate: 48000Hz/s16le (Standard quality)
+✅ • Channels: Stereo
+ℹ️  • Latency: 512 samples
+ℹ️  • Volume: 76%
 ✅ No service events or errors in recent logs
 ✅ No critical issues detected - audio system appears healthy
 ```
@@ -224,6 +242,8 @@ GPL-3.0-1 License - [See LICENSE file for details](https://github.com/FrameworkC
 - Journal time window may include system-wide logs when user logs are empty
 - Some device names may be truncated in PipeWire listings
 - Bluetooth device detection relies on device naming patterns
++ Bluetooth battery levels require bluetoothctl and may not work with all devices
++ Some PipeWire versions may not expose all technical properties
 
 
 ## ❓ FAQ
@@ -242,6 +262,9 @@ A: Only when experiencing audio issues. It's a diagnostic tool, not a monitoring
 
 **Q: Does this work with Bluetooth headphones?**  
 A: Yes, it detects and reports Bluetooth audio devices and related issues.
+
++ **Q: Why don't I see battery levels for my Bluetooth device?**
++ A: Battery reporting requires bluetoothctl and device support. Not all Bluetooth devices report battery status.
 
 ---
 
