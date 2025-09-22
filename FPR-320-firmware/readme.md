@@ -6,7 +6,7 @@
 
 - Verify that this is in fact, firmare version 01000320.
 - You must use a distro that is has a libfprint version of **at least** v1.92.0 or **newer**. Fully package updated Ubuntu LTS and Fedora Workstation will meet this requirement. Other distros, even based on these distros, may or may not. 
-- You will need to open a terminal from your launcher, then paste in the provided lines of code to get validcation of firmware version, update it and so forth.
+- You will need to open a terminal from your launcher, then paste in the provided lines of code to get validation of firmware version, update it and so forth.
 - The tiny icons on the right side of each code box allow you to easily click it, to copy the code. Then you can right click paste the code into the terminal. If it errors out, try Ctrl Shift V instead to paste.
 
 - Let's check your firmware version, verify it's 01000320.
