@@ -72,3 +72,21 @@ sudo dnf install gnome-tweaks -y
 &nbsp;
 &nbsp;
 &nbsp;
+
+## Troubleshooting - Optional and *only if needed* - current AMD Ryzen AI 300 Series workarounds to common issues
+
+### Laggy or frozen system/processes:
+(Customer submitted, not seeing this internally, but if you are, please file a bug so we can get this fixed vs this workaround please)
+
+- Browse to the horizontal line in the upper left corner, click to open it.
+- Type out the word terminal, click to open it.
+- Then press the <kbd>⏎ Enter</kbd> key, user password, <kbd>⏎ Enter</kbd> key.
+
+```bash
+# Disable PSR + Panel Replay 
+sudo grubby --update-kernel=ALL --args="amdgpu.dcdebugmask=0x610"
+```
+> **TIP:** If you've set other kernel parameters, like from the section above, include both inside `--args=""`.
+
+
+**Reboot**
