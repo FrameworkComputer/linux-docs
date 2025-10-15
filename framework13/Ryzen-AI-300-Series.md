@@ -1,4 +1,4 @@
-# This is for Ryzen™ AI 300 Series Framework Laptop 13 ONLY.
+# This is for Fedora on the Ryzen™ AI 300 Series Framework Laptop 13 ONLY.
 
 ## This will:
 
