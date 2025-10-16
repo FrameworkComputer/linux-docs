@@ -31,7 +31,7 @@ sudo apt update && sudo apt upgrade -y && sudo snap refresh
 
 
 - Only works on 25.04+ (and up)
-- Needs below fixup until they have updated iio-sensor-proxy to 3.8: [![Ubuntu 25.10 package](https://repology.org/badge/version-for-repo/ubuntu_25_04/iio-sensor-proxy.svg)](https://repology.org/project/iio-sensor-proxy/versions)
+- Needs below fixup until they have updated iio-sensor-proxy to 3.8: [![Ubuntu 25.10 package](https://repology.org/badge/version-for-repo/ubuntu_25_10/iio-sensor-proxy.svg)](https://repology.org/project/iio-sensor-proxy/versions)
 - [This script will get tablet mode set up and running fast](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Ubuntu-25-04-accel-ubuntu25.10.md#ubuntu-2504-tablet-mode-setup-udev-edit). 
 - Onscreen keyboard only appears when you call for it by interacting in a text area.
 
