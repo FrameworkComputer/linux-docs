@@ -88,6 +88,20 @@ forwards it to GNOME/KDE via dbus.
 
 If no, likely your kernel is older than 6.12.
 
+### Check that the sensor is working
+
+Run the below command and check that the lid angle and sensor data responds
+correctly when you move the device or bend the lid at the hinge.
+
+```
+
+> sudo watch -n1 framework_tool --sensors
+Accelerometers:
+  Lid Angle:   118 Deg
+  Lid Sensor:  X=+0.00G Y=+0.86G, Z=+0.53G
+  Base Sensor: X=-0.03G Y=-0.07G, Z=+1.02G
+```
+
 ### Check that the kernel exposes accelerometer data
 
 ```
