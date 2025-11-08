@@ -37,7 +37,7 @@ sudo apt update && sudo apt upgrade -y && sudo snap refresh
 
 ### **Bug**
 
-- There is a bug where Uubntu is not providing kernel recognized the tabletmode GPIO. Please use this workaround:
+- There is a bug where Ubuntu is not providing kernel recognized the tabletmode GPIO. Please use this workaround:
 ```
 sudo nano /etc/initramfs-tools/modules
 ```
