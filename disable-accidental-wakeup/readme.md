@@ -1,5 +1,11 @@
 # Disable Accidental Wakeup Script
 
+#### ATTENTION: Current BIOS should make this unneeded, please update your BIOS instead.
+
+Update your [BIOS instead](https://knowledgebase.frame.work/en_us/framework-laptop-16-bios-and-driver-releases-amd-ryzen-7040-series-BkeqkVovp).
+
+----------------------------------------------------
+
 **Which laptop does this work with:** Framework Laptop 16.
 
 **(Considering this Beta/Testing as I am ironing out some keyboard backlighting behavior)**
