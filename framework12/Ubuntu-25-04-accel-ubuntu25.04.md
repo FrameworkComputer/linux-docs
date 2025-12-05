@@ -1,7 +1,7 @@
 # Ubuntu 25.04+ Tablet Mode Setup Udev Edit
 ## 25.04 and 25.10 both apply to this guide
 
-This guide will help set up screen rotation support for your laptop on Ubuntu 25.04, giving you an experience similar to what Fedora 42 and Bazzite offer out of the box.
+This guide will help set up screen rotation support for your laptop on Ubuntu 25.04/25.10, giving you an experience similar to what Fedora 42 and Bazzite offer out of the box.
 
 > Rather not deal with this at all? [Bazzite](https://guides.frame.work/Guide/Bazzite+Installation+on+the+Framework+Laptop+12/409?lang=en) and [Fedora](https://guides.frame.work/Guide/Fedora+42+Installation+on+the+Framework+Laptop+12/410?lang=en) are ready to go out of the box, zero configuration.
 
