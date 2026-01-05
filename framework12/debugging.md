@@ -13,6 +13,8 @@ Kernel 6.x with libinput can work.
 No special configuration or recent kernel version needed.
 Kernel 6.x with libinput can work.
 
+[Stylus](stylus.md)
+
 ## Tablet Mode
 
 Kernel drivers required:
