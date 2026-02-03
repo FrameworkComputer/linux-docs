@@ -1,4 +1,4 @@
-# Framework 13 AMD Fingerprint Wake Workaround
+# Framework 13 Ryzen AI 300 series Fingerprint Wake Workaround
 
 Automatic workaround for Framework 13 AMD fingerprint reader not working after suspend/resume.
 
@@ -20,9 +20,9 @@ This script automatically detects your fingerprint reader hardware and creates a
 
 ## Supported Hardware
 
-- **Laptop**: Framework 13 AMD (tested on AI 300)
-- **Fingerprint Reader**: Goodix
-- **Distributions**: Any Linux distribution with systemd
+- **Laptop**: Framework 13 AMD (Ryzen AI 300 series)
+- **Fingerprint Reader**: Goodix Fingerprint Reader
+- **Distributions**: Any systemd-based Linux distribution
 
 ## Installation
 
