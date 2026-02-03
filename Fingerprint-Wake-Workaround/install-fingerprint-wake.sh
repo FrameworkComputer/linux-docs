@@ -23,7 +23,7 @@ fi
 echo "[1/6] Detecting fingerprint reader..."
 echo ""
 
-FPRINT_DEVICE=$(lsusb | grep -E "Goodix.*Fingerprint|Synaptics.*Fingerprint|ELAN.*Fingerprint|27c6:609c" | head -1)
+FPRINT_DEVICE=$(lsusb | grep -E "Goodix.*Fingerprint|27c6:609c" | head -1)
 
 if [ -z "$FPRINT_DEVICE" ]; then
     echo "✗ NO fingerprint reader found"
