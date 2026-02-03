@@ -74,13 +74,6 @@ Test the script manually:
 
     sudo systemctl start run-after-wake-for-fprint.service
 
-## Contributing
-
-Issues and pull requests welcome! Please test on your Framework 13 AMD before submitting.
-
-## License
-
-MIT License - feel free to use and modify.
 
 ## Credits
 
