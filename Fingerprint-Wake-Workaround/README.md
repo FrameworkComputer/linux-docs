@@ -2,6 +2,8 @@
 
 Automatic workaround for Framework 13 AMD fingerprint reader not working after suspend/resume.
 
+**IMPORTANT**: In our testing, this has not been needed. Had it occur once in 30 suspend to resumes - most folks should not need this.
+
 ## Problem
 
 On Framework 13 AMD laptops, the Goodix fingerprint reader sometimes fails to reconnect after waking from suspend. This requires a manual reboot to restore functionality.
