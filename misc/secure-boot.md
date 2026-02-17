@@ -34,9 +34,9 @@ A quick run down about Secure Boot
 **5. Alternative Boot Methods:**
 
 - Secure Boot may interfere with hibernate resuming from cold boot (unsigned kernels for example), and with certain alternative boot methods (e.g., PXE boot) or older bootloaders.
-So for hibernation, Ubuntu will likely work with hibernation whereas Fedora will not when using secure boot. All comes down to kernel signing. 
+Hibernation behavior with Secure Boot varies by distribution. Kernel lockdown mode, which is enforced when Secure Boot is enabled, can interfere with hibernate/resume on some setups. 
 
-> Remember. We advice leaving this enabled - disabling may lead to issues with our various upgrade processes. This also means it will interfere with EFI firmware updates if secure boot is disabled. So before you disable it, make sure you acknowledge this. No EFI updaters if secure boot is disabled.
+> Remember. We advise leaving Secure Boot enabled — disabling it may affect unsigned kernel modules, third-party drivers, and certain alternative boot methods. If you dual-boot Windows, do not disable Secure Boot.
 
 ### How to disable it if you choose to.
 (Remember, this is a choice - if you are going to be dual-booting Windows, do not disable secure boot - just go to this link instead to get your distro setup: [Two options are available](#two-options-are-available) for what to do next instead of disabling unless support has suggested you do so for testing.)
