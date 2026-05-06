@@ -11,7 +11,6 @@
 &nbsp;
 &nbsp;
 
-
 ### Step 1 Updating your software packages
 
 - Browse to the horizontal line in the upper left corner, click to open it.
@@ -76,7 +75,9 @@ sudo dnf install gnome-tweaks -y
 
 --------------------------------
 
-### Tablet mode Fedora 44 Bug Workaround
+## Tablet mode Fedora 44 Bug Workaround
+
+### The Service method - a bit overkill, but works
 
 If tablet mode is not rotating when fully folded back, **verify** that [this is the cause first](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/debugging.md#check-that-the-kernel-recognized-the-tabletmode-gpio). 
 If journalctl -k | grep gpio-keys comes back empty, then we can implement a systemd service to provide a workaround until this is reoslved.
@@ -119,6 +120,20 @@ sudo systemctl stop reload-soc-button-array.service
 sudo systemctl disable reload-soc-button-array.service
 sudo rm /etc/systemd/system/reload-soc-button-array.service
 sudo systemctl daemon-reload
+```
+
+### The Proper method - should work, but it it does not, use the service method
+```
+sudo nano /etc/dracut.conf.d/fw12-tablet-mode.conf
+```
+
+(Add)
+```
+force_drivers+=" pinctrl_tigerlake soc_button_array "
+```
+
+```
+sudo dracut -f --regenerate-all -v
 ```
 
 
