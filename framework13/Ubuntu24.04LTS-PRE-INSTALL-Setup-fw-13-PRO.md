@@ -1,4 +1,4 @@
-# This is for Intel® Core™ Ultra Series 3 Framework Laptop 13 Pro Ubuntu 24.04 PRE-INSTALLED ONLY.
+# This is for Intel® Core™ Ultra Series 3 Framework Laptop 13 Pro Ubuntu 24.04 ONLY.
 
 #### Officially supporting from Ubuntu 24.04 OEM install
 Please use the **"Get everything updated"** section below if you are on standard Ubuntu 24.04 without the the "dot 1 release."
