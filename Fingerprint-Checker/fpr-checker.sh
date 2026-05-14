@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # fpr-checker.sh - A script to manage fingerprint data using fprintd with a selectable menu.
 
