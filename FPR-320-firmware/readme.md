@@ -118,4 +118,6 @@ fwupdmgr get-devices 1e8c8470-a49c-571a-82fd-19c9fa32b8c3
 
 - Return to the [Ubuntu Fingerprint Troubleshooting](https://knowledgebase.frame.work/en_us/ubuntu-fingerprint-troubleshooting-r1_DA0TMn) or [Fedora Fingerprint Troubleshooting](https://knowledgebase.frame.work/en_us/fedora-fingerprint-troubleshooting-SyfIAyCM3) guides.
 
+#### References
 
+This update is listed on the [LVFS website](https://fwupd.org/lvfs/devices/work.frame.goodixmoc19c9fa32b8c3.firmware)
