@@ -75,65 +75,11 @@ sudo dnf install gnome-tweaks -y
 
 --------------------------------
 
-## Tablet mode Fedora 44 Bug Workaround
+## Tablet mode Fedora 44  - you must run dnf update
 
-### The Service method - a bit overkill, but works
+Please make sure you [follow step 2 above](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Fedora-all.md#step-2---if-you-want-to-enable-fractional-scaling-on-wayland), then reboot. This has been tested successfully on the current 7.0 kernel and 7.1.0-55.fc45 rawhide as well.
 
-If tablet mode is not rotating when fully folded back, **verify** that [this is the cause first](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/debugging.md#check-that-the-kernel-recognized-the-tabletmode-gpio). 
-If journalctl -k | grep gpio-keys comes back empty, then we can implement a systemd service to provide a workaround until this is reoslved.
+Once updated, simply fold back your screen so it lays flat fully foldeed, then rotate your laptop.
 
-Using your prefered text editor:
-Create the file `/etc/systemd/system/reload-soc-button-array.service`
-
-In that file, paste in:
-
-```
-[Unit]
-Description=Reload soc_button_array module
-After=systemd-modules-load.service
-
-[Service]
-Type=oneshot
-ExecStart=/usr/sbin/modprobe -r soc_button_array
-ExecStart=/usr/sbin/modprobe soc_button_array
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Now let's activate it.
-
-```
-sudo systemctl daemon-reload
-sudo systemctl enable reload-soc-button-array.service
-
-sudo systemctl daemon-reload
-sudo systemctl enable reload-soc-button-array.service
-
-sudo systemctl start reload-soc-button-array.service
-```
-
-Later when we're ready to remove this service after a fix is released.
-
-```
-sudo systemctl stop reload-soc-button-array.service
-sudo systemctl disable reload-soc-button-array.service
-sudo rm /etc/systemd/system/reload-soc-button-array.service
-sudo systemctl daemon-reload
-```
-
-### The Proper method - should work, but it it does not, use the service method
-```
-sudo nano /etc/dracut.conf.d/fw12-tablet-mode.conf
-```
-
-(Add)
-```
-force_drivers+=" pinctrl_tigerlake soc_button_array "
-```
-
-```
-sudo dracut -f --regenerate-all -v
-```
 
 
