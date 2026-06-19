@@ -23,25 +23,13 @@ boot.initrd.kernelModules = [ "pinctrl_tigerlake" ];
 
 ## Enabling the accelerometer
 
-iio-sensor-proxy reads the accelerometer data from the kernel and passes it to the desktop environment via dbus.
-
-Version 3.7 has a bug, making it incompatible with Framework 12.
-NixOS 25.05 and NixOS 25.11 (unstable) are patched:
-
-- https://github.com/NixOS/nixpkgs/pull/427476
-- https://github.com/NixOS/nixpkgs/pull/427853
+NixOS 26.05 as of kernel release 7.0.12 (early testing with 7.1 appears to be the same as well in local testing from unstable)
 
 
-If you haven't got the patched version yet, you can apply the following workaround:
+Enable the following:
 
 ```nix
-nixpkgs.overlays = [
-  (final: prev: {
-    iio-sensor-proxy = prev.iio-sensor-proxy.overrideAttrs (oldAttrs: {
-      postPatch = oldAttrs.postPatch + ''
-      sed -i -e 's/.*iio-buffer-accel/#&/' data/80-iio-sensor-proxy.rules
-      '';
-    });
-  })
-];
+# Framework 12 tablet mode.
+  boot.initrd.kernelModules = [ "pinctrl_tigerlake" ];
+  hardware.sensor.iio.enable = true;
 ```
