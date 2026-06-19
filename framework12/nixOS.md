@@ -4,7 +4,7 @@
 
 It can be enabled by adding the `<nixos-hardware/framework/12-inch/13th-gen-intel>` module to your NixOS modules.
 
-If it is not working. Use the option below.
+If it is not working (tablet mode). Use the option below.
 
 ## Enabling the accelerometer and tablet mode
 Tablet mode signals the desktop environment that the keyboard is folded back. libinput disables the keyboard and touchpad - firmware also does that. And GNOME/KDE enable screen rotation based on the accelerometer, see below.
