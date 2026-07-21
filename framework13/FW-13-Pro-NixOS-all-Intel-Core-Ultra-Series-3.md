@@ -1,4 +1,5 @@
 # Adding the NixOS-Hardware Module (Framework 13 Pro, Intel Core Ultra Series 3)
+This provides the hardware channel steps for the [NixOS on the Framework Laptop 13 Pro Guide](https://guides.frame.work/Guide/NixOS+on+the+Framework+Laptop+13+Pro/780?lang=en)
 
 ## Channel-based (default from graphical installer)
 
