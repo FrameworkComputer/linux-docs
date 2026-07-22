@@ -8,6 +8,10 @@ It is recommended to use `power-profiles-daemon` over `tlp` for the AMD Framewor
 
 - Imports the common AMD and Raphael iGPU hardware configuration
 - Enables `services.fwupd.enable`, so firmware updates are handled automatically
+- Enables `services.fprintd.enable`, for fingerprint reader support
+- Enables `hardware.keyboard.qmk.enable` and adds a libinput quirks override, for the Framework 16 keyboard module
+- Enables `hardware.sensor.iio.enable`, needed for desktop environments to detect and manage display brightness
+- Adds a udev rule fixing USB autosuspend on the Ethernet expansion card
 
 ## Channel-based (default from graphical installer)
 
