@@ -851,12 +851,15 @@ def detect_framework_info() -> FrameworkInfo:
         info.bios_version = stdout.strip()
     
     # Check if Framework device
-    framework_indicators = ['Framework', 'Laptop 13', 'Laptop 16', 'Laptop 12', 'Desktop']
+    framework_indicators = ['Framework', 'Laptop Pro', 'Laptop 13', 'Laptop 16', 'Laptop 12', 'Desktop']
     if any(ind in info.product_name for ind in framework_indicators):
         info.is_framework = True
         
         # Determine model type
-        if 'Laptop 13' in info.product_name or 'Laptop 13' in info.model_version:
+        if ('Laptop Pro' in info.product_name or 'Laptop 13 Pro' in info.product_name
+                or 'Laptop Pro' in info.model_version or 'Laptop 13 Pro' in info.model_version):
+            info.model_type = 'Laptop Pro'
+        elif 'Laptop 13' in info.product_name or 'Laptop 13' in info.model_version:
             info.model_type = 'Laptop 13'
         elif 'Laptop 16' in info.product_name or 'Laptop 16' in info.model_version:
             info.model_type = 'Laptop 16'
