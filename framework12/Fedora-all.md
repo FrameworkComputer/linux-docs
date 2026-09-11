@@ -77,7 +77,7 @@ sudo dnf install gnome-tweaks -y
 
 ## Tablet mode Fedora 44  - you must run dnf update
 
-Please make sure you [follow step 2 above](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Fedora-all.md#step-2---if-you-want-to-enable-fractional-scaling-on-wayland), then reboot. This has been tested successfully on the current 7.0 kernel and 7.1.0-55.fc45 rawhide as well.
+Please make sure you [follow step 1 above](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Fedora-all.md#step-1-updating-your-software-packages), then reboot. This has been tested successfully on the current 7.0 kernel and 7.1.0-55.fc45 rawhide as well.
 
 Once updated, simply fold back your screen so it lays flat fully foldeed, then rotate your laptop.
 
