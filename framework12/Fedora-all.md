@@ -87,7 +87,7 @@ Once updated, simply fold back your screen so it lays flat fully foldeed, then r
 
 
 # This is for Framework Laptop 12 (Core Series 3) ONLY
-### Fedora Workstation (GNOME) 
+### Fedora Workstation (GNOME) For Core Series 3 on KDE Plasma, [we have a specific OEM flow we recommend instead](https://guides.frame.work/Guide/Fedora+KDE+Plasma+Desktop+Installation+on+the+Framework+Laptop+12+Intel%C2%AE+Core%E2%84%A2+Series+3/856#s4404).
 
 ## This will:
 
