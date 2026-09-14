@@ -1,3 +1,12 @@
+
+**Update as of Sept 14th 2026**, there is a regression it looks like, monitor-sensor --accel will correctly show rotation, but the module ordering is not working correctly.
+Please [follow this working guide here](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Arch-CachyOS-Setup.md#this-is-for-framework-laptop-12-13th-gen-intel-core-only).
+
+
+
+---
+---
+
 # Arch Linux Tablet Mode Setup
 
 This guide will help you enable automatic screen rotation on Arch Linux and its derivatives. On many systems, the required package is not installed by default, and the available version may require a workaround to function correctly.
