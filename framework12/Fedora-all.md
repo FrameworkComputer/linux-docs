@@ -1,6 +1,6 @@
 # This is for Framework Laptop 12 (13th Gen Intel Core) ONLY
 
-### Fedora Workstation (GNOME)
+### Fedora Workstation (GNOME) ([Tablet mode GNOME and KDE Plasma Desktop](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Fedora-all.md#step-2---get-tablet-rotation-mode-working))
 
 ## This will:
 
