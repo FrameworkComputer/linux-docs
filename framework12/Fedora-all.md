@@ -1,6 +1,6 @@
 # This is for Framework Laptop 12 (13th Gen Intel Core) ONLY
 
-### Fedora Workstation (GNOME ONLY) ([Tablet mode GNOME and KDE Plasma Desktop](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Fedora-all.md#step-2---get-tablet-rotation-mode-working))
+### Fedora Workstation (GNOME ONLY) ([Tablet mode GNOME and KDE Plasma Desktop](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Fedora-all.md#step-2-workstationgnome-tablet-mode-gnome-and-kde-plasma-desktop---get-tablet-rotation-mode-working))
 
 ## This will:
 
@@ -33,7 +33,7 @@ sudo dnf upgrade
 &nbsp;
 &nbsp;
 
-### Step 2 (Workstation/GNOME) ([Tablet mode GNOME and KDE Plasma Desktop](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Fedora-all.md#step-2---get-tablet-rotation-mode-working)) - Get tablet rotation mode working:
+### Step 2 (Workstation/GNOME) ([Tablet mode GNOME and KDE Plasma Desktop](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Fedora-all.md#step-2-workstationgnome-tablet-mode-gnome-and-kde-plasma-desktop---get-tablet-rotation-mode-working)) - Get tablet rotation mode working:
 
 - This will be fixed upstream, but this is a workaround to get things in the correct working order.
 
@@ -161,7 +161,7 @@ sudo dnf upgrade
 &nbsp;
 &nbsp;
 
-### Step 2 (Workstation/GNOME) ([Tablet mode GNOME](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Fedora-all.md#step-2---get-tablet-rotation-mode-working-1)) - Get tablet rotation mode working:
+### Step 2 (Workstation/GNOME) ([Tablet mode GNOME](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Fedora-all.md#step-2-workstationgnome-tablet-mode-gnome---get-tablet-rotation-mode-working)) - Get tablet rotation mode working:
 
 - This will be fixed upstream, but this is a workaround to get things in the correct working order.
 
