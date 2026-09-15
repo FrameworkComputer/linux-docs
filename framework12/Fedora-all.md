@@ -1,9 +1,11 @@
-# This is for Framework Laptop 12 (13th Gen) ONLY
+# This is for Framework Laptop 12 (13th Gen Intel Core) ONLY
+
 ### Fedora Workstation (GNOME)
 
 ## This will:
 
 - Getting  your laptop fully updated.
+- Fix tablet rotation mode
 - Enable improved fractional scaling support Fedora's GNOME environment using Wayland.
 - Enabling tap to click on the touchpad.
 
@@ -31,7 +33,52 @@ sudo dnf upgrade
 &nbsp;
 &nbsp;
 
-### Step 2 - If you want to enable fractional scaling on Wayland:
+### Step 2 - Get tablet rotation mode working:
+
+- This will be fixed upstream, but this is a workaround to get things in the correct working order.
+
+- Create the following file.
+
+  ```
+  sudo nano /etc/dracut.conf.d/99-fw-tabletmode.conf
+  ```
+
+  - Paste in:
+ 
+  ```
+  omit_drivers+=" soc_button_array "
+  force_drivers+=" pinctrl_tigerlake "
+  ```
+
+- Ctrl x, then save.
+
+- Next, create the following file.
+
+ ```
+  sudo nano /etc/modprobe.d/99-fw-tabletmode.conf
+  ```
+
+  - Paste in:
+ 
+  ```
+  softdep soc_button_array pre: pinctrl_tigerlake
+  ```
+- Ctrl x, then save.
+
+Run:
+
+```
+sudo dracut -f
+```
+
+Then reboot.
+
+
+&nbsp;
+&nbsp;
+&nbsp;
+
+### Step 3 - If you want to enable fractional scaling on Wayland:
 
 - Type out the word Displays.
 - Look for scale you want and select it, click Apply.
@@ -40,7 +87,7 @@ sudo dnf upgrade
 &nbsp;
 &nbsp;
 
-### Step 3 -  If you want to enable "tap-to-click" on the touchpad:
+### Step 4 -  If you want to enable "tap-to-click" on the touchpad:
 
 - Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word mouse, look for Mouse and Touchpad, click to open it.
@@ -68,20 +115,14 @@ sudo dnf install gnome-tweaks -y
   Note: This is for the displays for the laptop only. This will look super odd on external displays and likely too large even still.
 
 
+&nbsp;
+&nbsp;
+&nbsp;
 
-&nbsp;
-&nbsp;
-&nbsp;
+
+
 
 --------------------------------
-
-## Tablet mode Fedora 44  - you must run dnf update
-
-Please make sure you [follow step 1 above](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Fedora-all.md#step-1-updating-your-software-packages), then reboot. This has been tested successfully on the current 7.0 kernel and 7.1.0-55.fc45 rawhide as well.
-
-Once updated, simply fold back your screen so it lays flat fully foldeed, then rotate your laptop.
-
-
 --------------------------------
 
 
