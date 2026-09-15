@@ -1,6 +1,6 @@
 # This is for Framework Laptop 12 (13th Gen Intel Core) ONLY
 
-### Fedora Workstation (GNOME) ([Tablet mode GNOME and KDE Plasma Desktop](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Fedora-all.md#step-2---get-tablet-rotation-mode-working))
+### Fedora Workstation (GNOME ONLY) ([Tablet mode GNOME and KDE Plasma Desktop](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Fedora-all.md#step-2---get-tablet-rotation-mode-working))
 
 ## This will:
 
@@ -13,7 +13,7 @@
 &nbsp;
 &nbsp;
 
-### Step 1 Updating your software packages
+### Step 1 (Workstation/GNOME) Updating your software packages
 
 - Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
@@ -33,7 +33,7 @@ sudo dnf upgrade
 &nbsp;
 &nbsp;
 
-### Step 2 - Get tablet rotation mode working:
+### Step 2 (Workstation/GNOME) ([Tablet mode GNOME and KDE Plasma Desktop](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Fedora-all.md#step-2---get-tablet-rotation-mode-working)) - Get tablet rotation mode working:
 
 - This will be fixed upstream, but this is a workaround to get things in the correct working order.
 
@@ -141,7 +141,7 @@ sudo dnf install gnome-tweaks -y
 &nbsp;
 &nbsp;
 
-### Step 1 Updating your software packages
+### Step 1 (Workstation/GNOME)  Updating your software packages
 
 - Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word terminal, click to open it.
@@ -161,7 +161,7 @@ sudo dnf upgrade
 &nbsp;
 &nbsp;
 
-### Step 2 - Get tablet rotation mode working:
+### Step 2 (Workstation/GNOME) ([Tablet mode GNOME](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Fedora-all.md#step-2---get-tablet-rotation-mode-working-1)) - Get tablet rotation mode working:
 
 - This will be fixed upstream, but this is a workaround to get things in the correct working order.
 
@@ -206,7 +206,7 @@ Then reboot.
 &nbsp;
 &nbsp;
 
-### Step 3 - If you want to enable fractional scaling on Wayland:
+### Step 3 (Workstation/GNOME) - If you want to enable fractional scaling on Wayland:
 
 - Type out the word Displays.
 - Look for scale you want and select it, click Apply.
@@ -215,7 +215,7 @@ Then reboot.
 &nbsp;
 &nbsp;
 
-### Step 4 -  If you want to enable "tap-to-click" on the touchpad:
+### Step 4 (Workstation/GNOME) -  If you want to enable "tap-to-click" on the touchpad:
 
 - Browse to the horizontal line in the upper left corner, click to open it.
 - Type out the word mouse, look for Mouse and Touchpad, click to open it.
@@ -225,7 +225,7 @@ Then reboot.
 &nbsp;
 &nbsp;
 &nbsp;
-### Bonus Step (for former Mac users) Reduce Font Scaling to Match Your Needs
+### Bonus Step (Workstation/GNOME) (for former Mac users) Reduce Font Scaling to Match Your Needs
 
 We received feedback that for users coming from OS X, installing GNOME Tweaks, browsing to Fonts, and reducing the font size from 1.00 to 0.80 may be preferred. 
 
