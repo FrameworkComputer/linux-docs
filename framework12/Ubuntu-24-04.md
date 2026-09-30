@@ -1,4 +1,4 @@
-# This is for Framework Laptop 12 ONLY.
+# Ubuntu 24.04 on Framework Laptop 12 (13th Gen Intel® Core™) ONLY.
 
 
 ## This will:
