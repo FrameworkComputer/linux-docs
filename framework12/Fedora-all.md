@@ -1,6 +1,6 @@
 # This is for Framework Laptop 12 (13th Gen Intel Core) ONLY
 
-### Fedora Workstation (GNOME ONLY) ([Tablet mode GNOME and KDE Plasma Desktop](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Fedora-all.md#step-2-workstationgnome-tablet-mode-gnome-and-kde-plasma-desktop---get-tablet-rotation-mode-working))
+### Fedora 44 Workstation (GNOME ONLY) ([Tablet mode GNOME and KDE Plasma Desktop](https://github.com/FrameworkComputer/linux-docs/blob/main/framework12/Fedora-all.md#step-2-workstationgnome-tablet-mode-gnome-and-kde-plasma-desktop---get-tablet-rotation-mode-working))
 
 ## This will:
 
@@ -128,7 +128,7 @@ sudo dnf install gnome-tweaks -y
 
 
 # This is for Framework Laptop 12 (Core Series 3) ONLY
-### Fedora Workstation (GNOME) For Core Series 3 on KDE Plasma, [we have a specific OEM flow we recommend instead](https://guides.frame.work/Guide/Fedora+KDE+Plasma+Desktop+Installation+on+the+Framework+Laptop+12+Intel%C2%AE+Core%E2%84%A2+Series+3/856#s4404).
+### Fedora 44 Workstation (GNOME) For Core Series 3 on KDE Plasma, [we have a specific OEM flow we recommend instead](https://guides.frame.work/Guide/Fedora+KDE+Plasma+Desktop+Installation+on+the+Framework+Laptop+12+Intel%C2%AE+Core%E2%84%A2+Series+3/856#s4404).
 
 ## This will:
 
