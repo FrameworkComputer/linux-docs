@@ -30,15 +30,6 @@ sudo dnf upgrade
 &nbsp;
 &nbsp;
 
-### Step 2 - If you want to enable fractional scaling on Wayland:
-
-- Type out the word Displays.
-- Look for scale you want and select it, click Apply.
-
-&nbsp;
-&nbsp;
-&nbsp;
-
 
 ### Bonus Step (for former Mac users) Reduce Font Scaling to Match Your Needs
 
