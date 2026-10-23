@@ -3,7 +3,7 @@
 ## This will:
 
 - Update your Ubuntu install's packages.
-- Walk you getting tablet mode setup for Ubuntu 26.04 (ONLY)
+- Walk you getting tablet mode setup for Ubuntu 26.10 (ONLY)
 
 &nbsp; &nbsp; &nbsp; &nbsp; 
 
