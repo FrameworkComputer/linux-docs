@@ -1,4 +1,4 @@
-# This is for Framework Desktop ONLY
+# This is for Framework Desktop ONLY - both 300 and 400 Series
 
 ## This will:
 
