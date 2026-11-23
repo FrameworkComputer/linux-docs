@@ -99,7 +99,7 @@ Then just load the profile by clicking the Load profile option as shown below. Y
 ## FAQ
 
 - Can you run both of these to compare them?
-> Yes, you can. Nothing is overwritten, it will just try to install the flatpack twice which is fine and affects nothing.
+> Yes, you can. Nothing is overwritten, it will just try to install the flatpak twice which is fine and affects nothing.
 
 - Do you need to look for the profile once it's installed?
 > Nope, just follow the image. It's browsed for you, just load it.
